@@ -42,7 +42,7 @@ restService.post("/", function(req, res) {
 restService.get('/webhook', (req, res) => {
 
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
+  let VERIFY_TOKEN = "EAALirSQUH18BAFamUAFEuTM8MzIjwpIbc386aSDTb87SjHEgAB9zao0nb0nXQzf6IpK9Uopbo3qO0S1XhZCQGyUwbJXCdpHIIJmZBFk0tCGox4kbTJb28hZCgo9ZCOWZCn0wFZCe7wybfzFN89ZCdvZACYKYa4uMigAo5i8oMycUxwZDZD"
     
   // Parse the query params
   let mode = req.query['hub.mode'];
