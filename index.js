@@ -14,7 +14,7 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/", function(req, res) {
-  res.send(JSON.stringify(req.body.queryResult.parameters));
+  res.send(JSON.stringify(req.body.queryResult.queryText));
 });
 
 restService.listen(process.env.PORT || 8000, function() {
