@@ -14,17 +14,23 @@ restService.post("/", function(req, res) {
     host: "181.63.179.1",
     user: "pepito",
     password: "",
+    database: "messages"
   });
 
   con.connect(function(err) {
     if (err) throw err;
     res.send(JSON.stringify({'Status':'OK DB'}));
+    var sql = "INSERT INTO base (id, msg) VALUES ('"+ req.body.responseId + "', '" + req.body.queryResult.queryText +"')";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      res.send(JSON.stringify({'Insert':'OK'}));
+      
+    });
   });
 });
-
-restService.listen(process.env.PORT || 8000, function() {
-  console.log("Server up and listening");
-});
+  restService.listen(process.env.PORT || 8000, function() {
+    console.log("Server up and listening");
+  });
 
 
 
