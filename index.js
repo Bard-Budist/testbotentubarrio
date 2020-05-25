@@ -14,7 +14,7 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/", function(req, res) {
-  res.send("Good work");
+  res.send(JSON.stringify(request.body));
 });
 
 restService.listen(process.env.PORT || 8000, function() {
