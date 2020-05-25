@@ -7,18 +7,22 @@ var mysql = require('mysql');
 
 restService.use(bodyParser.json());
 
-//Endpoint Bienvenida
-restService.post("/Bienvenida", function(req, res) {
-  let name;
-  name = req.body.originalDetectIntentRequest.payload.data.sender.id;
-  res.send(JSON.stringify({'Hello': name}));
-  
-});
 
 
 //Endpoint home
 restService.post("/", function(req, res) {
   //Connection DB
+
+
+  let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
+
+  $.get("https://graph.facebook.com/" + id, {'fields': 'first_name,last_name,profile_pic', 'access_token': 'EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F'},
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+    },
+    "dataType"
+  );
+
   var con = mysql.createConnection({
     host: "181.63.179.1",
     user: "pepito",
