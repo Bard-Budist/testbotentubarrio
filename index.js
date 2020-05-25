@@ -17,7 +17,7 @@ restService.post("/", function(req, res) {
     database: "messages"
   });
 
-  console.log(agent);
+  console.log(JSON.stringify(req.body));
   
   con.connect(function(err) {
     if (err) {
