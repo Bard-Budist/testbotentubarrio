@@ -7,8 +7,17 @@ var mysql = require('mysql');
 
 restService.use(bodyParser.json());
 
+//Endpoint Bienvenida
+restService.post("/Bienvenida", function(req, res) {
+  let name;
+  name = req.body.originalDetectIntentRequest.payload.data.sender.id;
+  res.send(JSON.stringify({'Hello': name}));
+  
+});
+
+
+//Endpoint home
 restService.post("/", function(req, res) {
-  //res.send(JSON.stringify(req.body.queryResult.queryText));
   //Connection DB
   var con = mysql.createConnection({
     host: "181.63.179.1",
@@ -16,8 +25,6 @@ restService.post("/", function(req, res) {
     password: "",
     database: "messages"
   });
-
-  console.log(JSON.stringify(req.body));
   
   con.connect(function(err) {
     if (err) {
@@ -36,36 +43,7 @@ restService.post("/", function(req, res) {
   
 });
 
-
-
-
-restService.get('/webhook', (req, res) => {
-
-  // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "EAALirSQUH18BAFamUAFEuTM8MzIjwpIbc386aSDTb87SjHEgAB9zao0nb0nXQzf6IpK9Uopbo3qO0S1XhZCQGyUwbJXCdpHIIJmZBFk0tCGox4kbTJb28hZCgo9ZCOWZCn0wFZCe7wybfzFN89ZCdvZACYKYa4uMigAo5i8oMycUxwZDZD"
-    
-  // Parse the query params
-  let mode = req.query['hub.mode'];
-  let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
-    
-  // Checks if a token and mode is in the query string of the request
-  if (mode && token) {
-  
-    // Checks the mode and token sent is correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      
-      // Responds with the challenge token from the request
-      console.log('WEBHOOK_VERIFIED');
-      res.status(200).send(challenge);
-    
-    } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
-      res.sendStatus(403);      
-    }
-  }
-});
-
+//Listen port
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
 });
