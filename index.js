@@ -20,7 +20,7 @@ restService.post("/", function(req, res) {
   con.connect(function(err) {
     if (err) throw err;
     res.send(JSON.stringify({'Status':'OK DB'}));
-    var sql = "INSERT INTO base (id, msg) VALUES ('"+ req.body.responseId + "', '" + req.body.queryResult.queryText +"')";
+    var sql = "INSERT INTO base (msg) VALUES ('" + req.body.queryResult.queryText +"')";
     con.query(sql, function (err, result) {
       if (err) throw err;
       res.send(JSON.stringify({'Insert':'OK'}));
