@@ -21,35 +21,31 @@ restService.post("/", function(req, res) {
   //console.log('Request header'+ JSON.stringify(request.header));
   //console.log('Request header', JSON.stringify(request.header));
   
-  name = getName(req.body.originalDetectIntentRequest.payload.data.sender.id, function(value) {
+  getName(req.body.originalDetectIntentRequest.payload.data.sender.id, function(value) {
     name = value;
     console.log(name);
-  });
-  
-  
-
-
-  res.json({
-    "fulfillmentMessages":[
-    {
-      "text":{
-        "text":[
-           name
-        ]
-     },
-      "platform":"FACEBOOK",
-      "lang":"es"
-    },
-    {
-      "text":{
-        "text":[
-           ""
-        ]
+    res.json({
+      "fulfillmentMessages":[
+      {
+        "text":{
+          "text":[
+             name
+          ]
+       },
+        "platform":"FACEBOOK",
+        "lang":"es"
       },
-      "lang":"es"
-    }
-    ]
-  });
+      {
+        "text":{
+          "text":[
+             ""
+          ]
+        },
+        "lang":"es"
+      }
+      ]
+    });
+  }); 
   
   console.log(req.body);
   
