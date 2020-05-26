@@ -23,7 +23,8 @@ restService.post("/", function(req, res) {
   
   getName(req.body.originalDetectIntentRequest.payload.data.sender.id, function(value) {
     name = value;
-    console.log(name);
+    console.log(value);
+    res.sendStatus(200);
     res.json({
       "fulfillmentMessages":[
       {
