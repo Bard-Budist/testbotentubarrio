@@ -3,6 +3,7 @@
 const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
+const express = require("express");
 const restService = express();
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
