@@ -5,6 +5,7 @@ const {Card, Suggestion} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
 const requesthttp = require('request-promise-native');
+const DialogflowApp = require('actions-on-google').DialogflowApp;
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
 // Create instance of express, and parse data in JSON format
@@ -18,8 +19,9 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
+  const app = new DialogflowApp({ request, response });
 
-function probarr(agent) {
+function newSesion(agent) {
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
   return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
@@ -30,13 +32,14 @@ function probarr(agent) {
       title: body.first_name + ` Bienvenido`,
       text: 'Nos complace poder ayudarte, por favor indícanos tu ciudad',
     }));
+    app.askForPermission('To locate you', app.SupportedPermissions.DEVICE_PRECISE_LOCATION);
     return Promise.resolve( agent );
 });
 }
 
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
-intentMap.set('probar', probarr);
+intentMap.set('Bienvenida', newSesion);
 agent.handleRequest(intentMap);
 });
 
