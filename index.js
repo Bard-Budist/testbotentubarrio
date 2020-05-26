@@ -30,8 +30,7 @@ function newSesion(agent) {
       title: body.first_name + ` Bienvenido`,
       text: 'Soy Elin el bot de EnTuBarrio',
     });
-    card.setButton({ text: 'Comenzar Orden'});
-    card.setButton({ text: 'Soporte'});
+    card.setButton({ text: 'Comenzar Orden', url:'#'});
     agent.add(card);
     return Promise.resolve( agent );
 });
