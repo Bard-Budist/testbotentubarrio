@@ -12,10 +12,10 @@ restService.use(bodyParser.urlencoded({ extended: false }));
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
-restService.post("/", function(request, response) {
-  const agent = new WebhookClient({ request, response });
-  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+restService.post("/", function(req, res) {
+  const agent = new WebhookClient({ req, res });
+  console.log('Dialogflow Request headers: ' + JSON.stringify(req.headers));
+  console.log('Dialogflow Request body: ' + JSON.stringify(req.body));
 
 function probarr(agent) {
   let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
