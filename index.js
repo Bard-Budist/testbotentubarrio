@@ -29,8 +29,7 @@ function newSesion(agent) {
       imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
       title: body.first_name + ` Bienvenido`,
       text: 'Soy Elin el bot de EnTuBarrio',
-      button: 'Comenzar Orden',
-      button: 'Soporte'
+      button: {'text': 'Comenzar Orden'}
     }));
     return Promise.resolve( agent );
 });
