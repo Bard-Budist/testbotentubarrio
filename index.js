@@ -12,7 +12,7 @@ restService.use(bodyParser.urlencoded({ extended: false }));
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
-function requestFacebook(request, callback) {
+function requestFacebook(request) {
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   console.log(request.body);
   //function probar(agent){
@@ -20,7 +20,7 @@ function requestFacebook(request, callback) {
       console.error('error:', error); // Print the error if one occurred
       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
-      return callback(body.first_name);
+      return Promise.resolve(body.first_name);
     });
 }
 
@@ -30,9 +30,7 @@ restService.post("/", function(request, response) {
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
 function probarr(agent) {
-  requestFacebook(request, function(valor){
-    agent.add(`Hola ` + valor);
-  });
+  agent.add('hola ' + requestFacebook(request));
 }
 
   // Run the proper function handler based on the matched Dialogflow intent name
