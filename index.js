@@ -1,7 +1,6 @@
 'use strict';
 
 const {WebhookClient} = require('dialogflow-fulfillment');
-const {Card, Suggestion} = require('dialogflow-fulfillment');
 const request = require('request');
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
@@ -17,31 +16,29 @@ request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&acces
     //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
   });*/
 
-functions.https.onRequest((request, response) => {
-  const agent = new WebhookClient({ request, response });
-  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+const agent = new WebhookClient({ request: request, response: response });
+console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
  
-  function welcome(agent) {
-    agent.add(`Welcome to my agent!`);
-  }
- 
-  function fallback(agent) {
-    agent.add(`I didn't understand`);
-    agent.add(`I'm sorry, can you try again?`);
-  }
+function welcome(agent) {
+  agent.add(`Welcome to my agent!`);
+}
 
-  function probarr(agent) {
-    agent.add(`Hola Daniel`);
-  }
+function fallback(agent) {
+  agent.add(`I didn't understand`);
+  agent.add(`I'm sorry, can you try again?`);
+}
+
+function probarr(agent) {
+  agent.add(`Hola Daniel`);
+}
 
   // Run the proper function handler based on the matched Dialogflow intent name
-  let intentMap = new Map();
-  intentMap.set('Default Welcome Intent', welcome);
-  intentMap.set('Default Fallback Intent', fallback);
-  intentMap.set('probar', probarr);
-  agent.handleRequest(intentMap);
-});
+let intentMap = new Map();
+intentMap.set('Default Welcome Intent', welcome);
+intentMap.set('Default Fallback Intent', fallback);
+intentMap.set('probar', probarr);
+agent.handleRequest(intentMap);
 
 
 //Listen port
