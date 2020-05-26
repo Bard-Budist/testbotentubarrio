@@ -22,9 +22,8 @@ restService.post("/", function(req, res) {
   //console.log('Request header', JSON.stringify(request.header));
   
   getName(req.body.originalDetectIntentRequest.payload.data.sender.id, function(value) {
-    name = value;
+    name = value.first_name;
     console.log(value);
-    res.sendStatus(200);
     res.json({
       "fulfillmentMessages":[
       {
@@ -67,7 +66,7 @@ function getName(PSID, callback) {
         return undefined;
       }
       console.log(body);
-      return callback(body.first_name);
+      return callback(body);
     });
   }
 }
