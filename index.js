@@ -23,6 +23,7 @@ function probarr(agent) {
   console.log(request.body);
 
   return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F").then(jsonBody => {
+    var body = JSON.parse(jsonBody);
     agent.add('hola ' + body.first_name);
     return Promise.resolve( agent );
 });
