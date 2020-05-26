@@ -14,13 +14,12 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 function probarr(agent) {
   agent.add(`Hola Daniel`);
 }
-});
 
   // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('probar', probarr);
 agent.handleRequest(intentMap);
-
+});
 
 //Listen port
 restService.listen(process.env.PORT || 8000, function() {
