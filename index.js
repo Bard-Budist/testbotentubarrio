@@ -11,15 +11,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
-function welcome(agent) {
-  agent.add(`Welcome to my agent!`);
-}
-
-function fallback(agent) {
-  agent.add(`I didn't understand`);
-  agent.add(`I'm sorry, can you try again?`);
-}
-
 function probarr(agent) {
   agent.add(`Hola Daniel`);
 }
@@ -27,8 +18,6 @@ function probarr(agent) {
 
   // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
-intentMap.set('Default Welcome Intent', welcome);
-intentMap.set('Default Fallback Intent', fallback);
 intentMap.set('probar', probarr);
 agent.handleRequest(intentMap);
 
