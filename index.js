@@ -26,7 +26,26 @@ restService.post("/", function(req, res) {
       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
       res.json({
-        "fulfillmentMessages": body.first_name
+        "fulfillmentMessages":
+        [
+        {
+          "text":{
+            "text":[
+               body.first_name
+            ]
+         },
+          "platform":"FACEBOOK",
+          "lang":"es"
+        },
+        {
+          "text":{
+            "text":[
+               ""
+            ]
+          },
+          "lang":"es"
+        }
+        ]
       });
       
     });
