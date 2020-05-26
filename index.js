@@ -8,8 +8,7 @@ const request = require('request');
 ///const {WebhookCliente} = require('dialogflow-fulfillment');
 
 restService.use(bodyParser.json());
-
-
+restService.use(bodyParser.urlencoded({ extended: false }));
 
 //Endpoint home
 restService.post("/", function(req, res) {
