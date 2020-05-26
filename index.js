@@ -19,8 +19,7 @@ restService.post("/", function(req, res) {
   //console.log('Request header', JSON.stringify(request.header));
   
   let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
-  console.log(id);
-  
+  console.log(req);
   //function probar(agent){
     request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F", function (error, response, body) {
       console.error('error:', error); // Print the error if one occurred
@@ -29,6 +28,7 @@ restService.post("/", function(req, res) {
       res.json({
         "fulfillmentText": body.first_name
       });
+      console.log(response);
     });
     //agent.add('Hola', body.first_name);
   //}
@@ -52,7 +52,7 @@ restService.post("/", function(req, res) {
         console.log("Error");
       }
     });
-    res.send(JSON.stringify({'Insert':'OK'}));
+    //res.send(JSON.stringify({'Insert':'OK'}));
   });
   
 });
