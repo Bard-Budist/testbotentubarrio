@@ -22,6 +22,7 @@ restService.post("/", function(req, res) {
   //console.log('Request header', JSON.stringify(request.header));
   
   name = getName(req.body.originalDetectIntentRequest.payload.data.sender.id);
+  console.log(name);
   
 
 
