@@ -1,11 +1,12 @@
 'use strict';
 
-const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
+const request = require('request');
 const express = require("express");
 const restService = express();
+
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
  
@@ -17,7 +18,15 @@ restService.post("/", function(request, response) {
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
 function probarr(agent) {
-  agent.add(`Hola Daniel`);
+  let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
+  console.log(req.body);
+  //function probar(agent){
+    request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F", function (error, response, body) {
+      console.error('error:', error); // Print the error if one occurred
+      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
+      agent.add(`Hola` + body.first_name);
+    });
 }
 
   // Run the proper function handler based on the matched Dialogflow intent name
