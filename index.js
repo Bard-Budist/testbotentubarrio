@@ -1,7 +1,7 @@
 'use strict';
 
 const {WebhookClient} = require('dialogflow-fulfillment');
-const {Card, Suggestion} = require('dialogflow-fulfillment');
+const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
 const requesthttp = require('request-promise-native');
@@ -25,7 +25,14 @@ function newSesion(agent) {
   return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
     const body = JSON.parse(jsonBody);
     // Add response with a card and name of user}
-    let response = {
+    agent.add(new Payload(agent.FACEBOOK, cardinit));
+    /*const card = new Card({
+      imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
+      title: body.first_name + ` Bienvenido`,
+      text: 'Soy Elin el bot de EnTuBarrio',
+    });*/
+ 
+    let cardinit = {
       attachment: {
         type: "template",
         payload: {
@@ -39,12 +46,12 @@ function newSesion(agent) {
                 {
                   title: 'Comenzar Orden',
                   type: 'postback',
-                  payload: 'comenzar'
+                  payload: 'comenzar',
                 },
                 {
                   title: 'Soporte',
                   type: 'postback',
-                  payload: 'soporte'
+                  payload: 'soporte',
                 }
               ]
             }
@@ -52,13 +59,7 @@ function newSesion(agent) {
         }
       }
     };
-    agent.add(response);
-    /*const card = new Card({
-      imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
-      title: body.first_name + ` Bienvenido`,
-      text: 'Soy Elin el bot de EnTuBarrio',
-    });*/
- 
+
     return Promise.resolve( agent );
 });
 }
