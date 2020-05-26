@@ -18,6 +18,8 @@
     "letsencrypt-express": "^2.0.7",
     "mysql": "^2.18.1",
     "on": "^1.3.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "firebase-admin": "^5.13.1",
+    "firebase-functions": "^2.0.2"
   }
 }
