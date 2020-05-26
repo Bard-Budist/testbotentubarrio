@@ -24,7 +24,7 @@ restService.post("/", function(req, res) {
     {
       "text":{
         "text":[
-           body.first_name
+           "Giovanni"
         ]
      },
       "platform":"FACEBOOK",
