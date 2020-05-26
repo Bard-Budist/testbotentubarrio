@@ -22,14 +22,13 @@ restService.post("/", function(req, res) {
   //console.log('Request header', JSON.stringify(request.header));
   
   getName(req.body.originalDetectIntentRequest.payload.data.sender.id, function(value) {
-    name = value.first_name;
     console.log(value);
     res.json({
       "fulfillmentMessages":[
       {
         "text":{
           "text":[
-             name
+            value.first_name
           ]
        },
         "platform":"FACEBOOK",
