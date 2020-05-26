@@ -1,7 +1,7 @@
 'use strict';
 
 const {WebhookClient} = require('dialogflow-fulfillment');
-const request = require('request');
+const {Card, Suggestion} = require('dialogflow-fulfillment');
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
@@ -16,7 +16,7 @@ request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&acces
     //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
   });*/
 
-const agent = new WebhookClient({request: request});
+const agent = new WebhookClient({request: request, response: response});
 console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
 console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
  
