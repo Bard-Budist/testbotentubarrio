@@ -24,7 +24,11 @@ function probarr(agent) {
 
   return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F").then(jsonBody => {
     var body = JSON.parse(jsonBody);
-    agent.add('hola ' + body.first_name);
+    agent.add(new Card({
+      imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
+      title: `Bienvenido ` + body.name,
+      text: 'Nos complace poder ayudarte, por favor indícanos tu ciudad',
+    }));
     return Promise.resolve( agent );
 });
   //agent.add('hola ' + requestFacebook(request));
