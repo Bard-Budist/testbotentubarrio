@@ -1,25 +1,16 @@
 'use strict';
 
+const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+  const agent = new WebhookClient({ request, response });
+  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
-// This parte of code we do a request to Api of FacebookMessenger for get the information of user
-/*let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
-console.log(req.body);
-//function probar(agent){
-request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F", function (error, response, body) {
-  console.error('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
-  });*/
-
-const agent = new WebhookClient({request: request, response: response});
-console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
- 
 function welcome(agent) {
   agent.add(`Welcome to my agent!`);
 }
@@ -32,6 +23,7 @@ function fallback(agent) {
 function probarr(agent) {
   agent.add(`Hola Daniel`);
 }
+});
 
   // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
