@@ -18,37 +18,61 @@ restService.post("/", function(req, res) {
   //console.log('Request header'+ JSON.stringify(request.header));
   //console.log('Request header', JSON.stringify(request.header));
   
-  let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
+  res.json({
+    "fulfillmentMessages":
+    [
+    {
+      "text":{
+        "text":[
+           body.first_name
+        ]
+     },
+      "platform":"FACEBOOK",
+      "lang":"es"
+    },
+    {
+      "text":{
+        "text":[
+           ""
+        ]
+      },
+      "lang":"es"
+    }
+    ]
+  });
+  //let id = req.body.originalDetectIntentRequest.payload.data.sender.id;
   console.log(req.body);
   //function probar(agent){
+    /*
     request("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F", function (error, response, body) {
       console.error('error:', error); // Print the error if one occurred
       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
-      res.json({
-        "fulfillmentMessages":
-        [
-        {
-          "text":{
-            "text":[
-               body.first_name
-            ]
-         },
-          "platform":"FACEBOOK",
-          "lang":"es"
-        },
-        {
-          "text":{
-            "text":[
-               ""
-            ]
-          },
-          "lang":"es"
-        }
-        ]
-      });
+
+      //res.json({
+      //  "fulfillmentMessages":[
+      //  {
+      //    "text":{
+      //      "text":[
+      //         body.first_name
+      //      ]
+      //   },
+      //    "platform":"FACEBOOK",
+      //    "lang":"es"
+      // },
+      //  {
+      //    "text":{
+      //      "text":[
+      //         ""
+      //      ]
+      //    },
+      //    "lang":"es"
+      //  }
+      //  ]
+      //});
       
     });
+    */
     //agent.add('Hola', body.first_name);
   //}
 
