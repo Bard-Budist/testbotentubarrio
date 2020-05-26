@@ -25,12 +25,15 @@ function newSesion(agent) {
   return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
     const body = JSON.parse(jsonBody);
     // Add response with a card and name of user}
-    let card = new Card();
-    card.setImage('https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI');
-    card.setTitle(body.first_name + ` Bienvenido`);
-    card.setText('Soy Elin el bot de EnTuBarrio');
-    card.setButton1({ text: 'Comenzar Orden', url:'comenzar orden'});
-    card.setButton2({ text: 'Soporte', url:'soporte'});
+    let card = new Card({
+      imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
+      title: body.first_name + ` Bienvenido`,
+      text: 'Soy Elin el bot de EnTuBarrio',
+      buttonText1: 'Comenzar Orden',
+      buttonUrl1: 'comenzar orden',
+      buttonText2: 'Soporte',
+      buttonUrl2:'soporte',
+    });
     agent.add(card);  
     return Promise.resolve( agent );
 });
