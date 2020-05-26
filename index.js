@@ -12,12 +12,7 @@ restService.use(bodyParser.urlencoded({ extended: false }));
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
-restService.post("/", function(request, response) {
-  const agent = new WebhookClient({ request, response });
-  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
-
-function probarr(agent) {
+function requestFacebook(request) {
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   console.log(request.body);
   //function probar(agent){
@@ -25,8 +20,17 @@ function probarr(agent) {
       console.error('error:', error); // Print the error if one occurred
       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
       //console.add('Hola', body.first_name); // Print the HTML for the Google homepage.
-      agent.add(`Hola` + body.first_name);
+      return body.first_name;
     });
+}
+
+restService.post("/", function(request, response) {
+  const agent = new WebhookClient({ request, response });
+  console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
+  console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
+
+function probarr(agent) {
+  agent.add(`Hola` + requestFacebook(request));
 }
 
   // Run the proper function handler based on the matched Dialogflow intent name
