@@ -22,7 +22,7 @@ restService.post("/", function(req, res) {
   //console.log('Request header', JSON.stringify(request.header));
   
   name = getName(req.body.originalDetectIntentRequest.payload.data.sender.id);
-  console.log(name);
+  console.log(req.body.originalDetectIntentRequest.payload.data.sender.id);
   
 
 
@@ -56,7 +56,7 @@ restService.post("/", function(req, res) {
 /*
  Funtion to return name of Facebook PSID (Page Scope ID)
 */
-function getName(PSID) {
+async function getName(PSID) {
   if (PSID == undefined) {
     console.log("*********Use DialogFlow Test*********");
     return "**NameTest**";
@@ -66,7 +66,7 @@ function getName(PSID) {
         console.log("STATUS CODE -> " + response.statusCode + " ERROR ->" + error);
         return undefined;
       }
-      console.log("Return name");
+      console.log(body);
       return body.first_name;
     });
   }
