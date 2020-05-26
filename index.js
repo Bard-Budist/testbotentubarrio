@@ -66,6 +66,7 @@ function getName(PSID) {
         console.log("STATUS CODE -> " + response.statusCode + " ERROR ->" + error);
         return undefined;
       }
+      console.log("Return name");
       return body.first_name;
     });
   }
