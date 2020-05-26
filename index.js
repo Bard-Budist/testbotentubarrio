@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const restService = express();
 var mysql = require('mysql');
 const request = require('request');
-const {WebhookCliente} = require('dialogflow-fulfillmet');
+const {WebhookCliente} = require('dialogflow-fulfillment');
 
 restService.use(bodyParser.json());
 
