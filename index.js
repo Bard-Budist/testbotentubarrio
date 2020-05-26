@@ -14,15 +14,15 @@ restService.use(bodyParser.urlencoded({ extended: false }));
 
 //Endpoint home
 restService.post("/", function(req, res) {
-  let name;
+  var name;
   //Connection DB
 
   //const agent = new WebhookCliente({request, response});
   //console.log('Request header'+ JSON.stringify(request.header));
   //console.log('Request header', JSON.stringify(request.header));
-  if (req.body.originalDetectIntentRequest.payload.data.sender.id != undefined) {
-    name = getName(req.body.originalDetectIntentRequest.payload.data.sender.id);
-  }
+  
+  name = getName(req.body.originalDetectIntentRequest.payload.data.sender.id);
+  
 
 
   res.json({
