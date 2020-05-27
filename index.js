@@ -95,12 +95,16 @@ restService.post("/", function(request, response) {
 
 
   function probar_web(agent) {
-    let response = {
+    let response = [{
       type: "web_url",
       title: "Test EnTuBarrio",
       url: "https://www.originalcoastclothing.com",
       messenger_extensions: true
-    };
+    },{
+      type: "postback",
+      title: "IR",
+      payload: "URL"}
+    ]
 
     agent.add(new Payload(agent.FACEBOOK, response));
     return Promise.resolve( agent );
