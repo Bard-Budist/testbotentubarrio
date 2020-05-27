@@ -19,7 +19,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
-
+  response.render("index");
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
