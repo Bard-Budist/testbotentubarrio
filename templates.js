@@ -42,6 +42,13 @@ module.exports = class Templates {
 
 
   static cardTemplate() {
-    
+    let template = {
+      text: 'Este es tu número?',
+      quick_replies: [
+      {
+        content_type : "user_phone_number" 
+      }]
+    }
+    return template;
   }
 }

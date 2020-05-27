@@ -47,10 +47,47 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
 });
 }
+  function ubicacion(agent) {
+    agent.add(new Payload(agent.FACEBOOK, [template.normalTemplate(
+      'Medellín',
+      'Selecciona tu barrio',
+      'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg',
+      [
+        {
+          title: 'Poblado',
+          type: 'postback',
+          payload: 'poblado',
+        },
+        {
+          title: 'Ciudad del Rio',
+          type: 'postback',
+          payload: 'ciudad del rio',
+        }
+      ]
+    ), template.normalTemplate(
+      'Pereira',
+      'Selecciona tu barrio',
+      'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg',
+      [
+        {
+          title: 'Macarena',
+          type: 'postback',
+          payload: 'macarena',
+        },
+        {
+          title: 'Castilla',
+          type: 'postback',
+          payload: 'castilla',
+        }
+      ]
+    )]));
+  return Promise.resolve( agent );
+  }
 
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
+intentMap.set('Comenzar', ubicacion);
 agent.handleRequest(intentMap);
 });
 
