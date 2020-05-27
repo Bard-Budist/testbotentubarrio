@@ -8,11 +8,12 @@
 
 module.exports = class Templates {
   /**
-   * Generic template for Payload
+   * @description Generic template for Payload
    * @param {string} title Title String
    * @param {string} subtitle Subtitle String
    * @param {string} image_url Image URL
    * @param {buttons[]} buttons List of Buttons in template
+   * 
   */
   static normalTemplate(title, subtitle, image_url, list_button) {
     let template = {
@@ -33,12 +34,7 @@ module.exports = class Templates {
     };
     if (list_button != undefined) {
       for (let button of list_button) {
-        template.attachment.payload.elements[0].buttons.push(
-          {
-            type: button['type'],
-            title: button['title'],
-            payload: button['payload']
-          });
+        template.attachment.payload.elements[0].buttons.push(button);
       }
     }
     return template;
