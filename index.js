@@ -24,7 +24,7 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
-    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
+    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
       // Add response with a card and name of user}
       agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
@@ -84,10 +84,22 @@ restService.post("/", function(request, response) {
   return Promise.resolve( agent );
   }
 
+  function probar_numero(agent) {
+    agent.add(new Payload(agent.FACEBOOK, template.numberTemplate()));
+    return Promise.resolve( agent );
+  }
+
+  function probar_email(agent) {
+    agent.add(new Payload(agent.FACEBOOK, template.emailTemplate()));
+    return Promise.resolve( agent );
+  }
+
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', ubicacion);
+intentMap.set('probarnumero', probar_numero);
+intentMap.set('probaremail', probar_email);
 agent.handleRequest(intentMap);
 });
 

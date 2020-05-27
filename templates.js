@@ -41,12 +41,23 @@ module.exports = class Templates {
   }
 
 
-  static cardTemplate() {
+  static numberTemplate() {
     let template = {
       text: 'Este es tu número?',
       quick_replies: [
       {
-        content_type : "user_phone_number" 
+        content_type:"user_phone_number"
+      }]
+    }
+    return template;
+  }
+
+  static emailTemplate() {
+    let template = {
+      text: 'Este es tu correo?',
+      quick_replies: [
+      {
+        content_type:"user_email"
       }]
     }
     return template;
