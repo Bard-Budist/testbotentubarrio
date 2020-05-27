@@ -94,12 +94,24 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
   }
 
+
+  function probar_web(agent) {
+    let response = {
+      type: "web_url",
+      title: "Test EnTuBarrio",
+      url: "https://www.originalcoastclothing.com",
+      messenger_extensions: true
+    };
+
+    return agent.add(new Payload(agent.FACEBOOK, response));
+  }
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', ubicacion);
 intentMap.set('probarnumero', probar_numero);
 intentMap.set('probaremail', probar_email);
+intentMap.set('probarweb', probar_web);
 agent.handleRequest(intentMap);
 });
 
