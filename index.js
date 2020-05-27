@@ -12,6 +12,7 @@ const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2
 // urlencoded -> acts as a bridge between an operating system or database and applications, especially on a network
 const restService = express();
 restService.use(bodyParser.json());
+app.set("view engine", "ejs");
 restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
