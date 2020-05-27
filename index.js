@@ -25,6 +25,7 @@ restService.post("/", function(request, response) {
 
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
+      console.log(body);
       // Add response with a card and name of user}
       agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
         body.first_name + ` Bienvenido`,
