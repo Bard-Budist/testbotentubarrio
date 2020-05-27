@@ -83,8 +83,13 @@ restService.post("/", function(request, response) {
   return Promise.resolve( agent );
   }
 
-  function probar(agent) {
-    agent.add(new Payload(agent.FACEBOOK, template.cardTemplate()));
+  function probar_numero(agent) {
+    agent.add(new Payload(agent.FACEBOOK, template.numberTemplate()));
+    return Promise.resolve( agent );
+  }
+
+  function probar_email(agent) {
+    agent.add(new Payload(agent.FACEBOOK, template.emailTemplate()));
     return Promise.resolve( agent );
   }
 
@@ -92,7 +97,8 @@ restService.post("/", function(request, response) {
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', ubicacion);
-intentMap.set('probar', probar);
+intentMap.set('probarnumero', probar_numero);
+intentMap.set('probaremail', probar_email);
 agent.handleRequest(intentMap);
 });
 
