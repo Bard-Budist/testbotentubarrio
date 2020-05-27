@@ -47,13 +47,47 @@ restService.post("/", function(request, response) {
 });
 }
   function probar(agent) {
-    agent.add(new Payload(agent.FACEBOOK, template.cardTemplate()));
+    agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
+      Medellín,
+      'Selecciona tu barrio',
+      'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg',
+      [
+        {
+          title: 'Poblado',
+          type: 'postback',
+          payload: 'poblado',
+        },
+        {
+          title: 'Ciudad del Rio',
+          type: 'postback',
+          payload: 'ciudad del rio',
+        }
+      ]
+    )));
+    agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
+      Pereira,
+      'Selecciona tu barrio',
+      'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg',
+      [
+        {
+          title: 'Macarena',
+          type: 'postback',
+          payload: 'macarena',
+        },
+        {
+          title: 'Castilla',
+          type: 'postback',
+          payload: 'castilla',
+        }
+      ]
+    )));
+  return Promise.resolve( agent );
   }
 
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('probar', probar);
+intentMap.set('Ubicacion', ubicacion);
 agent.handleRequest(intentMap);
 });
 
