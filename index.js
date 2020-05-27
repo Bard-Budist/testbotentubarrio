@@ -46,7 +46,7 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
 });
 }
-  function probar(agent) {
+  function ubicacion(agent) {
     agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
       Medellín,
       'Selecciona tu barrio',
@@ -87,7 +87,7 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Ubicacion', ubicacion);
+intentMap.set('Comenzar', ubicacion);
 agent.handleRequest(intentMap);
 });
 
