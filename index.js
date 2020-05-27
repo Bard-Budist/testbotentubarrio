@@ -48,7 +48,7 @@ restService.post("/", function(request, response) {
 }
   function ubicacion(agent) {
     agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
-      Medellín,
+      'Medellín',
       'Selecciona tu barrio',
       'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg',
       [
@@ -65,7 +65,7 @@ restService.post("/", function(request, response) {
       ]
     )));
     agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
-      Pereira,
+      'Pereira',
       'Selecciona tu barrio',
       'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg',
       [
