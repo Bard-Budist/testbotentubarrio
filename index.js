@@ -23,7 +23,7 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
-    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
+    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name,last_name,email&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
       console.log(body);
       // Add response with a card and name of user}
