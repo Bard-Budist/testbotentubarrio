@@ -103,7 +103,8 @@ restService.post("/", function(request, response) {
       messenger_extensions: true
     };
 
-    return agent.add(new Payload(agent.FACEBOOK, response));
+    agent.add(new Payload(agent.FACEBOOK, response));
+    return Promise.resolve( agent );
   }
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
