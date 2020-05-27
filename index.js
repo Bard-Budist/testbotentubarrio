@@ -20,56 +20,29 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
 
-function newSesion(agent) {
-  let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+  function newSesion(agent) {
+    let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
-  return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
-    const body = JSON.parse(jsonBody);
-    // Add response with a card and name of user}
-    let cardinit = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-           {
-             title: body.first_name + ` Bienvenido`,
-             subtitle: 'Soy Elin el bot de EnTuBarrio',
-             image_url: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
-              buttons: [
-                {
-                  title: 'Comenzar Orden',
-                  type: 'postback',
-                  payload: 'comenzar',
-                },
-                {
-                  title: 'Soporte',
-                  type: 'postback',
-                  payload: 'soporte',
-                }
-              ]
-            }
-          ]
-        }
-      }
-    };
-    agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
-      body.first_name + ` Bienvenido`,
-      'Soy Elin el bot de EnTuBarrio',
-      'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
-      [
-        {
-          title: 'Comenzar Orden',
-          type: 'postback',
-          payload: 'comenzar',
-        },
-        {
-          title: 'Soporte',
-          type: 'postback',
-          payload: 'soporte',
-        }
-      ])));
-
+    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=first_name,last_name&access_token=" + URLTOKEN).then(jsonBody => {
+      const body = JSON.parse(jsonBody);
+      // Add response with a card and name of user}
+      agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
+        body.first_name + ` Bienvenido`,
+        'Soy Elin el bot de EnTuBarrio',
+        'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
+        [
+          {
+            title: 'Comenzar Orden',
+            type: 'postback',
+            payload: 'comenzar',
+          },
+          {
+            title: 'Soporte',
+            type: 'postback',
+            payload: 'soporte',
+          }
+        ]
+      )));
     /*const card = new Card({
       imageUrl: 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
       title: body.first_name + ` Bienvenido`,
@@ -84,26 +57,6 @@ let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 agent.handleRequest(intentMap);
 });
-
-
-/*
- Funtion to return name of Facebook PSID (Page Scope ID)
-*/
-function getName(PSID, callback) {
-  if (PSID == undefined) {
-    console.log("*********Use DialogFlow Test*********");
-    return "**NameTest**";
-  }else {
-    request("https://graph.facebook.com/" + PSID + "?fields=first_name,last_name&access_token=" + API_TOKEN, function (error, response, body) {
-      if (error) {
-        console.log("STATUS CODE -> " + response.statusCode + " ERROR ->" + error);
-        return undefined;
-      }
-      console.log(body);
-      return callback(body);
-    });
-  }
-}
 
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");

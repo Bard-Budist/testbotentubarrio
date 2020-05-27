@@ -1,16 +1,19 @@
 "use strict";
-
+/**
+ * This file have templates for response in Payload
+ * :D
+ * 
+ * 
+ */
 
 module.exports = class Templates {
-
-
-    /**
-     * Generic template for Payload
-     * @param {string} title Title String
-     * @param {string} subtitle Subtitle String
-     * @param {string} image_url Image URL
-     * @param {buttons[]} buttons List of Buttons in template
-     */
+  /**
+   * Generic template for Payload
+   * @param {string} title Title String
+   * @param {string} subtitle Subtitle String
+   * @param {string} image_url Image URL
+   * @param {buttons[]} buttons List of Buttons in template
+  */
   static normalTemplate(title, subtitle, image_url, list_button) {
     let template = {
       attachment: {
@@ -32,12 +35,17 @@ module.exports = class Templates {
       for (let button of list_button) {
         template.attachment.payload.elements[0].buttons.push(
           {
-            type: 'postback',
+            type: button['type'],
             title: button['title'],
             payload: button['payload']
           });
       }
     }
     return template;
+  }
+
+
+  static cardTemplate() {
+    
   }
 }
