@@ -12,7 +12,6 @@ const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2
 // urlencoded -> acts as a bridge between an operating system or database and applications, especially on a network
 const restService = express();
 restService.use(bodyParser.json());
-restService.set("view engine", "ejs");
 restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
@@ -20,7 +19,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
-  response.render("index");
+  
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
 
