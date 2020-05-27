@@ -47,7 +47,7 @@ restService.post("/", function(request, response) {
 });
 }
   function ubicacion(agent) {
-    agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
+    agent.add(new Payload(agent.FACEBOOK, [template.normalTemplate(
       'Medellín',
       'Selecciona tu barrio',
       'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg',
@@ -63,8 +63,7 @@ restService.post("/", function(request, response) {
           payload: 'ciudad del rio',
         }
       ]
-    )));
-    agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
+    ), template.normalTemplate(
       'Pereira',
       'Selecciona tu barrio',
       'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg',
@@ -80,7 +79,7 @@ restService.post("/", function(request, response) {
           payload: 'castilla',
         }
       ]
-    )));
+    )]));
   return Promise.resolve( agent );
   }
 
