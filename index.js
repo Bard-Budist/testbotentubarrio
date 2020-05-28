@@ -5,6 +5,9 @@ const template = require('./templates');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
+
+//Import model mysql
+const conexionDB = require('./models/dbModel')
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
@@ -22,6 +25,9 @@ restService.post("/", function(request, response) {
   
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+    let userDB = new conexionDB();
+    userDB.checkUser(id)
+
 
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
@@ -46,6 +52,11 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
 });
 }
+
+  /**
+   * 
+   * @param {*} agent 
+   */
   function ubicacion(agent) {
     agent.add(new Payload(agent.FACEBOOK, [template.normalTemplate(
       'Medellín',
@@ -83,39 +94,10 @@ restService.post("/", function(request, response) {
   return Promise.resolve( agent );
   }
 
-  function probar_numero(agent) {
-    agent.add(new Payload(agent.FACEBOOK, template.numberTemplate()));
-    return Promise.resolve( agent );
-  }
-
-  function probar_email(agent) {
-    agent.add(new Payload(agent.FACEBOOK, template.emailTemplate()));
-    return Promise.resolve( agent );
-  }
-
-
-  function probar_web(agent) {
-    let response = 
-    {
-      type: "web_url",
-      title: "Test EnTuBarrio",
-      url: "https://www.originalcoastclothing.com",
-      messenger_extensions: true,
-      type: "postback",
-      title: "IR",
-      payload: "URL"
-    };
-
-    agent.add(new Payload(agent.FACEBOOK, response));
-    return Promise.resolve( agent );
-  }
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', ubicacion);
-intentMap.set('probarnumero', probar_numero);
-intentMap.set('probaremail', probar_email);
-intentMap.set('probarweb', probar_web);
 agent.handleRequest(intentMap);
 });
 
