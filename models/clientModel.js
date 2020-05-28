@@ -1,5 +1,5 @@
 'use strict';
-const conexionDB = require('./dbModel')();
+const conexionDB = require('./dbModel');
 /**
  * Class user 
  * Constructor: User(id {ID of user}, name {Name of user})
@@ -16,6 +16,7 @@ class User {
         this.phone = "";
         this.address = "";
         this.email = "";
+        this.conexion = new conexionDB();
     }
 
     /**
@@ -69,7 +70,7 @@ class User {
     * @param {*} PSID 
    */
    static checkUser(PSID) {
-    conexionDB.getConnection(function(err, conn) {
+    this.conexion.getConnection(function(err, conn) {
       if (err) {
         console.log("Error to try to connect DB");
       }
