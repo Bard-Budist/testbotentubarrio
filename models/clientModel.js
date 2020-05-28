@@ -10,13 +10,12 @@ class User {
      * @param {int} id ID of user
      * @param {string} name Name of user
     */
-    constructor(id){
-        this.id = id;
+    constructor(){
+        this.id = "";
         this.name = "";
         this.phone = "";
         this.address = "";
         this.email = "";
-        
     }
 
     /**
@@ -72,7 +71,7 @@ class User {
       return this.name;
     }
 
-
+///GET SET ID
     /**
     * 
     * @param {*} PSID 

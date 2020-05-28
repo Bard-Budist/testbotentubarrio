@@ -27,7 +27,8 @@ restService.post("/", function(request, response) {
   
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    Client.checkUser(id);
+    let newClient = new Client();
+    newClient.checkUser(id);
 
 
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
