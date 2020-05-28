@@ -77,7 +77,7 @@ class User {
     * @param {*} PSID 
    */
    checkUser(PSID) {
-    conexion = new conexionDB();
+    let conexion = new conexionDB();
     conexion.getConnection(function(err, conn) {
       if (err) {
         console.log("Error to try to connect DB");
