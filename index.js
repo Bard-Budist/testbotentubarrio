@@ -86,7 +86,7 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Comenzar', ubicacion)
+intentMap.set('Comenzar', ubicacion);
 agent.handleRequest(intentMap);
 });
 
