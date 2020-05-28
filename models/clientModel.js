@@ -16,7 +16,7 @@ class User {
         this.phone = "";
         this.address = "";
         this.email = "";
-        this.conexion = new conexionDB();
+        
     }
 
     /**
@@ -70,7 +70,8 @@ class User {
     * @param {*} PSID 
    */
    static checkUser(PSID) {
-    this.conexion.getConnection(function(err, conn) {
+    conexion = new conexionDB();
+    conexion.getConnection(function(err, conn) {
       if (err) {
         console.log("Error to try to connect DB");
       }
