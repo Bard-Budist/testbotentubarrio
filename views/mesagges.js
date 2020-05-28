@@ -16,8 +16,7 @@ module.exports = class Messages {
     WelcomeUser (body) {
         return template.CardTemplate(
             body.first_name + ` Bienvenido`,
-            `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 
-            en la tienda mas cercana. Te lo llevamos a la puerta de tu casa. 🏡🚴`,
+            `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
             imageWelcomeUser,
             [{
                 title: 'Pedir Orden',
