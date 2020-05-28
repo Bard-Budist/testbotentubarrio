@@ -24,7 +24,7 @@ module.exports = class Templates {
           elements: [
             {
               title: title,
-              subtitle: subtitle,
+              text: subtitle,
               image_url: image_url,
               buttons: []
             }
