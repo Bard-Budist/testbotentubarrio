@@ -34,7 +34,7 @@ class User {
         if (err) {
           console.log("Error to try select user");
         }
-        if (result) {
+        if (!result) {
           console.log("Usuario existe");
           console.log(result);
         } else {
