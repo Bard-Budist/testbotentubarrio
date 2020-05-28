@@ -20,7 +20,7 @@ class DbModel {
       });
     }
 
-    
+
   /**
    * 
    * @param {*} PSID 
@@ -31,7 +31,7 @@ class DbModel {
         console.log("Error to try to connect DB");
       }
       console.log("Connected!");
-      var sql = "SELECT * FROM client;";
+      var sql = "SELECT + * FROM client WHERE id = " + PSID;
       conn.query(sql, function (err, result) {
         if (err) {
           console.log("Error to try select user");
@@ -39,7 +39,8 @@ class DbModel {
         if  (result != undefined) {
           console.log("Usuario existe");
           console.log(result);
-          
+        } else {
+          console.log("Usuarion no existe");
         }
       });
     });
