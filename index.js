@@ -1,11 +1,12 @@
 'use strict';
 
 const {WebhookClient} = require('dialogflow-fulfillment');
-const template = require('./templates');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
 
+// Import Views
+const mesagges = require('./views/mesagges');
 
 //Import model client
 const Client = require('./models/clientModel');
@@ -14,7 +15,8 @@ const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
 // Create instance of express, and parse data in JSON format
-// urlencoded -> acts as a bridge between an operating system or database and applications, especially on a network
+// urlencoded -> acts as a bridge between an operating system
+// or database and applications, especially on a network
 const restService = express();
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
@@ -30,70 +32,22 @@ restService.post("/", function(request, response) {
     let newClient = new Client();
     newClient.checkUser(id);
 
-
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
+      
       // Add response with a card and name of user}
-      agent.add(new Payload(agent.FACEBOOK, template.normalTemplate(
-        body.first_name + ` Bienvenido`,
-        'Soy Elin, el bot de EnTuBarrio',
-        'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI',
-        [
-          {
-            title: 'Comenzar Orden',
-            type: 'postback',
-            payload: 'comenzar',
-          },
-          {
-            title: 'Soporte',
-            type: 'postback',
-            payload: 'soporte',
-          }
-        ]
-      )));
-    return Promise.resolve( agent );
-});
-}
+      agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(body)));
+      return Promise.resolve( agent );
+    });
+  }
 
   /**
    * 
    * @param {*} agent 
    */
   function ubicacion(agent) {
-    agent.add(new Payload(agent.FACEBOOK, [template.normalTemplate(
-      'Medellín',
-      'Selecciona tu barrio',
-      'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg',
-      [
-        {
-          title: 'Poblado',
-          type: 'postback',
-          payload: 'poblado',
-        },
-        {
-          title: 'Ciudad del Rio',
-          type: 'postback',
-          payload: 'ciudad del rio',
-        }
-      ]
-    ), template.normalTemplate(
-      'Pereira',
-      'Selecciona tu barrio',
-      'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg',
-      [
-        {
-          title: 'Macarena',
-          type: 'postback',
-          payload: 'macarena',
-        },
-        {
-          title: 'Castilla',
-          type: 'postback',
-          payload: 'castilla',
-        }
-      ]
-    )]));
-  return Promise.resolve( agent );
+    agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
+    return Promise.resolve( agent );
   }
 
 // Run the proper function handler based on the matched Dialogflow intent name
