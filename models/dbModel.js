@@ -20,6 +20,10 @@ class DbModel {
       });
     }
 
+  conn() {
+    return this.connection;
+  }
+
 }
 
 module.exports = DbModel;

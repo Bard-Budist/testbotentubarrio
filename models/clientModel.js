@@ -10,75 +10,21 @@ class User {
      * @param {int} id ID of user
      * @param {string} name Name of user
     */
-    constructor(){
-        this.id = "";
-        this.name = "";
-        this.phone = "";
-        this.address = "";
-        this.email = "";
-    }
+  constructor(){
+    this.id = "";
+    this.name = "";
+    this.phone = "";
+    this.address = "";
+    this.email = "";
+  }
 
-    /**
-     * Set phone number
-     * @param {string} phone 
-     */
-    setPhone(phone) {
-        this.phone = phone;
-    }
-
-    /**
-     * 
-     * @param {*} email 
-     */
-    setEmail(email) {
-        this.phone = email;
-    }
-    
-    /**
-     * 
-     * @param {*} address 
-     */
-    setAddress(address) {
-        this.address = address;
-    }
-
-    setName(name) {
-      this.name = name;
-    }
-
-    /**
-     * Get Phone number
-     */
-    getPhone() {
-        return this.phone;
-    }
-
-    /**
-     * Get email user
-     */
-    getEmail() {
-        return this.phone;
-    }
-
-    /**
-     * get Address user 
-     */
-    getAddress() {
-        return this.address;
-    }
-
-    getName() {
-      return this.name;
-    }
-
-///GET SET ID
-    /**
+  /**
     * 
     * @param {*} PSID 
-   */
-   checkUser(PSID) {
+  */
+  checkUser(PSID) {
     let conexion = new conexionDB();
-    conexion.getConnection(function(err, conn) {
+    conexion.conn().getConnection(function(err, conn) {
       if (err) {
         console.log("Error to try to connect DB");
       }
@@ -98,6 +44,7 @@ class User {
     });
   }
 }
+
 
 module.exports = User;
     
