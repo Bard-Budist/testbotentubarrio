@@ -31,7 +31,7 @@ class DbModel {
         console.log("Error to try to connect DB");
       }
       console.log("Connected!");
-      var sql = "SELECT + * FROM client WHERE id = " + PSID;
+      var sql = "SELECT * FROM client WHERE id = " + PSID;
       conn.query(sql, function (err, result) {
         if (err) {
           console.log("Error to try select user");
