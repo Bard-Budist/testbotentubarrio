@@ -5,6 +5,11 @@ const template = require('./templates');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
+
+
+//Import model client
+const Client = require('./models/clientModel');
+
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
@@ -19,9 +24,12 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
-
+  
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+    let newClient = new Client();
+    newClient.checkUser(id);
+
 
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
       const body = JSON.parse(jsonBody);
@@ -46,6 +54,11 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
 });
 }
+
+  /**
+   * 
+   * @param {*} agent 
+   */
   function ubicacion(agent) {
     agent.add(new Payload(agent.FACEBOOK, [template.normalTemplate(
       'Medellín',
