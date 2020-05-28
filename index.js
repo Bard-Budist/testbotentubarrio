@@ -6,8 +6,10 @@ const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
 
-//Import model mysql
-const conexionDB = require('./models/dbModel')
+
+//Import model client
+const Client = require('./models/clientModel');
+
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
@@ -25,8 +27,7 @@ restService.post("/", function(request, response) {
   
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    let userDB = new conexionDB();
-    userDB.checkUser(id)
+    Client.checkUser(id);
 
 
     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
