@@ -14,12 +14,13 @@ const imagePereira = 'https://blogapi.uber.com/wp-content/uploads/2017/06/viaduc
 module.exports = class Messages {
 
     WelcomeUser (body) {
-        return template.normalTemplate(
+        return template.CardTemplate(
             body.first_name + ` Bienvenido`,
-            'Soy el bot de EnTuBarrio',
+            '👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido \
+            en la tienda mas cercana. Te lo llevamos a la puerta de tu casa. 🏡🚴',
             imageWelcomeUser,
             [{
-                title: 'Comenzar Orden',
+                title: 'Pedir Orden',
                 type: 'postback',
                 payload: 'comenzar',
             },{
@@ -30,7 +31,7 @@ module.exports = class Messages {
     };
 
     LocationUser () {
-        return [template.normalTemplate(
+        return [template.CardTemplate(
             'Medellín',
             'Selecciona tu barrio',
             imageMedellin,
@@ -43,7 +44,7 @@ module.exports = class Messages {
                 type: 'postback',
                 payload: 'ciudad del rio',
               }]),
-        template.normalTemplate(
+        template.CardTemplate(
             'Pereira',
             'Selecciona tu barrio',
             imagePereira,
