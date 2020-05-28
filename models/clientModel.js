@@ -10,9 +10,9 @@ class User {
      * @param {int} id ID of user
      * @param {string} name Name of user
     */
-    constructor(id, name){
+    constructor(id){
         this.id = id;
-        this.name = name;
+        this.name = "";
         this.phone = "";
         this.address = "";
         this.email = "";
@@ -43,6 +43,10 @@ class User {
         this.address = address;
     }
 
+    setName(name) {
+      this.name = name;
+    }
+
     /**
      * Get Phone number
      */
@@ -64,12 +68,16 @@ class User {
         return this.address;
     }
 
+    getName() {
+      return this.name;
+    }
+
 
     /**
     * 
     * @param {*} PSID 
    */
-   static checkUser(PSID) {
+   checkUser(PSID) {
     conexion = new conexionDB();
     conexion.getConnection(function(err, conn) {
       if (err) {
