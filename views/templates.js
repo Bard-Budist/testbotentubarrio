@@ -15,7 +15,7 @@ module.exports = class Templates {
    * @param {buttons[]} buttons List of Buttons in template
    * 
   */
-  static normalTemplate(title, subtitle, image_url, list_button) {
+  static CardTemplate(title, subtitle, image_url, list_button) {
     let template = {
       attachment: {
         type: "template",
