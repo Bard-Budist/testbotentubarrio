@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 
 // Import Views
-const mesagges = require('./views/mesagges');
+const Mesagges = require('./views/mesagges');
 
 //Import model client
 const Client = require('./models/clientModel');
@@ -26,6 +26,7 @@ process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
+  let mesagges = new Mesagges();
   
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
@@ -36,7 +37,7 @@ restService.post("/", function(request, response) {
       const body = JSON.parse(jsonBody);
       
       // Add response with a card and name of user}
-      agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(body)));
+      agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
       return Promise.resolve( agent );
     });
   }
