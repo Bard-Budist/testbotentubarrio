@@ -36,6 +36,10 @@ module.exports = class Messages {
             'esto es una prueba',
             imageWelcomeUser,
             [{
+                title: 'Pedir Orden',
+                type: 'postback',
+                payload: 'comenzar',
+            },{
                 title: 'Pedido',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
