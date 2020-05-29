@@ -80,20 +80,35 @@ let database = {
    * @param {String[]} values 
    */
   insertInTable: function(nameTable, attrs, values){
-    this.connection.getConnection(function(err, conn) {
-      if (err) {
-        console.log("Error to try to connect DB");
+    let stringValues = '('
+    for (let i = 0; i < values.length; i++) {
+      stringValues +=  "'" + values[i].toString() + "'" ;
+      if (i !== values.length -1) {
+        stringValues += ",";
       }
-      var sql = `INSERT INTO ${nameTable} (${attrs.toString()}) VALUES (${values.toString()})`;
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.log(`ERROR TO INSERT IN TABLE ${nameTable}`);
-        }
-        
-        return Promise.resolve (result);
-      });
-    });
+    }
+    stringValues += ')';
+
+    let stringAttr = '('
+    for (let i = 0; i < attrs.length; i++) {
+      stringAttr +=  attrs[i] ;
+      if (i !== attrs.length -1) {
+        stringAttr += ",";
+      }
+    }
+    stringAttr += ')';
+
+    console.log(stringAttr);
+    
+    db.none(`INSERT INTO ${nameTable}${stringAttr} VALUES ${stringValues}`)
+    .then(function () {
+      console.log(`Insert in table ${nameTable} is ok`);
+    })
+    .catch(function (err) {
+      console.log(`fail insert to table in ${nameTable} Error: ${err}`);
+    })
   }
+    
 }
 
 //Import model client

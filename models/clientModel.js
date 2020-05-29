@@ -26,9 +26,8 @@ class User {
   checkUser(PSID) {
     let conexion = new conexionDB();
     return new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve(conexion.selectAllByID(PSID, "client"));
-      }, 5000);
+      let data = conexion.selectAllByID(PSID, "client");
+      
     });
   }
 
