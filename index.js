@@ -122,8 +122,11 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.selectAllByID(id,'client', function (data) {
-      console.log(data);
-      console.log('2');
+      if (!data) {
+        console.log('No exist');
+      } else {
+        console.log(data.name);
+      }
     })
  
       // return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
