@@ -57,7 +57,8 @@ module.exports = class Templates {
           type:"web_url",
           url:"https://www.originalcoastclothing.com/",
           title:"Take the Quiz",
-          webview_height_ratio: 'tall'
+          webview_height_ratio: 'tall',
+          messenger_extensions: true
         }]
       }]
     }
