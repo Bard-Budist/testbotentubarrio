@@ -157,6 +157,7 @@ restService.post("/", function(request, response) {
       }
     })
     // Add response with a card and name of user}
+    console.log(dataUser);
     agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
     return Promise.resolve( agent );
   }
