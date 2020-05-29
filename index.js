@@ -42,7 +42,7 @@ let database = {
    * @param {*} nameTable 
    */
   selectAllByID: function(ID, nameTable, callback) {
-    db.one(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
+    db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
       .then(function (data) {
          return callback(data);
       })
@@ -138,7 +138,8 @@ restService.post("/", function(request, response) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};
     database.selectAllByID(id,'client', function (data) {
-      console.log(data.length, data);
+      console.log(data.length)
+      console.log(data);
       if (data.length > 0) {
         dataUser.name = 'pruebas';
       } else {
