@@ -42,7 +42,7 @@ let database = {
    * @param {*} nameTable 
    */
   selectAllByID: function(ID, nameTable, callback) {
-    db.any('SELECT * FROM client')
+    db.any(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
       .then(function (data) {
          return callback(data);
       })
@@ -116,20 +116,16 @@ restService.post("/", function(request, response) {
   let mesagges = new Mesagges();
   
   /**
-   * 
    * @param {*} agent 
    */
+
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    database.selectAllByID("dawdaw","adaw", function (data) {
-      console.log(data)
+    database.selectAllByID(id,'client', function (data) {
+      console.log(data);
+      console.log('2');
     })
-      
-    
-      
-
-      
-    
+ 
       // return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
       //   const body = JSON.parse(jsonBody);
       //   newClient.id = id;
@@ -141,8 +137,6 @@ restService.post("/", function(request, response) {
       // });
     
     agent.add("Mira la consola🙄");
-    
-    
   }
 
   /**
