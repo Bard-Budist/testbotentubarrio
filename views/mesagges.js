@@ -33,17 +33,12 @@ module.exports = class Messages {
     OrderUser () {
         return template.CardTemplate(
             'Tienda',
-            'esto es una prueba',
+            ' ',
             imageWelcomeUser,
             [{
-                title: 'Pedir Orden',
-                type: 'postback',
-                payload: 'comenzar',
-            },{
                 title: 'Pedido',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
-                messenger_extensions: true,
                 webview_height_ratio: 'tall'
             }]);
     };
