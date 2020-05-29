@@ -24,9 +24,9 @@ class User {
     * @param {*} PSID 
   */
   checkUser(PSID, callback) {
-    let result = this.conexion.selectAllByID(PSID, "client", function (result) {
-      console.log(result);
-      return callback(result);
+    this.conexion.selectAllByID(PSID, "client", function (data) {
+      console.log(data);
+      return callback(data);
     })
     
   }

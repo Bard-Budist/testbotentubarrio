@@ -82,7 +82,7 @@ class DbModel {
       var sql = `INSERT INTO ${nameTable} (${attrs.toString()}) VALUES (${values.toString()})`;
       conn.query(sql, function (err, result) {
         if (err) {
-          console.log(`ERROR TO INSERT IN TABLE ${nameTable}`);
+          console.log(`ERROR TO INSERT IN TABLE ${nameTable}` + err);
         }
         
         return Promise.resolve (result);

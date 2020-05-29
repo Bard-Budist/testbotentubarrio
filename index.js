@@ -35,26 +35,25 @@ restService.post("/", function(request, response) {
    */
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    let bodyData;
     let newClient = new Client();
-    if (newClient.checkUser(id, function(data) {
+    newClient.checkUser(id, function(data) {
       agent.add("eres nuevo " + data);
       return ( agent );
-    })){
+    })
       
 
       
-    } else {
-      return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
-        const body = JSON.parse(jsonBody);
-        newClient.id = id;
-        newClient.name = body.name;
-        newClient.save();
-        // Add response with a card and name of user}
-        agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
-        return Promise.resolve( agent );
-      });
-    }
+    
+      // return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+      //   const body = JSON.parse(jsonBody);
+      //   newClient.id = id;
+      //   newClient.name = body.name;
+      //   newClient.save();
+      //   // Add response with a card and name of user}
+      //   agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
+      //   return Promise.resolve( agent );
+      // });
+    
 
     
     
