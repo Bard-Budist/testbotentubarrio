@@ -143,7 +143,7 @@ restService.post("/", function(request, response) {
       console.log(data[0].name.split(' ')[0]);
       if (data.length > 0) {
         dataUser.first_name = data[0].name.split(' ')[0];
-        return dataUser
+        resolve(dataUser)
       } else {
         console.log('No exits');
          requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
