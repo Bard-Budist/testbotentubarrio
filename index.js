@@ -28,18 +28,30 @@ restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
   let mesagges = new Mesagges();
   
+
+  /**
+   * 
+   * @param {*} agent 
+   */
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+    let bodyData;
     let newClient = new Client();
-    newClient.checkUser(id);
+    if (newClient.checkUser(id)) {
 
-    return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
-      const body = JSON.parse(jsonBody);
       
-      // Add response with a card and name of user}
-      agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
-      return Promise.resolve( agent );
-    });
+    } else {
+      return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+        const body = JSON.parse(jsonBody);
+        bodyData = body;
+        // Add response with a card and name of user}
+        return Promise.resolve(body);
+      });
+    }
+
+    agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(bodyData)));
+    return ( agent );
+    
   }
 
   /**
