@@ -42,7 +42,7 @@ let database = {
    * @param {*} nameTable 
    */
   selectAllByID: function(ID, nameTable, callback) {
-    db.any(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
+    db.one(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
       .then(function (data) {
          return callback(data);
       })
@@ -136,10 +136,11 @@ restService.post("/", function(request, response) {
 
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+    let dataUser = {};
     database.selectAllByID(id,'client', function (data) {
       console.log(data.length, data);
       if (data.length > 0) {
-        agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser({first_name: 'daniel'})));
+        dataUser.name = 'pruebas';
       } else {
         console.log('No exits');
         return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
@@ -148,13 +149,14 @@ restService.post("/", function(request, response) {
             'client',
             ['id', 'name'],
             [body.id, body.name]
-          )
-          // Add response with a card and name of user}
-          agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
-          return Promise.resolve( agent );
+          );
+          dataUser = body;
         });
       }
     })
+    // Add response with a card and name of user}
+    agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
+    return Promise.resolve( agent );
   }
 
   /**
