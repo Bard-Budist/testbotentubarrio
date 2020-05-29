@@ -23,12 +23,15 @@ class User {
     *  Funstion to check
     * @param {*} PSID 
   */
-  checkUser(PSID, callback) {
+  checkUser(PSID) {
     let conexion = new conexionDB();
-    conexion.selectAllByID(PSID, "client", function (data) {
-      console.log(data);
-      return Promise.resolve(callback(data));
-    })
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve(conexion.selectAllByID(PSID, "client"));
+      }, 5000);
+    });
+    
+    
     
   }
 

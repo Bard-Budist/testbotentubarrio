@@ -37,11 +37,11 @@ restService.post("/", function(request, response) {
     var Info;
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let newClient = new Client();
-    newClient.checkUser(id, function(data) {
-      Info = data;
-      agent.add("eres nuevo " + data);
-      return Promise.resolve( agent );
-    })
+    newClient.checkUser(id)
+      .then(function (value) {
+        agent.add("Valor " + value);
+      })
+    
    
       
 
