@@ -23,14 +23,12 @@ class User {
     *  Funstion to check
     * @param {*} PSID 
   */
-  checkUser(PSID) {
-    let result = this.conexion.selectAllByID(PSID, "client")
-    console.log(result);
-    if (result === []){
-      return false;
-    } else {
-      return true;
-    }
+  checkUser(PSID, callback) {
+    let result = this.conexion.selectAllByID(PSID, "client", function (result) {
+      console.log(result);
+      return callback(result);
+    })
+    
   }
 
   save() {

@@ -37,9 +37,11 @@ restService.post("/", function(request, response) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let bodyData;
     let newClient = new Client();
-    if (newClient.checkUser(id)) {
-      agent.add("eres nuevo");
+    if (newClient.checkUser(id, function(data) {
+      agent.add("eres nuevo " + data);
       return ( agent );
+    })){
+      
 
       
     } else {
