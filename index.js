@@ -155,7 +155,6 @@ restService.post("/", function(request, response) {
         });
       }
     })
-    agent.add("Mira la consola🙄");
   }
 
   /**
