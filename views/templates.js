@@ -39,27 +39,6 @@ module.exports = class Templates {
     }
     return template;
   }
- 
-  static web() {
-    let template = {
-    type:"template",
-    payload: {
-      template_type:"generic",
-      elements: [{
-        title:"I took Peter's 'Which Hat Are You?' Quiz",
-        image_url: "https://bot.peters-hats.com/img/hats/fez.jpg",
-        subtitle: "My result: Fez",
-        buttons:{
-          type:"web_url",
-          url:"https://www.originalcoastclothing.com/",
-          title:"Take the Quiz",
-          webview_height_ratio: 'tall'
-        }
-      }]
-    }
-  }
-  return template;
-}
 
   static numberTemplate() {
     let template = {
