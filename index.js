@@ -143,9 +143,11 @@ restService.post("/", function(request, response) {
       console.log(data[0].name.split(' ')[0]);
       if (data.length > 0) {
         dataUser.first_name = data[0].name.split(' ')[0];
+        agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
+        return Promise.resolve( agent );
       } else {
         console.log('No exits');
-        return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+         requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
           const body = JSON.parse(jsonBody);
           database.insertInTable(
             'client',
@@ -153,13 +155,14 @@ restService.post("/", function(request, response) {
             [body.id, body.name]
           );
           dataUser = body;
+          console.log(body);
+          agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
+          return Promise.resolve( agent );
         });
       }
     })
     // Add response with a card and name of user}
-    console.log(dataUser);
-    agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
-    return Promise.resolve( agent );
+   
   }
 
   /**
