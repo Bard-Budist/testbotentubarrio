@@ -158,6 +158,8 @@ restService.post("/", function(request, response) {
         });
       }
     }).then(function (data) {
+      console.log("Then");
+      
       console.log(data);
     })
     // Add response with a card and name of user}
