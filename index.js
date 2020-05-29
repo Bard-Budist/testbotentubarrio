@@ -137,18 +137,23 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.selectAllByID(id,'client', function (data) {
+      console.log(data);
       if (data === []) {
         agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser({first_name: 'daniel'})));
       } else {
         console.log('No exits');
         return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
           const body = JSON.parse(jsonBody);
+          database.insertInTable(
+            'client',
+            ['id', 'name'],
+            [body.id, body.name]
+          )
           // Add response with a card and name of user}
           agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(body)));
           return Promise.resolve( agent );
         });
       }
-      console.log(data);
     })
     agent.add("Mira la consola🙄");
   }
