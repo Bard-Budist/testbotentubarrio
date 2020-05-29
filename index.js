@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 //Import package for postgres
 const Promise = require('bluebird');
-var pgp = require('pg-promise')(options);
+
 const Mesagges = require('./views/mesagges');
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
@@ -26,6 +26,7 @@ const options = {
     }
   }
 };
+var pgp = require('pg-promise')(options);
 
 const connectionString = 'postgres://bot:root2020@bottest.cclxe6kinott.us-east-1.rds.amazonaws.com:5432/entubarrio';
 var db = pgp(connectionString);
