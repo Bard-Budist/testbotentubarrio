@@ -29,6 +29,10 @@ module.exports = class Messages {
             }]);
     };
 
+    Buttonprobar () {
+        return template.web();
+    };
+
     LocationUser () {
         return [template.CardTemplate(
             'Medellín',

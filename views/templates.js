@@ -39,7 +39,31 @@ module.exports = class Templates {
     }
     return template;
   }
-
+ 
+  static web() {
+    let template = {
+    type:"template",
+    payload: {
+      template_type:"generic",
+      elements: [{
+        title:"I took Peter's 'Which Hat Are You?' Quiz",
+        image_url: "https://bot.peters-hats.com/img/hats/fez.jpg",
+        subtitle: "My result: Fez",
+        default_action:{
+          type:"web_url",
+          url: "https://bot.peters-hats.com/view_quiz_results.php?user=24601"
+        },
+        buttons:[{
+          type:"web_url",
+          url:"https://bot.peters-hats.com/hatquiz.php?referer=24601",
+          title:"Take the Quiz",
+          webview_height_ratio: 'tall'
+        }]
+      }]
+    }
+  }
+  return template;
+}
 
   static numberTemplate() {
     let template = {
