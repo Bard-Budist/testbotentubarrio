@@ -49,12 +49,12 @@ module.exports = class Templates {
         title:"I took Peter's 'Which Hat Are You?' Quiz",
         image_url: "https://bot.peters-hats.com/img/hats/fez.jpg",
         subtitle: "My result: Fez",
-        buttons:[{
+        buttons:{
           type:"web_url",
           url:"https://www.originalcoastclothing.com/",
           title:"Take the Quiz",
           webview_height_ratio: 'tall'
-        }]
+        }
       }]
     }
   }
