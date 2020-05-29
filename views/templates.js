@@ -33,13 +33,13 @@ module.exports = class Templates {
       }
     };
     if (list_button != undefined) {
+      console.log('button');
       for (let button of list_button) {
         template.attachment.payload.elements[0].buttons.push(button);
       }
     }
     return template;
   }
-
 
   static numberTemplate() {
     let template = {

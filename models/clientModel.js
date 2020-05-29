@@ -30,9 +30,6 @@ class User {
         resolve(conexion.selectAllByID(PSID, "client"));
       }, 5000);
     });
-    
-    
-    
   }
 
   save() {

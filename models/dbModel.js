@@ -42,6 +42,7 @@ class DbModel {
         }
         console.log("Devuelvo algo")
         return result;
+
       });
     });
   }

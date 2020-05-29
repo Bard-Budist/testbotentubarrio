@@ -24,8 +24,22 @@ module.exports = class Messages {
                 payload: 'comenzar',
             },{
                 title: 'Soporte',
-                type: 'postback',
-                payload: 'soporte',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'
+            }]);
+    };
+
+    OrderUser () {
+        return template.CardTemplate(
+            'Tienda',
+            ' ',
+            imageWelcomeUser,
+            [{
+                title: 'Pedido',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'
             }]);
     };
 
