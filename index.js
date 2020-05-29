@@ -137,8 +137,8 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.selectAllByID(id,'client', function (data) {
-      console.log(data);
-      if (data === []) {
+      console.log(data.length, data);
+      if (data.length > 0) {
         agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser({first_name: 'daniel'})));
       } else {
         console.log('No exits');
