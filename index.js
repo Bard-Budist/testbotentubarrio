@@ -41,10 +41,10 @@ let database = {
    * @param {*} ID 
    * @param {*} nameTable 
    */
-  selectAllByID: function(ID, nameTable) {
+  selectAllByID: function(ID, nameTable, callback) {
     db.any('SELECT * FROM client')
       .then(function (data) {
-         return (data);
+         return callback(data);
       })
       .catch(function (err) { 
         console.log("Fail select all id " + err);
@@ -122,7 +122,9 @@ restService.post("/", function(request, response) {
    */
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    console.log(database.selectAllByID("dawdaw","adaw"))
+    database.selectAllByID("dawdaw","adaw", function (data) {
+      console.log(data)
+    })
       
     
       
