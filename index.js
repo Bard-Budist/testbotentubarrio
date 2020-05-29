@@ -122,10 +122,10 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.selectAllByID(id,'client', function (data) {
-      if (!data) {
-        console.log('No exist');
+      if (data === []) {
+        console.log(data);
       } else {
-        console.log(data.name);
+        console.log('No exits');
       }
     })
  
