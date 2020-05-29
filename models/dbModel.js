@@ -41,7 +41,7 @@ class DbModel {
           console.log(`ERROR TO SELECT ${nameTable}`);
         }
         console.log("Devuelvo algo")
-        return callback(result);
+        return Promise.resolve(callback(result));
       });
     });
   }

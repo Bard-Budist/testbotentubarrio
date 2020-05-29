@@ -27,7 +27,7 @@ class User {
     let conexion = new conexionDB();
     conexion.selectAllByID(PSID, "client", function (data) {
       console.log(data);
-      return callback(data);
+      return Promise.resolve(callback(data));
     })
     
   }

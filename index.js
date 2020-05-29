@@ -40,10 +40,9 @@ restService.post("/", function(request, response) {
     newClient.checkUser(id, function(data) {
       Info = data;
       agent.add("eres nuevo " + data);
-      return ( agent );
+      return Promise.resolve( agent );
     })
-    agent.add("eres nuevo " + Info);
-    return ( agent );
+   
       
 
       
