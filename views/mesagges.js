@@ -33,7 +33,7 @@ module.exports = class Messages {
     OrderUser () {
         return template.CardTemplate(
             'Tienda',
-            '',
+            'esto es una prueba',
             imageWelcomeUser,
             [{
                 title: 'Pedido',
