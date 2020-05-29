@@ -32,7 +32,7 @@ module.exports = class Messages {
 
     AddressUser () {
         return template.QuickReplies(
-            text: 'Pick a color:',
+            'Pick a color:',
             [{
                 content_type:"text",
                 title:"Red",
