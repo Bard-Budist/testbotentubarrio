@@ -28,17 +28,16 @@ restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
   let mesagges = new Mesagges();
   
-
   /**
    * 
    * @param {*} agent 
    */
   function newSesion(agent) {
-    var Info;
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let newClient = new Client();
     newClient.checkUser(id, function(data) {
-      Info = data;
+      console.log('newSesion');
+      console.log(data);
       agent.add("eres nuevo " + data);
       return Promise.resolve( agent );
     })
