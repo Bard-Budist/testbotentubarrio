@@ -30,7 +30,7 @@ class DbModel {
    * @param {*} ID 
    * @param {*} nameTable 
    */
-  selectAllByID(ID, nameTable, callback) {
+  selectAllByID(ID, nameTable) {
     console.log('DB');
     this.connection.getConnection(function(err, conn) {
       if (err) {
@@ -42,7 +42,7 @@ class DbModel {
           console.log(`ERROR TO SELECT ${nameTable}`);
         }
         console.log("Devuelvo algo")
-        return Promise.resolve(callback(result));
+        return Promise.resolve(result);
       });
     });
   }
