@@ -136,15 +136,14 @@ restService.post("/", function(request, response) {
 
   async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
-    let dataUser = {};
-    await database.selectAllByID(id,'client', function (data) {
+    let dataUser = {};  
+    database.selectAllByID(id,'client', function (data) {
       console.log(data.length)
       console.log(data);
       console.log(data[0].name.split(' ')[0]);
       if (data.length > 0) {
         dataUser.first_name = data[0].name.split(' ')[0];
-        agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
-        return Promise.resolve( agent );
+        return dataUser
       } else {
         console.log('No exits');
          requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
@@ -156,13 +155,15 @@ restService.post("/", function(request, response) {
           );
           dataUser = body;
           console.log(body);
-          agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
-          return Promise.resolve( agent );
         });
       }
+    }).then(function (data) {
+      console.log(data);
     })
     // Add response with a card and name of user}
    console.log("Final New sesesion")
+   agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
+   return Promise.resolve( agent );
   }
 
   /**
