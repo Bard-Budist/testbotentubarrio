@@ -41,7 +41,7 @@ let database = {
    * @param {*} ID 
    * @param {*} nameTable 
    */
-  selectAllByID: function(ID, nameTable, callback) {
+   selectAllByID: async function(ID, nameTable, callback) {
     db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
       .then(function (data) {
          return callback(data);
