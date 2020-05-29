@@ -162,7 +162,7 @@ restService.post("/", function(request, response) {
       }
     })
     // Add response with a card and name of user}
-   
+   console.log("Final New sesesion")
   }
 
   /**
