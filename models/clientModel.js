@@ -26,11 +26,12 @@ class User {
   checkUser(PSID, callback) {
     let conexion = new conexionDB();
     console.log('checkUser');
-    conexion.selectAllByID(PSID, "client", function (data) {
+    return conexion.selectAllByID(PSID, "client", function (data) {
       console.log('selectAllByID');
       console.log(data);
       return Promise.resolve(callback(data));
     });
+    console.log('primero select');
   }
 
   save() {

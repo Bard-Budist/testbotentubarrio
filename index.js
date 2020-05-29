@@ -37,7 +37,7 @@ restService.post("/", function(request, response) {
     let newClient = new Client();
     newClient.checkUser(id, function(data) {
       console.log('newSesion');
-      console.log(data);
+      console.log('esto es ' + data);
       agent.add("eres nuevo " + data);
       return Promise.resolve( agent );
     })
