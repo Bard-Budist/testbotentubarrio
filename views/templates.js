@@ -41,6 +41,22 @@ module.exports = class Templates {
     return template;
   }
 
+  static QuickReplies(text, list_button) {
+    let template = {
+        text: text,
+        quick_replies: [
+          buttons: []
+        ]
+      }
+    if (list_button != undefined) {
+      console.log('button');
+      for (let button of list_button) {
+        template.attachment.payload.elements[0].buttons.push(button);
+      }
+    }
+    return template;
+  }
+
   static numberTemplate() {
     let template = {
       text: 'Para que nuestro vecino autorizado pueda comunicarce con tigo por favor selecciona tu úmero de celular,\
