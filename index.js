@@ -39,11 +39,15 @@ restService.post("/", function(request, response) {
     let newClient = new Client();
     if (newClient.checkUser(id)) {
 
+
       
     } else {
       return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
         const body = JSON.parse(jsonBody);
         bodyData = body;
+        newClient.id = id;
+        newClient.name = body.name;
+        newClient.save();
         // Add response with a card and name of user}
         return Promise.resolve(body);
       });

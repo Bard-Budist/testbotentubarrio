@@ -16,6 +16,7 @@ class User {
     this.phone = "";
     this.address = "";
     this.email = "";
+    this.conexion = new conexionDB();
   }
 
   /**
@@ -23,14 +24,18 @@ class User {
     * @param {*} PSID 
   */
   checkUser(PSID) {
-    let conexion = new conexionDB();
-    if (conexion.selectAllByID(PSID, "client") == []){
+    
+    if (this.conexion.selectAllByID(PSID, "client") == []){
       return false;
     } else {
       return true;
     }
   }
 
+  save() {
+    let result = this.conexion.insertInTable("client", ["id", "name"], [this.id, this.name]);
+    console.log(result);
+  }
 
 }
 
