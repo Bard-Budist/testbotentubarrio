@@ -51,13 +51,13 @@ module.exports = class Templates {
         subtitle: "My result: Fez",
         default_action:{
           type:"web_url",
-          url: "https://www.originalcoastclothing.com/"
+          url: "https://www.originalcoastclothing.com/",
+          webview_height_ratio: 'tall'
         },
         buttons:[{
           type:"web_url",
           url:"https://www.originalcoastclothing.com/",
           title:"Take the Quiz",
-          webview_height_ratio: 'tall',
           messenger_extensions: true
         }]
       }]

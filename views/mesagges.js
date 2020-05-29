@@ -26,6 +26,7 @@ module.exports = class Messages {
                 title: 'Soporte',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'
             }]);
     };
 
