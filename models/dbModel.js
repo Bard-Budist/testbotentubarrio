@@ -40,6 +40,7 @@ class DbModel {
         if (err) {
           console.log(`ERROR TO SELECT ${nameTable}`);
         }
+        console.log("Devuelvo algo");
         return Promise.resolve (result);
       });
     });

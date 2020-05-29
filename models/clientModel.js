@@ -24,8 +24,9 @@ class User {
     * @param {*} PSID 
   */
   checkUser(PSID) {
-    
-    if (this.conexion.selectAllByID(PSID, "client") == []){
+    let result = this.conexion.selectAllByID(PSID, "client")
+    console.log(result);
+    if (result === []){
       return false;
     } else {
       return true;
