@@ -55,7 +55,7 @@ module.exports = class Templates {
         },
         buttons:[{
           type:"web_url",
-          url:"https://bot.peters-hats.com/hatquiz.php?referer=24601",
+          url:"https://tanfresco.com.co/",
           title:"Take the Quiz",
           webview_height_ratio: 'tall'
         }]
