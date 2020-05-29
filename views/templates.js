@@ -44,14 +44,12 @@ module.exports = class Templates {
   static QuickReplies(text, list_button) {
     let template = {
         text: text,
-        quick_replies: [
-          buttons: []
-        ]
+        quick_replies: []
       }
     if (list_button != undefined) {
       console.log('button');
       for (let button of list_button) {
-        template.attachment.payload.elements[0].buttons.push(button);
+        quick_replies.buttons.push(button);
       }
     }
     return template;
