@@ -55,7 +55,7 @@ module.exports = class Templates {
         },
         buttons:[{
           type:"web_url",
-          url:"https://tanfresco.com.co/",
+          url:"https://www.originalcoastclothing.com/",
           title:"Take the Quiz",
           webview_height_ratio: 'tall'
         }]
