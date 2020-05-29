@@ -51,7 +51,7 @@ module.exports = class Templates {
         subtitle: "My result: Fez",
         default_action:{
           type:"web_url",
-          url: "https://bot.peters-hats.com/view_quiz_results.php?user=24601"
+          url: "https://www.originalcoastclothing.com/"
         },
         buttons:[{
           type:"web_url",
