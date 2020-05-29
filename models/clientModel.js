@@ -16,33 +16,28 @@ class User {
     this.phone = "";
     this.address = "";
     this.email = "";
+    
   }
 
   /**
-    * 
+    *  Funstion to check
     * @param {*} PSID 
   */
-  checkUser(PSID) {
+  checkUser(PSID, callback) {
     let conexion = new conexionDB();
-    conexion.conn().getConnection(function(err, conn) {
-      if (err) {
-        console.log("Error to try to connect DB");
-      }
-      console.log("Connected!");
-      var sql = "SELECT * FROM client WHERE id = " + PSID;
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.log("Error to try select user");
-        }
-        if (result.length > 0) {
-          console.log("Usuario existe");
-          console.log(result);
-        } else {
-          console.log("Usuarion no existe");
-        }
-      });
-    });
+    conexion.selectAllByID(PSID, "client", function (data) {
+      console.log(data);
+      return Promise.resolve(callback(data));
+    })
+    
   }
+
+  save() {
+    let conexion = new conexionDB();
+    let result = conexion.insertInTable("client", ["id", "name"], [this.id, this.name]);
+    console.log(result);
+  }
+
 }
 
 
