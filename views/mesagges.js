@@ -43,7 +43,8 @@ module.exports = class Messages {
                 title: 'Pedido',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'
+                webview_height_ratio: 'tall',
+                messenger_extensions: true
             }]);
     };
 
