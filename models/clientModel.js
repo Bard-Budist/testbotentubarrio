@@ -16,7 +16,7 @@ class User {
     this.phone = "";
     this.address = "";
     this.email = "";
-    this.conexion = new conexionDB();
+    
   }
 
   /**
@@ -24,7 +24,8 @@ class User {
     * @param {*} PSID 
   */
   checkUser(PSID, callback) {
-    this.conexion.selectAllByID(PSID, "client", function (data) {
+    let conexion = new conexionDB();
+    conexion.selectAllByID(PSID, "client", function (data) {
       console.log(data);
       return callback(data);
     })
@@ -32,7 +33,8 @@ class User {
   }
 
   save() {
-    let result = this.conexion.insertInTable("client", ["id", "name"], [this.id, this.name]);
+    let conexion = new conexionDB();
+    let result = conexion.insertInTable("client", ["id", "name"], [this.id, this.name]);
     console.log(result);
   }
 
