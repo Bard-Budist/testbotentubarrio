@@ -30,8 +30,17 @@ module.exports = class Messages {
             }]);
     };
 
-    Buttonprobar () {
-        return template.web();
+    OrderUser () {
+        return template.CardTemplate(
+            'Tienda',
+            '',
+            imageWelcomeUser,
+            [{
+                title: 'Pedido',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'
+            }]);
     };
 
     LocationUser () {
