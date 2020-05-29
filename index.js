@@ -134,10 +134,10 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
 
-  function newSesion(agent) {
+  async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};
-    database.selectAllByID(id,'client', function (data) {
+    await database.selectAllByID(id,'client', function (data) {
       console.log(data.length)
       console.log(data);
       console.log(data[0].name.split(' ')[0]);
