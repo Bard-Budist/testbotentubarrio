@@ -30,11 +30,24 @@ module.exports = class Messages {
             }]);
     };
 
+    AddressUser () {
+        return template.QuickReplies(
+            text: 'Pick a color:',
+            [{
+                content_type:"text",
+                title:"Red",
+                payload:"<POSTBACK_PAYLOAD>",
+                image_url:"http://example.com/img/red.png"
+            },{
+                content_type:"text",
+                title:"Green",
+                payload:"<POSTBACK_PAYLOAD>",
+                image_url:"http://example.com/img/green.png"
+            }]);
+    };
+
     OrderUser () {
         return template.CardTemplate(
-            'Tienda',
-            ' ',
-            imageWelcomeUser,
             [{
                 title: 'Pedido',
                 type: 'web_url',
