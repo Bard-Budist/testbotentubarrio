@@ -34,12 +34,16 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function newSesion(agent) {
+    var Info;
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let newClient = new Client();
     newClient.checkUser(id, function(data) {
+      Info = data;
       agent.add("eres nuevo " + data);
       return ( agent );
     })
+    agent.add("eres nuevo " + Info);
+    return ( agent );
       
 
       
