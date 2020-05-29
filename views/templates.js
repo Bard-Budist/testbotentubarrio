@@ -42,11 +42,27 @@ module.exports = class Templates {
  
   static web() {
     let template = {
-      type: "web_url",
-      title: 'web',
-      url: 'https://www.originalcoastclothing.com/',
-      messenger_extensions: true
-    };
+    type:"template",
+    payload: {
+      template_type:"generic",
+      elements: [{
+        title:"I took Peter's 'Which Hat Are You?' Quiz",
+        image_url: "https://bot.peters-hats.com/img/hats/fez.jpg",
+        subtitle: "My result: Fez",
+        default_action:{
+          type:"web_url",
+          url: "https://www.originalcoastclothing.com/"
+        },
+        buttons:[{
+          type:"web_url",
+          url:"https://www.originalcoastclothing.com/",
+          title:"Take the Quiz",
+          webview_height_ratio: 'tall',
+          messenger_extensions: true
+        }]
+      }]
+    }
+  }
   return template;
 }
 

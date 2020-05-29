@@ -24,8 +24,8 @@ module.exports = class Messages {
                 payload: 'comenzar',
             },{
                 title: 'Soporte',
-                type: 'postback',
-                payload: 'soporte',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
             }]);
     };
 
