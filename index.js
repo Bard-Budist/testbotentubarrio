@@ -200,7 +200,7 @@ restService.post("/", function(request, response) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
       console.log('Ya existia el User')
-      agent.add(new Payload(agent.FACEBOOK, 'Mostrar direcciones existentes'));
+      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
     }
     return Promise.resolve( agent );
   }
