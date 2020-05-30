@@ -251,6 +251,7 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   async function save_address(agent) {
+    let dataUser = {};
     const resdataUser = await processData(id, dataUser);
     const address = request.body.queryResult.queryText;
     databases.updateWhereID(
