@@ -211,7 +211,7 @@ restService.post("/", function(request, response) {
   function save_cityBarrio(agent) {
     let cityBarrio = request.body.queryText;
     console.log('esto es request ' + request.body.originalDetectIntentRequest.payload.data.sender.id);
-    console.log('esto es request ' + request.body.originalDetectIntentRequest.payload);
+    console.log('esto es request ' + request.body.originalDetectIntentRequest.payload.data);
     console.log('esto es cityBarrio ' + cityBarrio);
     agent.add('esto es prubea');
     return Promise.resolve( agent );
