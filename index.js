@@ -192,16 +192,25 @@ restService.post("/", function(request, response) {
   }
 
   /**
-   * @function location
+   * @function cities_barrios response with barrios of each citys
    * @param {*} agent 
    */
-  function location(agent) {
+  function cities_barrios(agent) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
       agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
     }
     return Promise.resolve( agent );
+  }
+
+  /**
+   * @function save_cityBarrio save the information about the city and distrcid of the user
+   * @param {*} agent 
+   */
+  function save_cityBarrio() {
+    let cityBarrio = request.queryText;
+    console.log(cityBarrio);
   }
 
   /**
@@ -216,7 +225,8 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Comenzar', location);
+intentMap.set('Comenzar', cities_barrios);
+intentMap.set('ubicación', save_cityBarrio);
 intentMap.set('pedido', order);
 agent.handleRequest(intentMap);
 });
