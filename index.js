@@ -115,9 +115,6 @@ let operaciones = {
       setTimeout(function() {
         let dbResult = database.selectAllByID(id,'client')
           dbResult.then( function (data) {  
-            console.log(data.length)
-            console.log(data);
-            console.log(data[0].name.split(' ')[0]);
             if (data.length > 0) {
               data.first_name = data[0].name.split(' ')[0];
               text = data
@@ -162,10 +159,12 @@ restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug';
  // enables lib debugging statements
-async function processData (id, text) {
+async function processData (id, text, agent) {
   try {
     const result = await operaciones.checkUser(id, text);
-    console.log(result)
+    console.log(result);
+    
+    agent.add("Buenas " + result);
   } catch (err) {
     return console.log(err.message);
   }
@@ -182,8 +181,8 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    await processData(id, dataUser)
-    agent.add("Test");
+    await processData(id, dataUser, agent)
+    
     return Promise.resolve( agent );
     
   }
