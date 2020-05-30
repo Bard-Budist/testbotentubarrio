@@ -234,11 +234,14 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function save_cityBarrio(agent) {
-    let cityBarrio = request.body.queryText;
-    console.log('esto es request ' + request.headers);
-    console.log(request.body.originalDetectIntentRequest.payload.data);
-    console.log('esto es cityBarrio ' + cityBarrio);
-    agent.add('esto es prubea');
+    let cityBarrio = request.body.queryResult.queryText;
+    database.insertInTable(
+        'cliente'
+        [address],
+        [cityBarrio]
+        );
+    console.log(cityBarrio);
+    agent.add('esto es prueba');
     return Promise.resolve( agent );
   }
 
