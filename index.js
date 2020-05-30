@@ -155,7 +155,6 @@ restService.post("/", function(request, response) {
           console.log('fallo');
         }
       }
-    };
 
     // database.selectAllByID(id,'client', function (data) {
     //   console.log(data.length)
@@ -179,7 +178,6 @@ restService.post("/", function(request, response) {
     // Add response with a card and name of user}
     console.log('luego esto');
     console.log(dataUser);
-    console.log(promise);
     agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
     return Promise.resolve( agent );
   }
