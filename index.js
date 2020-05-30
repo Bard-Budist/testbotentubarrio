@@ -11,7 +11,7 @@ const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
-
+let newUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
 // or database and applications, especially on a network
@@ -127,11 +127,13 @@ let operaciones = {
         let dbResult = database.selectAllByID(id,'client');
         dbResult.then( function (data) {  
           if (data.length > 0) {
+            newUser = false;
             data.first_name = data[0].name.split(' ')[0];
             dataUser = data;
             resolve(dataUser);
             } else {
               console.log('This User not exits');
+              newUser = true;
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
@@ -194,7 +196,12 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function location(agent) {
-    agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
+    if (newUser === false) {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
+    } else {
+      console.log('Ya existia el User')
+      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
+    }
     return Promise.resolve( agent );
   }
 
