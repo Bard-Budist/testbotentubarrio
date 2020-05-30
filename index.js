@@ -173,7 +173,7 @@ let operaciones = {
             }
         });
       if (!dataUser) {
-        reject(new Error('No existe un array'))
+        reject(new Error('Not exist a array'))
       }
     });
     return promise;
@@ -217,16 +217,28 @@ restService.post("/", function(request, response) {
   }
 
   /**
-   * @function location
+   * @function cities_barrios response with barrios of each citys
    * @param {*} agent 
    */
-  function location(agent) {
+  function cities_barrios(agent) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
-      console.log('Ya existia el User')
       agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
     }
+    return Promise.resolve( agent );
+  }
+
+  /**
+   * @function save_cityBarrio save the information about the city and distrcid of the user
+   * @param {*} agent 
+   */
+  function save_cityBarrio(agent) {
+    let cityBarrio = request.body.queryText;
+    console.log('esto es request ' + request.body.originalDetectIntentRequest.payload.data.sender.id);
+    console.log('esto es request ' + request.body.originalDetectIntentRequest.payload.data);
+    console.log('esto es cityBarrio ' + cityBarrio);
+    agent.add('esto es prubea');
     return Promise.resolve( agent );
   }
 
@@ -243,7 +255,8 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Comenzar', location);
+intentMap.set('Comenzar', cities_barrios);
+intentMap.set('ubicacion', save_cityBarrio);
 intentMap.set('pedido', order);
 agent.handleRequest(intentMap);
 });
