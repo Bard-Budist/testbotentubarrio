@@ -239,7 +239,7 @@ restService.post("/", function(request, response) {
     database.updateWhereID(
         id,
         'cliente'
-        [address],
+        ['address'],
         [cityBarrio]
         );
     console.log(cityBarrio);
