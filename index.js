@@ -209,7 +209,8 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function save_cityBarrio(agent) {
-    console.log('esto es cityBarrio ' + agent);
+    let cityBarrio = request.body.queryText;
+    console.log(request);
     agent.add('esto es prubea');
     return Promise.resolve( agent );
   }
