@@ -15,7 +15,7 @@ module.exports = class Templates {
    * @param {buttons[]} buttons List of Buttons in template
    * 
   */
-  static normalTemplate(title, subtitle, image_url, list_button) {
+  static CardTemplate(title, subtitle, image_url, list_button) {
     let template = {
       attachment: {
         type: "template",
@@ -33,6 +33,7 @@ module.exports = class Templates {
       }
     };
     if (list_button != undefined) {
+      console.log('button');
       for (let button of list_button) {
         template.attachment.payload.elements[0].buttons.push(button);
       }
@@ -40,10 +41,25 @@ module.exports = class Templates {
     return template;
   }
 
+  static QuickReplies(text, quickReplies) {
+    let template = {
+        text: text,
+        quick_replies: []
+      }
+     for (let quickReply of quickReplies) {
+        response["quick_replies"].push({
+          content_type: "text",
+          title: quickReply["title"],
+          payload: quickReply["payload"]
+        });
+      }
+    return template;
+  }
 
   static numberTemplate() {
     let template = {
-      text: 'Este es tu número?',
+      text: 'Para que nuestro vecino autorizado pueda comunicarce con tigo por favor selecciona tu úmero de celular,\
+            de lo contrario digitalo',
       quick_replies: [
       {
         content_type:"user_phone_number"
@@ -54,7 +70,7 @@ module.exports = class Templates {
 
   static emailTemplate() {
     let template = {
-      text: 'Este es tu correo?',
+      text: 'Selecciona tu correo de lo contrario digitalo por favor',
       quick_replies: [
       {
         content_type:"user_email"
