@@ -137,20 +137,24 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};
-    const promise = new Promise(function (resolve, reject)
-    {
-      console.log('primero esto');
-      return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
-        const body = JSON.parse(jsonBody);
-          database.insertInTable(
-            'client',
-            ['id', 'name'],
-            [body.id, body.name]
-          );
-          dataUser = body;
-          console.log('esto contiene data user' + dataUser);
-          resolve(dataUser)
-        });
+    async function User() {
+      try {
+        console.log('primero esto');
+        console.log(id);
+        await requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+          const body = JSON.parse(jsonBody);
+            database.insertInTable(
+              'client',
+              ['id', 'name'],
+              [body.id, body.name]
+            );
+            dataUser = body;
+            console.log('esto contiene data user' + dataUser);
+          });
+        } catch {
+          console.log('fallo');
+        }
+      }
     });
 
     // database.selectAllByID(id,'client', function (data) {
