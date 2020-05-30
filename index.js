@@ -148,6 +148,7 @@ restService.post("/", function(request, response) {
             [body.id, body.name]
           );
           dataUser = body;
+          console.log('esto contiene data user' + dataUser);
           resolve(dataUser)
         });
     });
