@@ -8,47 +8,54 @@ const express = require("express");
 const Promise = require('bluebird');
 
 const Mesagges = require('./views/mesagges');
+const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
 const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
 
+// Create instance of express, and parse data in JSON format
+// urlencoded -> acts as a bridge between an operating system
+// or database and applications, especially on a network
+const restService = express();
+restService.use(bodyParser.json());
+restService.use(bodyParser.urlencoded({ extended: false }));
+
+process.env.DEBUG = 'dialogflow:debug';
+// enables lib debugging statements
 
 /**
  *  @description Options with bluebird and permit to manage posgres-promise
- */
+*/
 const options = {
   // Initialization Options
   promiseLib: Promise,
-  error: function (error, e) {
-    if (e.cn) {
+  error: function (error, event) {
+    if (event.cn) {
         // A connection-related error;
-        console.log("CN:", e.cn);
+        console.log("CN:", event.cn);
         console.log("EVENT:", error.message);
     }
   }
 };
-var pgp = require('pg-promise')(options);
 
+const pgp = require('pg-promise')(options);
 const connectionString = 'postgres://bot:root2020@bottest.cclxe6kinott.us-east-1.rds.amazonaws.com:5432/entubarrio';
-var db = pgp(connectionString);
-
+const db = pgp(connectionString);
 
 /**
  * @description All operation with database
  */
 let database = {
   /**
-   * 
-   * @param {*} ID 
-   * @param {*} nameTable 
+   * @param {*} ID of the User
+   * @param {*} nameTable name of table in Data Base
    */
    selectAllByID: function(ID, nameTable) {
     return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`))
   },
 
-
   /**
    *  Select attributes in table with only
-   * @param {String} ID ID
+   * @param {String} ID of the User
    * @param {Sring[]} fields List of attributes the table
    * @param {String} nameTable name of table in Data Base
    */
@@ -68,10 +75,9 @@ let database = {
   },
 
   /**
-   * 
-   * @param {String} nameTable 
-   * @param {String[]} attrs 
-   * @param {String[]} values 
+   * @param {String} nameTable name of table in Data Base
+   * @param {String[]} attrs atributs of one table
+   * @param {String[]} values values of one table
    */
   insertInTable: function(nameTable, attrs, values){
     let stringValues = '('
@@ -105,22 +111,27 @@ let database = {
     
 }
 
-//Import model client
-//const Client = require('./models/clientModel');
-
-
+/**
+ * @operaciones  It contains functions to request the public information of a Fcaebook user and
+ *               to verify if the user exists or not in the database if it is not, your information
+ *               is passed to the database to be stored
+ */
 let operaciones = {
+    /**
+   * @param {String} id id of the User
+   * @param {} text Initial value of this dict is empty, in this part of code
+   *                        we asig the data of a User
+   */
   checkUser : function (id, text) {
     const promise = new Promise(function (resolve, reject) {
-      
-        let dbResult = database.selectAllByID(id,'client')
-          dbResult.then( function (data) {  
-            if (data.length > 0) {
-              data.first_name = data[0].name.split(' ')[0];
-              text = data
-              resolve(text)
+        let dbResult = database.selectAllByID(id,'client');
+        dbResult.then( function (data) {  
+          if (data.length > 0) {
+            data.first_name = data[0].name.split(' ')[0];
+            text = data;
+            resolve(text);
             } else {
-              console.log('No exits');
+              console.log('This User not exits');
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
@@ -129,39 +140,26 @@ let operaciones = {
                   [body.id, body.name]
                 );
                 console.log(body);
-                
-                text = body
-                resolve(text)
-            });
-          }
-          
-        })
+                text = body;
+                resolve(text);
+              });
+            }
+        });
       if (!text) {
         reject(new Error('No existe un array'))
       }
-    })
-    
-    return promise
-
+    });
+    return promise;
   }
-
 }
 
-var mesagges = new Mesagges();
-// Create instance of express, and parse data in JSON format
-// urlencoded -> acts as a bridge between an operating system
-// or database and applications, especially on a network
-const restService = express();
-restService.use(bodyParser.json());
-restService.use(bodyParser.urlencoded({ extended: false }));
-
-process.env.DEBUG = 'dialogflow:debug';
-// enables lib debugging statements
-
-
-
-
-
+/**
+* @function processData This asynchronous function waits for the existence of a user to be
+*              evaluated with its id and return its data and then give WelcomeUser
+* @param {String} id id of the User
+* @param {} text  dict is empty
+* @param agent    
+* */
 async function processData (id, text, agent) {
   try {
     const result = await operaciones.checkUser(id, text);
@@ -172,16 +170,17 @@ async function processData (id, text, agent) {
 }
 
 
-
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
   let mesagges = new Mesagges();
   
   /**
+   * @function newSesion This function gets the id of the User who starts a conversation
+   *            with the bot and wait for the information to be stored or consulted
+   *            of User
    * @param {*} agent 
    */
-
   async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
@@ -190,14 +189,18 @@ restService.post("/", function(request, response) {
   }
 
   /**
-   * 
+   * @function location
    * @param {*} agent 
    */
-  function ubicacion(agent) {
+  function location(agent) {
     agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     return Promise.resolve( agent );
   }
 
+  /**
+   * @function order
+   * @param {*} agent 
+   */
   function order(agent) {
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
@@ -206,7 +209,7 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Comenzar', ubicacion);
+intentMap.set('Comenzar', location);
 intentMap.set('pedido', order);
 agent.handleRequest(intentMap);
 });
