@@ -148,7 +148,7 @@ let operaciones = {
             }
         });
       if (!dataUser) {
-        reject(new Error('No existe un array'))
+        reject(new Error('Not exist a array'))
       }
     });
     return promise;
@@ -199,7 +199,6 @@ restService.post("/", function(request, response) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
-      console.log('Ya existia el User')
       agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
     }
     return Promise.resolve( agent );
