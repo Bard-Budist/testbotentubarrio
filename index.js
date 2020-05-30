@@ -254,7 +254,7 @@ restService.post("/", function(request, response) {
     let dataUser = {};
     const resdataUser = await processData(id, dataUser);
     const address = request.body.queryResult.queryText;
-    databases.updateWhereID(
+    database.updateWhereID(
       id,
       'client',
       ['address'],
