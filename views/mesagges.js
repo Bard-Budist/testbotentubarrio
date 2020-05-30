@@ -32,17 +32,13 @@ module.exports = class Messages {
 
     AddressUser () {
         return template.QuickReplies(
-            'Pick a color:',
+            'A que dirección deseas que llevemos tu pedido:',
             [{
-                content_type:"text",
                 title:"Red",
-                payload:"<POSTBACK_PAYLOAD>",
-                image_url:"http://example.com/img/red.png"
+                payload:"red"
             },{
-                content_type:"text",
                 title:"Green",
-                payload:"<POSTBACK_PAYLOAD>",
-                image_url:"http://example.com/img/green.png"
+                payload:"green"
             }]);
     };
 

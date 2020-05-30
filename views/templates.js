@@ -41,17 +41,18 @@ module.exports = class Templates {
     return template;
   }
 
-  static QuickReplies(text, list_button) {
+  static QuickReplies(text, quickReplies) {
     let template = {
         text: text,
         quick_replies: []
       }
-    if (list_button != undefined) {
-      console.log('button');
-      for (let button of list_button) {
-        quick_replies.buttons.push(button);
+     for (let quickReply of quickReplies) {
+        response["quick_replies"].push({
+          content_type: "text",
+          title: quickReply["title"],
+          payload: quickReply["payload"]
+        });
       }
-    }
     return template;
   }
 
