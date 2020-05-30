@@ -210,8 +210,13 @@ restService.post("/", function(request, response) {
    */
   function save_cityBarrio(agent) {
     let cityBarrio = request.body.queryResult.queryText;
+    database.insertInTable(
+        'cliente'
+        [address],
+        [cityBarrio]
+        );
     console.log(cityBarrio);
-    agent.add('esto es prubea');
+    agent.add('esto es prueba');
     return Promise.resolve( agent );
   }
 
