@@ -41,12 +41,12 @@ module.exports = class Templates {
     return template;
   }
 
-  static QuickRepliesTemplate(text) {
+  static QuickRepliesTemplate(text, content_type) {
     let template = {
       text: text,
       quick_replies: [
       {
-        content_type:"user_phone_number"
+        content_type:content_type
       }]
     }
     return template;
