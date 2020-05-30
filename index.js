@@ -200,6 +200,7 @@ async function processData (id, dataUser) {
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
+  let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   let mesagges = new Mesagges();
   
   /**
@@ -209,7 +210,6 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   async function newSesion(agent) {
-    let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
     const resdataUser = await processData(id, dataUser)
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
@@ -224,7 +224,7 @@ restService.post("/", function(request, response) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
-      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
+      agent.add('ya tienes una dirección guardada');
     }
     return Promise.resolve( agent );
   }
@@ -235,15 +235,64 @@ restService.post("/", function(request, response) {
    */
   function save_cityBarrio(agent) {
     let cityBarrio = request.body.queryResult.queryText;
-    let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.updateWhereID(
         id,
         'client',
         ['address'],
         [cityBarrio]
         );
-    console.log(cityBarrio);
-    agent.add('esto es prueba');
+    agent.add(new Payload(agent.FACEBOOK, mesagges.AddresHouse()));
+    return Promise.resolve( agent );
+  }
+
+   /**
+   * @function save_address save the house address and how to answer ask
+   * by the phone number of the user 
+   * @param {*} agent 
+   */
+  function save_address(agent) {
+    const resdataUser = await processData(id, dataUser);
+    const address = request.body.queryResult.queryText;
+    databases.updateWhereID(
+      id,
+      'client',
+      ['address'],
+      [resdataUser.address + address]
+    );
+    agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    return Promise.resolve( agent );
+  }
+
+  /**
+   * @function save_PhoneNumber save the user's phone number and how
+   *  to answer ask about the user's email
+   * @param {*} agent 
+   */
+  function save_PhoneNumber(agent) {
+    let PhoneNumber = request.body.queryResult.queryText;
+    database.updateWhereID(
+      id,
+      'client',
+      ['phone_number'],
+      [PhoneNumber]
+    );
+    agent.add(new payload(agent.FACEBOOK, mesagges.EmailUser()));
+    return Promise.resolve( agent );
+  }
+
+   /**
+   * @function save_Email save the user email, and response
+   * @param {*} agent 
+   */
+  function save_Email(agent) {
+    let EmailUser = request.body.queryResult.queryText;
+    database.updateWhereID(
+      id,
+      'client',
+      ['email'],
+      [EmailUser]
+    )
+    agent.add('todos los datos guardados');
     return Promise.resolve( agent );
   }
 
@@ -262,6 +311,9 @@ let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', cities_barrios);
 intentMap.set('ubicacion', save_cityBarrio);
+intentMap.set('direccion', save_address);
+intentMap.set('Phone_number', save_PhoneNumber);
+intentMap.set('email', save_Email);
 intentMap.set('pedido', order);
 agent.handleRequest(intentMap);
 });
