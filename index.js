@@ -250,7 +250,7 @@ restService.post("/", function(request, response) {
    * by the phone number of the user 
    * @param {*} agent 
    */
-  function save_address(agent) {
+  async function save_address(agent) {
     const resdataUser = await processData(id, dataUser);
     const address = request.body.queryResult.queryText;
     databases.updateWhereID(
