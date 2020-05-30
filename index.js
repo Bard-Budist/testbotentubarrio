@@ -160,8 +160,16 @@ const restService = express();
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
 
-process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
-
+process.env.DEBUG = 'dialogflow:debug';
+ // enables lib debugging statements
+async function processData (id, text) {
+  try {
+    const result = await operaciones.checkUser(id, text);
+    console.log(result)
+  } catch (err) {
+    return console.log(err.message);
+  }
+}
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
@@ -174,12 +182,7 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    console.log("1")
-    operaciones.checkUser(id, dataUser).then(function () {
-      console.log("2")
-      agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
-    })
-    console.log("3");
+    processData(id, dataUser)
   }
 
   /**
