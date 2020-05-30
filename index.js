@@ -235,7 +235,9 @@ restService.post("/", function(request, response) {
    */
   function save_cityBarrio(agent) {
     let cityBarrio = request.body.queryResult.queryText;
-    database.insertInTable(
+    let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+    database.updateWhereID(
+        id,
         'cliente'
         [address],
         [cityBarrio]
