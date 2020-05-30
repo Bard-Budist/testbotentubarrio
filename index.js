@@ -117,6 +117,9 @@ let operaciones = {
           dbResult.then( function (data) {  
             if (data.length > 0) {
               data.first_name = data[0].name.split(' ')[0];
+
+
+
               text = data
               resolve(text)
             }
@@ -135,10 +138,6 @@ let operaciones = {
           // }
           
         })
-        
-        
-    
-      
       if (!text) {
         reject(new Error('No existe un array'))
       }
@@ -150,6 +149,7 @@ let operaciones = {
 
 }
 
+var mesagges = new Mesagges();
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
 // or database and applications, especially on a network
@@ -158,17 +158,23 @@ restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug';
- // enables lib debugging statements
+// enables lib debugging statements
+
+
+
+
+
 async function processData (id, text, agent) {
   try {
     const result = await operaciones.checkUser(id, text);
-    console.log(result);
-    
-    agent.add("Buenas " + result.first_name);
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(result)));
   } catch (err) {
     return console.log(err.message);
   }
 }
+
+
+
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
