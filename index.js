@@ -186,9 +186,7 @@ restService.post("/", function(request, response) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
     await processData(id, dataUser, agent)
-    
     return Promise.resolve( agent );
-    
   }
 
   /**
