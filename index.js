@@ -162,8 +162,8 @@ let operaciones = {
 * */
 async function processData (id, text, agent) {
   try {
-    await operaciones.checkUser(id, text);
-    
+    const result = await operaciones.checkUser(id, text);
+    return result;
   } catch (err) {
     return console.log(err.message);
   }
@@ -184,7 +184,7 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    const resdataUser =await processData(id, dataUser, agent)
+    const resdataUser = await processData(id, dataUser, agent)
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
