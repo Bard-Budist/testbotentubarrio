@@ -179,10 +179,10 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
 
-  function newSesion(agent) {
+  async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    processData(id, dataUser)
+    await processData(id, dataUser)
   }
 
   /**
