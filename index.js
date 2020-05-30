@@ -112,7 +112,7 @@ let database = {
 let operaciones = {
   checkUser : function (id, text) {
     const promise = new Promise(function (resolve, reject) {
-      setTimeout(function() {
+      
         let dbResult = database.selectAllByID(id,'client')
           dbResult.then( function (data) {  
             if (data.length > 0) {
@@ -137,7 +137,7 @@ let operaciones = {
         })
         
         
-      }, 1000);
+    
       
       if (!text) {
         reject(new Error('No existe un array'))
@@ -178,7 +178,7 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
 
-  async function newSesion(agent) {
+  function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
     await processData(id, dataUser, agent)
