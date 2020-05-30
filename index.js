@@ -208,9 +208,12 @@ restService.post("/", function(request, response) {
    * @function save_cityBarrio save the information about the city and distrcid of the user
    * @param {*} agent 
    */
-  function save_cityBarrio() {
+  function save_cityBarrio(agent) {
     let cityBarrio = request.queryText;
-    console.log(cityBarrio);
+    console.log('esto es request' + request);
+    console.log('esto es cityBarrio' + cityBarrio);
+    agent.add('esto es prubea');
+    return Promise.resolve( agent );
   }
 
   /**
