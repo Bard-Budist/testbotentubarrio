@@ -259,7 +259,7 @@ restService.post("/", function(request, response) {
       id,
       'client',
       ['address'],
-      [resdataUser.address + address]
+      [resdataUser[0].address + address]
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     return Promise.resolve( agent );
