@@ -66,14 +66,15 @@ module.exports = class Messages {
     }
 
     PhoneNumber () {
-        return template.TextTemplate(
-            'Por favor indicanos tu número de Celular'
+        return template.QuickRepliesTemplate(
+            'Por favor indicanos tu número de Celular',
+            'user_phone_number'
         );
     }
 
     EmailUser () {
-        return template.TextTemplate(
-            'Por favor indicanos tu email'
+        return template.QuickRepliesTemplate(
+            'user_email'
         );
     }
 
