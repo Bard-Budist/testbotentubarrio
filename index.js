@@ -238,7 +238,7 @@ restService.post("/", function(request, response) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     database.updateWhereID(
         id,
-        'cliente'
+        'cliente',
         ['address'],
         [cityBarrio]
         );
