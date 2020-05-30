@@ -226,7 +226,7 @@ restService.post("/", function(request, response) {
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
 intentMap.set('Comenzar', cities_barrios);
-intentMap.set('ubicación', save_cityBarrio);
+intentMap.set('ubicacion', save_cityBarrio);
 intentMap.set('pedido', order);
 agent.handleRequest(intentMap);
 });
