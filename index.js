@@ -41,14 +41,8 @@ let database = {
    * @param {*} ID 
    * @param {*} nameTable 
    */
-   selectAllByID: async function(ID, nameTable, callback) {
-    db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`)
-      .then(function (data) {
-         return callback(data);
-      })
-      .catch(function (err) { 
-        console.log("Fail select all id " + err);
-       })
+   selectAllByID: function(ID, nameTable) {
+    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`))
   },
 
 
@@ -115,6 +109,49 @@ let database = {
 //const Client = require('./models/clientModel');
 
 
+let operaciones = {
+  checkUser : function (id, text) {
+    const promise = new Promise(function (resolve, reject) {
+      setTimeout(function() {
+        let dbResult = database.selectAllByID(id,'client')
+          dbResult.then( function (data) {  
+            console.log(data.length)
+            console.log(data);
+            console.log(data[0].name.split(' ')[0]);
+            if (data.length > 0) {
+              dataUser.first_name = data[0].name.split(' ')[0];
+              text = dataUser
+              resolve(text)
+            }
+          //   else {
+          //     console.log('No exits');
+          //     requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+          //       const body = JSON.parse(jsonBody);
+          //       database.insertInTable(
+          //         'client',
+          //         ['id', 'name'],
+          //         [body.id, body.name]
+          //       );
+          //       dataUser = body;
+          //       console.log(body);
+          //   });
+          // }
+          
+        })
+        
+        
+      }, 1000);
+      
+      if (!text) {
+        reject(new Error('No existe un array'))
+      }
+    })
+    
+    return promise
+
+  }
+
+}
 
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
@@ -134,38 +171,16 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
 
-  async function newSesion(agent) {
+  function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    database.selectAllByID(id,'client', function (data) {
-      console.log(data.length)
-      console.log(data);
-      console.log(data[0].name.split(' ')[0]);
-      if (data.length > 0) {
-        dataUser.first_name = data[0].name.split(' ')[0];
-        resolve(dataUser)
-      } else {
-        console.log('No exits');
-         requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
-          const body = JSON.parse(jsonBody);
-          database.insertInTable(
-            'client',
-            ['id', 'name'],
-            [body.id, body.name]
-          );
-          dataUser = body;
-          console.log(body);
-        });
-      }
-    }).then(function (data) {
-      console.log("Then");
-      
-      console.log(data);
+    console.log("1")
+    operaciones.checkUser(id, dataUser).then(function (dataUser) {
+      console.log("2")
+      agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
     })
-    // Add response with a card and name of user}
-   console.log("Final New sesesion")
-   agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
-   return Promise.resolve( agent );
+    console.log("3");
+    
   }
 
   /**
