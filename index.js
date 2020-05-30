@@ -107,8 +107,33 @@ let database = {
     .catch(function (err) {
       console.log(`fail insert to table in ${nameTable} Error: ${err}`);
     })
-  }
+  },
     
+  /**
+   * @description Usage: (ID, tableName, [Column1, Column2], [Value1, Value2])
+   * @param {*} ID  ID of client
+   * @param {*} nameTable Name of table in Data base
+   * @param {*} listColumn list of columns to update
+   * @param {*} listValue  list of values in columns
+   */
+  updateWhereID: function (ID, nameTable, listColumn, listValue){
+    let stringQuery = "";
+    for (let i = 0; i < listColumn.length; i++) {
+      stringQuery += `${listColumn[i]} = '${listValue[i]}'`
+      if (i !== listColumn.length - 1) {
+        stringQuery += ", ";
+      }
+    }
+    console.log(stringQuery);
+    db.none(`UPDATE ${nameTable} SET ${stringQuery} WHERE id = '${ID}'`)
+      .then(function () {
+        console.log("Update is ok");
+      })
+      .catch(function (err) {
+        console.log(`Error to update in ${nameTable} Error= ${err}`);
+        
+      })
+  }
 }
 
 /**
@@ -225,6 +250,7 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function order(agent) {
+    agent.
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
