@@ -118,6 +118,7 @@ let operaciones = {
             if (data.length > 0) {
               data.first_name = data[0].name.split(' ')[0];
               text = data
+              resolve(text)
             } else {
               console.log('No exits');
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
@@ -128,10 +129,12 @@ let operaciones = {
                   [body.id, body.name]
                 );
                 console.log(body);
+                
                 text = body
+                resolve(text)
             });
           }
-          resolve(text)
+          
         })
       if (!text) {
         reject(new Error('No existe un array'))
