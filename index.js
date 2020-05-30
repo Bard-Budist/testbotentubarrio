@@ -164,7 +164,7 @@ async function processData (id, text, agent) {
     const result = await operaciones.checkUser(id, text);
     console.log(result);
     
-    agent.add("Buenas " + result);
+    agent.add("Buenas " + result.first_name);
   } catch (err) {
     return console.log(err.message);
   }
