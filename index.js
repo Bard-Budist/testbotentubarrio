@@ -120,7 +120,7 @@ let operaciones = {
             console.log(data[0].name.split(' ')[0]);
             if (data.length > 0) {
               data.first_name = data[0].name.split(' ')[0];
-              text = dataUser
+              text = data
               resolve(text)
             }
           //   else {
