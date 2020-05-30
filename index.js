@@ -137,28 +137,44 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};
-    const promise = new promise(function (id) {
-      database.selectAllByID(id,'client', function (data) {
-      console.log(data.length)
-      console.log(data);
-      console.log(data[0].name.split(' ')[0]);
-      if (data.length > 0) {
-        dataUser.first_name = data[0].name.split(' ')[0];
-      } else {
-        console.log('No exits');
-        return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
-          const body = JSON.parse(jsonBody);
+    const promise = new Promise(function (resolve, reject)
+    {
+      console.log('primero esto');
+      return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+        const body = JSON.parse(jsonBody);
           database.insertInTable(
             'client',
             ['id', 'name'],
             [body.id, body.name]
           );
           dataUser = body;
+          resolve(dataUser)
         });
-      }
-    })});
+    });
+
+    // database.selectAllByID(id,'client', function (data) {
+    //   console.log(data.length)
+    //   console.log(data);
+    //   console.log(data[0].name.split(' ')[0]);
+    //   if (data.length > 0) {
+    //     dataUser.first_name = data[0].name.split(' ')[0];
+    //   } else {
+    //     console.log('No exits');
+    //     return requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
+    //       const body = JSON.parse(jsonBody);
+    //       database.insertInTable(
+    //         'client',
+    //         ['id', 'name'],
+    //         [body.id, body.name]
+    //       );
+    //       dataUser = body;
+    //     });
+    //   }
+    // });
     // Add response with a card and name of user}
+    console.log('luego esto');
     console.log(dataUser);
+    console.log(promise);
     agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
     return Promise.resolve( agent );
   }
