@@ -253,6 +253,7 @@ restService.post("/", function(request, response) {
   async function save_address(agent) {
     let dataUser = {};
     const resdataUser = await processData(id, dataUser);
+    console.log(resdataUser);
     const address = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
@@ -277,7 +278,7 @@ restService.post("/", function(request, response) {
       ['phone_number'],
       [PhoneNumber]
     );
-    agent.add(new payload(agent.FACEBOOK, mesagges.EmailUser()));
+    agent.add(new Payload(agent.FACEBOOK, mesagges.EmailUser()));
     return Promise.resolve( agent );
   }
 
