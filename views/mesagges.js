@@ -60,11 +60,11 @@ module.exports = class Messages {
             [{
                 title: 'Poblado',
                 type: 'postback',
-                payload: 'poblado',
+                payload: 'Medellín-poblado',
               },{
                 title: 'Ciudad del Rio',
                 type: 'postback',
-                payload: 'ciudad del rio',
+                payload: 'Medellín-ciudad del rio',
               }]),
         template.CardTemplate(
             'Pereira',
@@ -73,11 +73,11 @@ module.exports = class Messages {
             [{
                 title: 'Macarena',
                 type: 'postback',
-                payload: 'macarena',
+                payload: 'Pereira-macarena',
               },{
                 title: 'Castilla',
                 type: 'postback',
-                payload: 'castilla',
+                payload: 'Pereira-castilla',
               }])];
     }
 }
