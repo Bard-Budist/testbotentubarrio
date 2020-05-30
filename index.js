@@ -119,17 +119,17 @@ let database = {
 let operaciones = {
     /**
    * @param {String} id id of the User
-   * @param {} text Initial value of this dict is empty, in this part of code
-   *                        we asig the data of a User
+   * @param {} dataUser Initial value of this dict is empty, in this part of code
+   *                    we asig the data of a User
    */
-  checkUser : function (id, text) {
+  checkUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
         let dbResult = database.selectAllByID(id,'client');
         dbResult.then( function (data) {  
           if (data.length > 0) {
             data.first_name = data[0].name.split(' ')[0];
-            text = data;
-            resolve(text);
+            dataUser = data;
+            resolve(dataUser);
             } else {
               console.log('This User not exits');
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
@@ -140,12 +140,12 @@ let operaciones = {
                   [body.id, body.name]
                 );
                 console.log(body);
-                text = body;
-                resolve(text);
+                dataUser = body;
+                resolve(dataUser);
               });
             }
         });
-      if (!text) {
+      if (!dataUser) {
         reject(new Error('No existe un array'))
       }
     });
@@ -157,12 +157,12 @@ let operaciones = {
 * @function processData This asynchronous function waits for the existence of a user to be
 *              evaluated with its id and return its data and then give WelcomeUser
 * @param {String} id id of the User
-* @param {} text  dict is empty
+* @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, text, agent) {
+async function processData (id, dataUser) {
   try {
-    const result = await operaciones.checkUser(id, text);
+    const result = await operaciones.checkUser(id, dataUser);
     return result;
   } catch (err) {
     return console.log(err.message);
@@ -184,7 +184,7 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
-    const resdataUser = await processData(id, dataUser, agent)
+    const resdataUser = await processData(id, dataUser)
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
