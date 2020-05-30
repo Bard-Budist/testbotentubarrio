@@ -155,7 +155,7 @@ restService.post("/", function(request, response) {
           console.log('fallo');
         }
       }
-    });
+    };
 
     // database.selectAllByID(id,'client', function (data) {
     //   console.log(data.length)
