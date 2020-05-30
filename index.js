@@ -175,12 +175,11 @@ restService.post("/", function(request, response) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
     console.log("1")
-    operaciones.checkUser(id, dataUser).then(function (dataUser) {
+    operaciones.checkUser(id, dataUser).then(function () {
       console.log("2")
       agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
     })
     console.log("3");
-    
   }
 
   /**
