@@ -137,7 +137,8 @@ restService.post("/", function(request, response) {
   function newSesion(agent) {
     let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};
-    const promise = new promise(database.selectAllByID(id,'client', function (data) {
+    const promise = new promise(function (id) {
+      database.selectAllByID(id,'client', function (data) {
       console.log(data.length)
       console.log(data);
       console.log(data[0].name.split(' ')[0]);
@@ -155,7 +156,7 @@ restService.post("/", function(request, response) {
           dataUser = body;
         });
       }
-    }));
+    })});
     // Add response with a card and name of user}
     console.log(dataUser);
     agent.add(new Payload(agent.FACEBOOK,  mesagges.WelcomeUser(dataUser)));
