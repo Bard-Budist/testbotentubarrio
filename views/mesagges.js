@@ -30,28 +30,6 @@ module.exports = class Messages {
             }]);
     };
 
-    AddressUser () {
-        return template.QuickReplies(
-            'A que dirección deseas que llevemos tu pedido:',
-            [{
-                title:"Red",
-                payload:"red"
-            },{
-                title:"Green",
-                payload:"green"
-            }]);
-    };
-
-    OrderUser () {
-        return template.CardTemplate(
-            [{
-                title: 'Pedido',
-                type: 'web_url',
-                url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'
-            }]);
-    };
-
     LocationUser () {
         return [template.CardTemplate(
             'Medellín',
@@ -80,4 +58,50 @@ module.exports = class Messages {
                 payload: 'Pereira-castilla',
               }])];
     }
+
+    AddresHouse () {
+        return template.TextTemplate(
+            'Por favor indicanos la dirección de tu Casa'
+        );
+    }
+
+    PhoneNumber () {
+        return template.TextTemplate(
+            'Por favor indicanos tu número de Celular'
+        );
+    }
+
+    EmailUser () {
+        return template.TextTemplate(
+            'Por favor indicanos tu email'
+        );
+    }
+
+    // AddressUser () {
+    //     return template.QuickReplies(
+    //         'A que dirección deseas que llevemos tu pedido:',
+    //         [{
+    //             title:"Red",
+    //             payload:"red"
+    //         },{
+    //             title:"Green",
+    //             payload:"green"
+    //         }]);
+    // };
+
+    PhoneUser () {
+        return template.QuickReplies(
+            'Por favor indicanos tu número de Celular'
+        )
+    }
+
+    OrderUser () {
+        return template.CardTemplate(
+            [{
+                title: 'Pedido',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'
+            }]);
+    };
 }
