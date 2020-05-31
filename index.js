@@ -50,7 +50,7 @@ let database = {
    * @param {*} nameTable name of table in Data Base
    */
    selectAllByID: function(ID, nameTable) {
-    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`))
+    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`));
   },
 
   /**
@@ -59,19 +59,8 @@ let database = {
    * @param {Sring[]} fields List of attributes the table
    * @param {String} nameTable name of table in Data Base
    */
-  selectAttrByID: function(ID, fields, nameTable) {
-    this.connection.getConnection(function(err, conn) {
-      if (err) {
-        console.log("Error to try to connect DB");
-      }
-      var sql = `SELECT ${fields.toString()} FROM ${nameTable} WHERE id = ${ID.toString()}`;
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.log(`ERROR TO SELECT ATTRIBUTES ${nameTable}`);
-        }
-        return result;
-      });
-    });
+  selectAddressByID: function(ID, nameTable) {
+    return (db.query(`SELECT address FROM ${nameTable} WHERE id = '${ID}'`));
   },
 
   /**
@@ -177,6 +166,20 @@ let operaciones = {
       }
     });
     return promise;
+  },
+
+  addressUser : function (id, dataUser) {
+    const promise = new Promaise(function (resolve, reject) {
+      const dbResult = database.selectAddressByID(id, 'client');
+      dbResult.then(function (data) {
+        dataUser = data[0].address.split('/')[1];
+        resolve(dataUser);
+      });
+      dataUser.catch( function(error) {
+        console.log('Error AddressUser: ' + error)
+      })
+    });
+    return promise;
   }
 }
 
@@ -187,9 +190,16 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser) {
+async function processData (id, dataUser, value) {
   try {
-    const result = await operaciones.checkUser(id, dataUser);
+    switch (value) {
+      case 1:
+        const result = await operaciones.addressUser(id, dataUser);
+        break;
+      default:
+        const result = await operaciones.checkUser(id, dataUser);
+        break;
+    }
     return result;
   } catch (err) {
     return console.log(err.message);
@@ -220,11 +230,12 @@ restService.post("/", function(request, response) {
    * @function cities_barrios response with barrios of each citys
    * @param {*} agent 
    */
-  function cities_barrios(agent) {
+  async function cities_barrios(agent) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
-      agent.add('ya tienes una dirección guardada');
+      const dataAddress = await processData(id, {}, 1);
+      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser(dataAddress)));
     }
     return Promise.resolve( agent );
   }
@@ -259,7 +270,7 @@ restService.post("/", function(request, response) {
       id,
       'client',
       ['address'],
-      [resdataUser[0].address.trim() + address]
+      [resdataUser[0].address.trim() + '/' + address]
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     return Promise.resolve( agent );
