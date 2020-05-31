@@ -314,8 +314,7 @@ restService.post("/", function(request, response) {
    * @function order
    * @param {*} agent 
    */
-  function order(agent) {
-    agent.
+  function fastOrder(agent) {
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
@@ -328,7 +327,7 @@ intentMap.set('ubicacion', save_cityBarrio);
 intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
-intentMap.set('pedido', order);
+intentMap.set('Address', fastOrder);
 agent.handleRequest(intentMap);
 });
 
