@@ -59,20 +59,20 @@ module.exports = class Templates {
     return template;
   }
 
-  // static QuickReplies(text, quickReplies) {
-  //   let template = {
-  //       text: text,
-  //       quick_replies: []
-  //     }
-  //    for (let quickReply of quickReplies) {
-  //       response[quick_replies].push({
-  //         content_type: "text",
-  //         title: quickReply["title"],
-  //         payload: quickReply["payload"]
-  //       });
-  //     }
-  //   return template;
-  // }
+  static QuickReplies(text, quickReplies) {
+    let template = {
+        text: text,
+        quick_replies: []
+      }
+     for (let quickReply of quickReplies) {
+        response[template.quick_replies].push({
+          content_type: 'text',
+          title: quickReply[title],
+          payload: quickReply[payload]
+        });
+      }
+    return template;
+  }
 
   // static emailTemplate() {
   //   let template = {
