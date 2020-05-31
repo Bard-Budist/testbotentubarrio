@@ -175,9 +175,9 @@ let operaciones = {
         dataUser = data[0].address.split('/')[1];
         resolve(dataUser);
       });
-      dataUser.catch( function(error) {
-        console.log('Error AddressUser: ' + error)
-      })
+      // dataUser.catch( function(error) {
+      //   console.log('Error AddressUser: ' + error)
+      // })
     });
     return promise;
   }
