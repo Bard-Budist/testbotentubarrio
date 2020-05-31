@@ -79,17 +79,17 @@ module.exports = class Messages {
         );
     }
 
-    // AddressUser () {
-    //     return template.QuickReplies(
-    //         'A que dirección deseas que llevemos tu pedido:',
-    //         [{
-    //             title:"Red",
-    //             payload:"red"
-    //         },{
-    //             title:"Green",
-    //             payload:"green"
-    //         }]);
-    // };
+    AddressUser (newAddress) {
+        return template.QuickReplies(
+            'A que dirección deseas que llevemos tu pedido:',
+            [{
+                title:address,
+                payload:"newAddress"
+            },{
+                title:"Otra",
+                payload:"otra"
+            }]);
+    };
 
     PhoneUser () {
         return template.QuickReplies(
