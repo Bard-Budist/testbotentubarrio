@@ -169,7 +169,7 @@ let operaciones = {
   },
 
   addressUser : function (id, dataUser) {
-    const promise = new Promaise(function (resolve, reject) {
+    const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAddressByID(id, 'client');
       dbResult.then(function (data) {
         dataUser = data[0].address.split('/')[1];
@@ -192,12 +192,13 @@ let operaciones = {
 * */
 async function processData (id, dataUser, value) {
   try {
+    const result;
     switch (value) {
       case 1:
-        const result = await operaciones.addressUser(id, dataUser);
+        result = await operaciones.addressUser(id, dataUser);
         break;
       default:
-        const result = await operaciones.checkUser(id, dataUser);
+        result = await operaciones.checkUser(id, dataUser);
         break;
     }
     return result;
