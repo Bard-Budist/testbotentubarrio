@@ -5,11 +5,14 @@
 const template = require('./templates');
 
 // Links of images used in the Card
-const imageWelcomeUser = 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI';
+const imageWelcomeUser = 'https://static.iris.net.co/dinero/upload/images/2019/8/22/275964_1.jpg';
 
 //  Links of images used in the Location User
 const imageMedellin = 'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg';
 const imagePereira = 'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg';
+
+// links of image for webview
+const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
 
 module.exports = class Messages {
 
@@ -100,12 +103,13 @@ module.exports = class Messages {
     OrderUser () {
         return template.CardTemplate(
             'Ir a la tienda',
-            '🏡'
+            '🏡',
+            imageWeb,
             [{
-                title: 'Realizar pedido',
+                title: 'Hacer pedido',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'
+                webview_height_ratio: 'tall'                
             }]);
     };
 }
