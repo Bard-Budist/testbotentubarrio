@@ -172,7 +172,7 @@ let operaciones = {
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAddressByID(id, 'client');
       dbResult.then(function (data) {
-        dataUser = data[0].address.split('/')[1];
+        dataUser = data[0].address.split('/')[1].trim();
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
