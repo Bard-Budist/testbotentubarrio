@@ -83,7 +83,7 @@ module.exports = class Messages {
         return template.QuickReplies(
             'A que dirección deseas que llevemos tu pedido:',
             [{
-                title:address,
+                title:newAddress,
                 payload:"newAddress"
             },{
                 title:"Otra",
