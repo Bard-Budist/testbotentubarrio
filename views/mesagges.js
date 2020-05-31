@@ -74,6 +74,7 @@ module.exports = class Messages {
 
     EmailUser () {
         return template.QuickRepliesTemplate(
+            'Por favor indiacanos tu email',
             'user_email'
         );
     }
