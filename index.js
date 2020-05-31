@@ -192,7 +192,7 @@ let operaciones = {
 * */
 async function processData (id, dataUser, value) {
   try {
-    const result;
+    let result;
     switch (value) {
       case 1:
         result = await operaciones.addressUser(id, dataUser);
