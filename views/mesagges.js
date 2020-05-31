@@ -79,15 +79,15 @@ module.exports = class Messages {
         );
     }
 
-    AddressUser (newAddress) {
+    AddressUser (Address) {
         return template.QuickReplies(
             'A que dirección deseas que llevemos tu pedido:',
             [{
-                title:newAddress,
-                payload:"newAddress"
+                title:Address,
+                payload:"Address"
             },{
                 title:"Otra",
-                payload:"otra"
+                payload:"newAddress"
             }]);
     };
 

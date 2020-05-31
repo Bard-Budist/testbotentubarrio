@@ -67,8 +67,8 @@ module.exports = class Templates {
      for (let quickReply of quickReplies) {
         template.quick_replies.push({
           content_type: 'text',
-          title: quickReply[title],
-          payload: quickReply[payload]
+          title: quickReply['title'],
+          payload: quickReply['payload']
         });
       }
     return template;
