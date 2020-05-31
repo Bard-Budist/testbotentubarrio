@@ -99,8 +99,10 @@ module.exports = class Messages {
 
     OrderUser () {
         return template.CardTemplate(
+            'Ir a la tienda',
+            '🏡'
             [{
-                title: 'Pedido',
+                title: 'Realizar pedido',
                 type: 'web_url',
                 url: "https://www.originalcoastclothing.com/",
                 webview_height_ratio: 'tall'
