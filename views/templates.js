@@ -41,41 +41,47 @@ module.exports = class Templates {
     return template;
   }
 
+  static QuickRepliesTemplate(text, content_type) {
+    let template = {
+      text: text,
+      quick_replies: [
+      {
+        content_type:content_type
+      }]
+    }
+    return template;
+  }
+
+  static TextTemplate(text) {
+    let template = {
+      text: text
+    }
+    return template;
+  }
+
   static QuickReplies(text, quickReplies) {
     let template = {
         text: text,
         quick_replies: []
       }
      for (let quickReply of quickReplies) {
-        response["quick_replies"].push({
-          content_type: "text",
-          title: quickReply["title"],
-          payload: quickReply["payload"]
+        template.quick_replies.push({
+          content_type: 'text',
+          title: quickReply['title'],
+          payload: quickReply['payload']
         });
       }
     return template;
   }
 
-  static numberTemplate() {
-    let template = {
-      text: 'Para que nuestro vecino autorizado pueda comunicarce con tigo por favor selecciona tu úmero de celular,\
-            de lo contrario digitalo',
-      quick_replies: [
-      {
-        content_type:"user_phone_number"
-      }]
-    }
-    return template;
-  }
-
-  static emailTemplate() {
-    let template = {
-      text: 'Selecciona tu correo de lo contrario digitalo por favor',
-      quick_replies: [
-      {
-        content_type:"user_email"
-      }]
-    }
-    return template;
-  }
+  // static emailTemplate() {
+  //   let template = {
+  //     text: 'Selecciona tu correo de lo contrario digitalo por favor',
+  //     quick_replies: [
+  //     {
+  //       content_type:"user_email"
+  //     }]
+  //   }
+  //   return template;
+  // }
 }

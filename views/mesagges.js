@@ -5,11 +5,14 @@
 const template = require('./templates');
 
 // Links of images used in the Card
-const imageWelcomeUser = 'https://lh3.googleusercontent.com/proxy/GcA6CqAzJ94Q8GMS9RgKYkys-xXNX93K_JC0b8VuXj7oMcDcztpAX1hOZlZNfyEDQYyi12jwPBRqx1jkSuPtrl9XulREZF13ItQa2tkSWbxwfQBmQjVRqdkVNBz59ydfGWlCI8c_r4yCsgkzr4FyOagndcB1CQAhHglk6Y7nWgm_mtZjexI';
+const imageWelcomeUser = 'https://static.iris.net.co/dinero/upload/images/2019/8/22/275964_1.jpg';
 
 //  Links of images used in the Location User
 const imageMedellin = 'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg';
 const imagePereira = 'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg';
+
+// links of image for webview
+const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
 
 module.exports = class Messages {
 
@@ -30,28 +33,6 @@ module.exports = class Messages {
             }]);
     };
 
-    AddressUser () {
-        return template.QuickReplies(
-            'A que dirección deseas que llevemos tu pedido:',
-            [{
-                title:"Red",
-                payload:"red"
-            },{
-                title:"Green",
-                payload:"green"
-            }]);
-    };
-
-    OrderUser () {
-        return template.CardTemplate(
-            [{
-                title: 'Pedido',
-                type: 'web_url',
-                url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'
-            }]);
-    };
-
     LocationUser () {
         return [template.CardTemplate(
             'Medellín',
@@ -60,11 +41,11 @@ module.exports = class Messages {
             [{
                 title: 'Poblado',
                 type: 'postback',
-                payload: 'poblado',
+                payload: 'Medellín-poblado',
               },{
                 title: 'Ciudad del Rio',
                 type: 'postback',
-                payload: 'ciudad del rio',
+                payload: 'Medellín-ciudad del rio',
               }]),
         template.CardTemplate(
             'Pereira',
@@ -73,11 +54,62 @@ module.exports = class Messages {
             [{
                 title: 'Macarena',
                 type: 'postback',
-                payload: 'macarena',
+                payload: 'Pereira-macarena',
               },{
                 title: 'Castilla',
                 type: 'postback',
-                payload: 'castilla',
+                payload: 'Pereira-castilla',
               }])];
     }
+
+    AddresHouse () {
+        return template.TextTemplate(
+            'Por favor indicanos la dirección de tu Casa'
+        );
+    }
+
+    PhoneNumber () {
+        return template.QuickRepliesTemplate(
+            'Por favor indicanos tu número de Celular',
+            'user_phone_number'
+        );
+    }
+
+    EmailUser () {
+        return template.QuickRepliesTemplate(
+            'Por favor indiacanos tu email',
+            'user_email'
+        );
+    }
+
+    AddressUser (Address) {
+        return template.QuickReplies(
+            'A que dirección deseas que llevemos tu pedido:',
+            [{
+                title:Address,
+                payload:"Address"
+            },{
+                title:"Otra",
+                payload:"newAddress"
+            }]);
+    };
+
+    PhoneUser () {
+        return template.QuickReplies(
+            'Por favor indicanos tu número de Celular'
+        )
+    }
+
+    OrderUser () {
+        return template.CardTemplate(
+            'Ir a la tienda',
+            '🏡',
+            imageWeb,
+            [{
+                title: 'Hacer pedido',
+                type: 'web_url',
+                url: "https://www.originalcoastclothing.com/",
+                webview_height_ratio: 'tall'                
+            }]);
+    };
 }

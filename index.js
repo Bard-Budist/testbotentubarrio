@@ -50,7 +50,7 @@ let database = {
    * @param {*} nameTable name of table in Data Base
    */
    selectAllByID: function(ID, nameTable) {
-    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`))
+    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`));
   },
 
   /**
@@ -59,19 +59,8 @@ let database = {
    * @param {Sring[]} fields List of attributes the table
    * @param {String} nameTable name of table in Data Base
    */
-  selectAttrByID: function(ID, fields, nameTable) {
-    this.connection.getConnection(function(err, conn) {
-      if (err) {
-        console.log("Error to try to connect DB");
-      }
-      var sql = `SELECT ${fields.toString()} FROM ${nameTable} WHERE id = ${ID.toString()}`;
-      conn.query(sql, function (err, result) {
-        if (err) {
-          console.log(`ERROR TO SELECT ATTRIBUTES ${nameTable}`);
-        }
-        return result;
-      });
-    });
+  selectAddressByID: function(ID, nameTable) {
+    return (db.query(`SELECT address FROM ${nameTable} WHERE id = '${ID}'`));
   },
 
   /**
@@ -107,8 +96,33 @@ let database = {
     .catch(function (err) {
       console.log(`fail insert to table in ${nameTable} Error: ${err}`);
     })
-  }
+  },
     
+  /**
+   * @description Usage: (ID, tableName, [Column1, Column2], [Value1, Value2])
+   * @param {*} ID  ID of client
+   * @param {*} nameTable Name of table in Data base
+   * @param {*} listColumn list of columns to update
+   * @param {*} listValue  list of values in columns
+   */
+  updateWhereID: function (ID, nameTable, listColumn, listValue){
+    let stringQuery = "";
+    for (let i = 0; i < listColumn.length; i++) {
+      stringQuery += `${listColumn[i]} = '${listValue[i]}'`
+      if (i !== listColumn.length - 1) {
+        stringQuery += ", ";
+      }
+    }
+    console.log(stringQuery);
+    db.none(`UPDATE ${nameTable} SET ${stringQuery} WHERE id = '${ID}'`)
+      .then(function () {
+        console.log("Update is ok");
+      })
+      .catch(function (err) {
+        console.log(`Error to update in ${nameTable} Error= ${err}`);
+        
+      })
+  }
 }
 
 /**
@@ -152,6 +166,20 @@ let operaciones = {
       }
     });
     return promise;
+  },
+
+  addressUser : function (id, dataUser) {
+    const promise = new Promise(function (resolve, reject) {
+      const dbResult = database.selectAddressByID(id, 'client');
+      dbResult.then(function (data) {
+        dataUser = data[0].address.split('/')[1].trim();
+        resolve(dataUser);
+      });
+      // dataUser.catch( function(error) {
+      //   console.log('Error AddressUser: ' + error)
+      // })
+    });
+    return promise;
   }
 }
 
@@ -162,9 +190,17 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser) {
+async function processData (id, dataUser, value) {
   try {
-    const result = await operaciones.checkUser(id, dataUser);
+    let result;
+    switch (value) {
+      case 1:
+        result = await operaciones.addressUser(id, dataUser);
+        break;
+      default:
+        result = await operaciones.checkUser(id, dataUser);
+        break;
+    }
     return result;
   } catch (err) {
     return console.log(err.message);
@@ -175,6 +211,7 @@ async function processData (id, dataUser) {
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
+  let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   let mesagges = new Mesagges();
   
   /**
@@ -184,7 +221,6 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   async function newSesion(agent) {
-    let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
     let dataUser = {};  
     const resdataUser = await processData(id, dataUser)
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
@@ -192,15 +228,85 @@ restService.post("/", function(request, response) {
   }
 
   /**
-   * @function location
+   * @function cities_barrios response with barrios of each citys
    * @param {*} agent 
    */
-  function location(agent) {
+  async function cities_barrios(agent) {
     if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser()));
     } else {
-      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser()));
+      const dataAddress = await processData(id, {}, 1);
+      agent.add(new Payload(agent.FACEBOOK, mesagges.AddressUser(dataAddress)));
     }
+    return Promise.resolve( agent );
+  }
+
+  /**
+   * @function save_cityBarrio save the information about the city and distrcid of the user
+   * @param {*} agent 
+   */
+  function save_cityBarrio(agent) {
+    let cityBarrio = request.body.queryResult.queryText;
+    database.updateWhereID(
+        id,
+        'client',
+        ['address'],
+        [cityBarrio]
+        );
+    agent.add(new Payload(agent.FACEBOOK, mesagges.AddresHouse()));
+    return Promise.resolve( agent );
+  }
+
+   /**
+   * @function save_address save the house address and how to answer ask
+   * by the phone number of the user 
+   * @param {*} agent 
+   */
+  async function save_address(agent) {
+    let dataUser = {};
+    const resdataUser = await processData(id, dataUser);
+    console.log(resdataUser);
+    const address = request.body.queryResult.queryText;
+    database.updateWhereID(
+      id,
+      'client',
+      ['address'],
+      [resdataUser[0].address.trim() + '/' + address]
+    );
+    agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    return Promise.resolve( agent );
+  }
+
+  /**
+   * @function save_PhoneNumber save the user's phone number and how
+   *  to answer ask about the user's email
+   * @param {*} agent 
+   */
+  function save_PhoneNumber(agent) {
+    let PhoneNumber = request.body.queryResult.queryText;
+    database.updateWhereID(
+      id,
+      'client',
+      ['phone_number'],
+      [PhoneNumber]
+    );
+    agent.add(new Payload(agent.FACEBOOK, mesagges.EmailUser()));
+    return Promise.resolve( agent );
+  }
+
+   /**
+   * @function save_Email save the user email, and response
+   * @param {*} agent 
+   */
+  function save_Email(agent) {
+    let EmailUser = request.body.queryResult.queryText;
+    database.updateWhereID(
+      id,
+      'client',
+      ['email'],
+      [EmailUser]
+    )
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
 
@@ -208,7 +314,7 @@ restService.post("/", function(request, response) {
    * @function order
    * @param {*} agent 
    */
-  function order(agent) {
+  function fastOrder(agent) {
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
@@ -216,8 +322,12 @@ restService.post("/", function(request, response) {
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
-intentMap.set('Comenzar', location);
-intentMap.set('pedido', order);
+intentMap.set('Comenzar', cities_barrios);
+intentMap.set('ubicacion', save_cityBarrio);
+intentMap.set('direccion', save_address);
+intentMap.set('Phone_number', save_PhoneNumber);
+intentMap.set('email', save_Email);
+intentMap.set('Address', fastOrder);
 agent.handleRequest(intentMap);
 });
 
