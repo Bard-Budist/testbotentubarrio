@@ -223,6 +223,7 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let dataUser = {};  
     const resdataUser = await processData(id, dataUser)
+    agent.setContext('Phone_number');
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
