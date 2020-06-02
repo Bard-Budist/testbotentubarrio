@@ -33,6 +33,7 @@ module.exports = class Templates {
       newCard.image_url = card.image_url;
       if (card.buttons != undefined) {
         console.log('button');
+        newCard.buttons = [];
         for (let button of card.buttons) {
           newCard.buttons.push(button);
         }
