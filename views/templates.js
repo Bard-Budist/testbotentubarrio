@@ -31,7 +31,7 @@ module.exports = class Templates {
       newCard.title = card.title;
       newCard.subtitle = card.subtitle;
       newCard.image_url = card.image_url;
-      if (list_button != undefined) {
+      if (card.buttons != undefined) {
         console.log('button');
         for (let button of card.buttons) {
           newCard.buttons.push(button);
