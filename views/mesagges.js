@@ -135,14 +135,17 @@ module.exports = class Messages {
 
     OrderUser () {
         return template.CardTemplate(
-            'Ir a la tienda',
-            '🏡',
-            imageWeb,
             [{
-                title: 'Hacer pedido',
-                type: 'web_url',
-                url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'                
-            }]);
+                title: 'Ir a la tienda',
+                subtitle: '🏡',
+                image_url: imageWeb,
+                buttons: [{
+                    title: 'Hacer pedido',
+                    type: 'web_url',
+                    url: "https://www.originalcoastclothing.com/",
+                    webview_height_ratio: 'tall'                
+                }]
+            }]
+        );
     };
 }
