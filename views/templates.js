@@ -1,9 +1,6 @@
 "use strict";
 /**
  * This file have templates for response in Payload
- * :D
- * 
- * 
  */
 
 module.exports = class Templates {
@@ -41,33 +38,8 @@ module.exports = class Templates {
       template.attachment.payload.elements.push(newCard);
     }
   }
-  return template;
-}
-  // static CardTemplate(title, subtitle, image_url, list_button) {
-  //   let template = {
-  //     attachment: {
-  //       type: "template",
-  //       payload: {
-  //         template_type: "generic",
-  //         elements: [
-  //           {
-  //             title: title,
-  //             subtitle: subtitle,
-  //             image_url: image_url,
-  //             buttons: []
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   };
-  //   if (list_button != undefined) {
-  //     console.log('button');
-  //     for (let button of list_button) {
-  //       template.attachment.payload.elements[0].buttons.push(button);
-  //     }
-  //   }
-  //   return template;
-  // }
+    return template;
+  }
 
   static QuickRepliesTemplate(text, content_type) {
     let template = {
@@ -101,15 +73,4 @@ module.exports = class Templates {
       }
     return template;
   }
-
-  // static emailTemplate() {
-  //   let template = {
-  //     text: 'Selecciona tu correo de lo contrario digitalo por favor',
-  //     quick_replies: [
-  //     {
-  //       content_type:"user_email"
-  //     }]
-  //   }
-  //   return template;
-  // }
 }
