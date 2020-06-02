@@ -18,18 +18,20 @@ module.exports = class Messages {
 
     WelcomeUser (body) {
         return template.CardTemplate(
-            body.first_name + ` Bienvenido`,
-            `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
-            imageWelcomeUser,
             [{
-                title: 'Pedir Orden',
-                type: 'postback',
-                payload: 'comenzar',
-            },{
-                title: 'Soporte',
-                type: 'web_url',
-                url: "https://www.originalcoastclothing.com/",
-                webview_height_ratio: 'tall'
+                title: body.first_name + ` Bienvenido`,
+                subtitle: `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
+                image_url: imageWelcomeUser,
+                buttons: [{
+                    title: 'Pedir Orden',
+                    type: 'postback',
+                    payload: 'comenzar',
+                },{
+                    title: 'Soporte',
+                    type: 'web_url',
+                    url: "https://www.originalcoastclothing.com/",
+                    webview_height_ratio: 'tall'
+                }]
             }]);
     };
 
