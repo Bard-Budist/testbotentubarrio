@@ -34,33 +34,64 @@ module.exports = class Messages {
     };
 
     LocationUser () {
-        return [template.CardTemplate(
-            'Medellín',
-            'Selecciona tu barrio',
-            imageMedellin,
+        return template.CardTemplate(
             [{
-                title: 'Poblado',
-                type: 'postback',
-                payload: 'Medellín-poblado',
-              },{
-                title: 'Ciudad del Rio',
-                type: 'postback',
-                payload: 'Medellín-ciudad del rio',
-              }]),
-        template.CardTemplate(
-            'Pereira',
-            'Selecciona tu barrio',
-            imagePereira,
-            [{
-                title: 'Macarena',
-                type: 'postback',
-                payload: 'Pereira-macarena',
-              },{
-                title: 'Castilla',
-                type: 'postback',
-                payload: 'Pereira-castilla',
-              }])];
+                title: 'Medellín',
+                subtitle: 'Selecciona tu barrio',
+                image_url: imageMedellin,
+                buttons: [{
+                    title: 'Poblado',
+                    type: 'postback',
+                    payload: 'Medellín-poblado',
+                },{
+                    title: 'Ciudad del Rio',
+                    type: 'postback',
+                    payload: 'Medellín-ciudad del rio',
+                }]
+            },{
+                title: 'Pereira',
+                subtitle: 'Selecciona tu barrio',
+                image_url: imagePereira,
+                buttons: [{
+                    title: 'Macarena',
+                    type: 'postback',
+                    payload: 'Pereira-macarena',
+                },{
+                    title: 'Castilla',
+                    type: 'postback',
+                    payload: 'Pereira-castilla',
+                }
+                ]}
+            ]);
     }
+    // LocationUser () {
+    //     return [template.CardTemplate(
+    //         'Medellín',
+    //         'Selecciona tu barrio',
+    //         imageMedellin,
+    //         [{
+    //             title: 'Poblado',
+    //             type: 'postback',
+    //             payload: 'Medellín-poblado',
+    //           },{
+    //             title: 'Ciudad del Rio',
+    //             type: 'postback',
+    //             payload: 'Medellín-ciudad del rio',
+    //           }]),
+    //     template.CardTemplate(
+    //         'Pereira',
+    //         'Selecciona tu barrio',
+    //         imagePereira,
+    //         [{
+    //             title: 'Macarena',
+    //             type: 'postback',
+    //             payload: 'Pereira-macarena',
+    //           },{
+    //             title: 'Castilla',
+    //             type: 'postback',
+    //             payload: 'Pereira-castilla',
+    //           }])];
+    // }
 
     AddresHouse () {
         return template.TextTemplate(
