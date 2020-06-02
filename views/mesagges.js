@@ -65,34 +65,6 @@ module.exports = class Messages {
                 ]}
             ]);
     }
-    // LocationUser () {
-    //     return [template.CardTemplate(
-    //         'Medellín',
-    //         'Selecciona tu barrio',
-    //         imageMedellin,
-    //         [{
-    //             title: 'Poblado',
-    //             type: 'postback',
-    //             payload: 'Medellín-poblado',
-    //           },{
-    //             title: 'Ciudad del Rio',
-    //             type: 'postback',
-    //             payload: 'Medellín-ciudad del rio',
-    //           }]),
-    //     template.CardTemplate(
-    //         'Pereira',
-    //         'Selecciona tu barrio',
-    //         imagePereira,
-    //         [{
-    //             title: 'Macarena',
-    //             type: 'postback',
-    //             payload: 'Pereira-macarena',
-    //           },{
-    //             title: 'Castilla',
-    //             type: 'postback',
-    //             payload: 'Pereira-castilla',
-    //           }])];
-    // }
 
     AddresHouse () {
         return template.TextTemplate(
@@ -125,12 +97,6 @@ module.exports = class Messages {
                 payload:"newAddress"
             }]);
     };
-
-    PhoneUser () {
-        return template.QuickReplies(
-            'Por favor indicanos tu número de Celular'
-        )
-    }
 
     OrderUser () {
         return template.CardTemplate(
