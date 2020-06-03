@@ -246,7 +246,7 @@ restService.post("/", function(request, response) {
     database.updateWhereID(
       id,
       'Client',
-      `{address: "${resdataUser.client.address + '/' + address}"}`
+      `{address: "${resdataUser.address + '/' + address}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     return Promise.resolve( agent );
