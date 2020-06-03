@@ -147,15 +147,15 @@ let operaciones = {
    * @param {} dataUser Initial value of this dict is empty, in this part of code
    *                    we asig the data of a User
    */
-  checkUser : function (id, dataUser) {
+  checkUser : async function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
         let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
         dbResult.then( function (result) {  
           console.log(result);
-          console.log(result.data.data);
+          console.log(result.data.data.client);
           if (!result.data.errors) {
             existUser = true;
-            result.first_name = result.data.data.name.split(' ')[0];
+            result.first_name = result.data.data.client.name.split(' ')[0];
             dataUser = result.data.data;
             resolve(dataUser);
             } else {
@@ -163,7 +163,7 @@ let operaciones = {
               existUser = false;
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
-                database.insertInTable(
+                await database.insertInTable(
                   'Client',
                   `id: "${body.id}", 'name': "${body.name}"`
                 );
