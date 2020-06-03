@@ -149,7 +149,7 @@ let operaciones = {
     const promise = new Promise(function (resolve, reject) {
         let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
         dbResult.then( function (result) {  
-          console.log(result);
+          console.log(result.data);
           console.log(result.data.data.client);
           if (!result.data.errors) {
             existUser = true;
@@ -163,7 +163,7 @@ let operaciones = {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
                   'Client',
-                  `id: "${body.id}", name: "${body.name}"`
+                  `{id: "${body.id}", name: "${body.name}"}`
                 ).then(function (result) {
                   console.log(result.data);
                 });
