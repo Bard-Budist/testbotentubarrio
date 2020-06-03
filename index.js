@@ -100,7 +100,7 @@ let database = {
       method: 'post',
       data: {
         query: `mutation update${nameTable}{
-          update${nameTable}(id: ${ID} input:
+          update${nameTable}(id: "${ID}" input:
             ${attrs}
             )
           {
