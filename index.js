@@ -117,7 +117,7 @@ let operaciones = {
           console.log(result.data.data.client);
           if (!result.data.errors) {
             existUser = true;
-            result.first_name = result.data.data.client.name.split(' ')[0];
+            result.data.data.client.first_name = result.data.data.client.name.split(' ')[0];
             dataUser = result.data.data;
             resolve(dataUser);
             } else {
