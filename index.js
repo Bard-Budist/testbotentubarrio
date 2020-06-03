@@ -118,7 +118,8 @@ let operaciones = {
           if (!result.data.errors) {
             existUser = true;
             result.data.data.client.first_name = result.data.data.client.name.split(' ')[0];
-            dataUser = result.data.data;
+            dataUser = result.data.data.client;
+            console.log(dataUser);
             resolve(dataUser);
             } else {
               console.log('This User not exits');
