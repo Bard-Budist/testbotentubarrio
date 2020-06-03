@@ -145,7 +145,7 @@ let operaciones = {
    * @param {} dataUser Initial value of this dict is empty, in this part of code
    *                    we asig the data of a User
    */
-  checkUser : async function (id, dataUser) {
+  checkUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
         let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
         dbResult.then( function (result) {  
@@ -163,7 +163,7 @@ let operaciones = {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
                   'Client',
-                  `id: "${body.id}", 'name': "${body.name}"`
+                  `id: "${body.id}", name: "${body.name}"`
                 ).then(function (result) {
                   console.log(result.data);
                 });
