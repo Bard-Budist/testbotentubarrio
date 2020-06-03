@@ -64,27 +64,7 @@ let database = {
       }
     })
   },
-
-  /**
-   *  Select attributes in table with only
-   * @param {String} ID of the User
-   * @param {Sring[]} fields List of attributes the table
-   * @param {String} nameTable name of table in Data Base
-   */
-  selectAddressByID: function(ID, nameTable, attrs) {
-    return graphQl({
-      url: url,
-      method: 'post',
-      data: {
-        query: `{
-          ${nameTable}(id: "${ID}") {
-            ${attrs}
-          }
-        }`
-      }
-    })
-  },
-
+  
   /**
    * @param {String} nameTable name of table in Data Base
    * @param {String[]} attrs atributs of one table
@@ -115,22 +95,23 @@ let database = {
    * @param {*} listValue  list of values in columns
    */
   updateWhereID: function (ID, nameTable, listColumn, listValue){
-    let stringQuery = "";
-    for (let i = 0; i < listColumn.length; i++) {
-      stringQuery += `${listColumn[i]} = '${listValue[i]}'`
-      if (i !== listColumn.length - 1) {
-        stringQuery += ", ";
+    return graphQl({
+      url: 'http://177.71.195.136/graphql/',
+      method: 'post',
+      data: {
+        query: `mutation update${nameTable}{
+          update${nameTable}(id: ${ID} input:
+            ${attrs}
+            )
+          {
+            ok,
+          }
+        }`
       }
-    }
-    console.log(stringQuery);
-    db.none(`UPDATE ${nameTable} SET ${stringQuery} WHERE id = '${ID}'`)
-      .then(function () {
-        console.log("Update is ok");
-      })
-      .catch(function (err) {
-        console.log(`Error to update in ${nameTable} Error= ${err}`);
-        
-      })
+    }).then(function (result) {
+      console.log(result.data);
+      
+    })
   }
 }
 
@@ -182,9 +163,9 @@ let operaciones = {
 
   addressUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult = database.selectAddressByID(id, 'client');
-      dbResult.then(function (data) {
-        dataUser = data[0].address.split('/')[1].trim();
+      const dbResult = database.selectAllByID(id, 'client', ["address,"]);
+      dbResult.then(function (result) {
+        dataUser = result.data.data.client.address.split('/')[1].trim();
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
@@ -261,9 +242,8 @@ restService.post("/", function(request, response) {
     let cityBarrio = request.body.queryResult.queryText;
     database.updateWhereID(
         id,
-        'client',
-        ['address'],
-        [cityBarrio]
+        'Client',
+        `{address: "${cityBarrio}"}`
         );
     agent.add(new Payload(agent.FACEBOOK, mesagges.AddresHouse()));
     return Promise.resolve( agent );
@@ -282,8 +262,7 @@ restService.post("/", function(request, response) {
     database.updateWhereID(
       id,
       'client',
-      ['address'],
-      [resdataUser[0].address.trim() + '/' + address]
+      `{address: "${[resdataUser[0].address + '/' + address]}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     return Promise.resolve( agent );
@@ -298,9 +277,8 @@ restService.post("/", function(request, response) {
     let PhoneNumber = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
-      ['phone_number'],
-      [PhoneNumber]
+      'Client',
+      `{phoneNumber: "${PhoneNumber}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.EmailUser()));
     return Promise.resolve( agent );
@@ -314,9 +292,8 @@ restService.post("/", function(request, response) {
     let EmailUser = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
-      ['email'],
-      [EmailUser]
+      'Client',
+      `{email: "${EmailUser}"}`
     )
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
