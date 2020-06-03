@@ -23,24 +23,7 @@ restService.use(bodyParser.urlencoded({ extended: false }));
 process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
-/**
- *  @description Options with bluebird and permit to manage posgres-promise
-*/
-const options = {
-  // Initialization Options
-  promiseLib: Promise,
-  error: function (error, event) {
-    if (event.cn) {
-        // A connection-related error;
-        console.log("CN:", event.cn);
-        console.log("EVENT:", error.message);
-    }
-  }
-};
 
-const pgp = require('pg-promise')(options);
-const connectionString = 'postgres://bot:root2020@bottest.cclxe6kinott.us-east-1.rds.amazonaws.com:5432/entubarrio';
-const db = pgp(connectionString);
 const url = 'http://177.71.195.136/graphql/';
 /**
  * @description All operation with database
