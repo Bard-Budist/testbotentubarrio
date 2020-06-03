@@ -107,7 +107,7 @@ module.exports = class Messages {
                 buttons: [{
                     title: 'Hacer pedido',
                     type: 'web_url',
-                    url: "https://www.originalcoastclothing.com/",
+                    url: "https://entubarrio.co/crear_pedido/",
                     webview_height_ratio: 'tall'                
                 }]
             }]
