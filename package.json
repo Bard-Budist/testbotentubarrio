@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "actions-on-google": "^2.12.0",
+    "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "dialogflow-fulfillment": "^0.6.1",

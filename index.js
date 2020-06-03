@@ -1,5 +1,6 @@
 'use strict';
 
+const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
@@ -40,7 +41,7 @@ const options = {
 const pgp = require('pg-promise')(options);
 const connectionString = 'postgres://bot:root2020@bottest.cclxe6kinott.us-east-1.rds.amazonaws.com:5432/entubarrio';
 const db = pgp(connectionString);
-
+const url = 'http://177.71.195.136/graphql/';
 /**
  * @description All operation with database
  */
@@ -48,9 +49,20 @@ let database = {
   /**
    * @param {*} ID of the User
    * @param {*} nameTable name of table in Data Base
+   * @param {*} attrs List of attributes
    */
-   selectAllByID: function(ID, nameTable) {
-    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`));
+  selectAllByID: function(ID, nameTable, attrs) {
+    return graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `{
+          ${nameTable}(id: "${ID}") {
+            ${attrs}
+          }
+        }`
+      }
+    })
   },
 
   /**
@@ -59,8 +71,18 @@ let database = {
    * @param {Sring[]} fields List of attributes the table
    * @param {String} nameTable name of table in Data Base
    */
-  selectAddressByID: function(ID, nameTable) {
-    return (db.query(`SELECT address FROM ${nameTable} WHERE id = '${ID}'`));
+  selectAddressByID: function(ID, nameTable, attrs) {
+    return graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `{
+          ${nameTable}(id: "${ID}") {
+            ${attrs}
+          }
+        }`
+      }
+    })
   },
 
   /**
@@ -68,33 +90,22 @@ let database = {
    * @param {String[]} attrs atributs of one table
    * @param {String[]} values values of one table
    */
-  insertInTable: function(nameTable, attrs, values){
-    let stringValues = '('
-    for (let i = 0; i < values.length; i++) {
-      stringValues +=  "'" + values[i].toString() + "'" ;
-      if (i !== values.length -1) {
-        stringValues += ",";
+  insertInTable: function(nameTable, attrs){
+    graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `mutation create${nameTable}{
+          create${nameTable}(input:
+            ${attrs}
+            )
+          {
+            ok,
+          }
+        }`
       }
-    }
-    stringValues += ')';
-
-    let stringAttr = '('
-    for (let i = 0; i < attrs.length; i++) {
-      stringAttr +=  attrs[i] ;
-      if (i !== attrs.length -1) {
-        stringAttr += ",";
-      }
-    }
-    stringAttr += ')';
-
-    console.log(stringAttr);
-    
-    db.none(`INSERT INTO ${nameTable}${stringAttr} VALUES ${stringValues}`)
-    .then(function () {
-      console.log(`Insert in table ${nameTable} is ok`);
-    })
-    .catch(function (err) {
-      console.log(`fail insert to table in ${nameTable} Error: ${err}`);
+    }).then(function(data) {
+      console.log(data);
     })
   },
     
@@ -138,12 +149,13 @@ let operaciones = {
    */
   checkUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-        let dbResult = database.selectAllByID(id,'client');
-        dbResult.then( function (data) {  
-          if (data.length > 0) {
+        let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
+        dbResult.then( function (result) {  
+          console.log(result);
+          if (result.data.data) {
             existUser = true;
-            data.first_name = data[0].name.split(' ')[0];
-            dataUser = data;
+            result.first_name = result.data.data.name.split(' ')[0];
+            dataUser = result.data.data;
             resolve(dataUser);
             } else {
               console.log('This User not exits');
@@ -151,9 +163,8 @@ let operaciones = {
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
-                  'client',
-                  ['id', 'name'],
-                  [body.id, body.name]
+                  'Client',
+                  `id: "${body.id}", 'name': "${body.name}"`
                 );
                 console.log(body);
                 dataUser = body;
@@ -223,7 +234,6 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let dataUser = {};  
     const resdataUser = await processData(id, dataUser)
-    agent.setContext('Phone_number');
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
