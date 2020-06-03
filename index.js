@@ -91,7 +91,7 @@ let database = {
    * @param {String[]} values values of one table
    */
   insertInTable: function(nameTable, attrs){
-    graphQl({
+    return graphQl({
       url: url,
       method: 'post',
       data: {
@@ -104,8 +104,6 @@ let database = {
           }
         }`
       }
-    }).then(function(data) {
-      console.log(data);
     })
   },
     
@@ -163,10 +161,12 @@ let operaciones = {
               existUser = false;
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
-                await database.insertInTable(
+                database.insertInTable(
                   'Client',
                   `id: "${body.id}", 'name': "${body.name}"`
-                );
+                ).then(function (result) {
+                  console.log(result.data);
+                });
                 console.log(body);
                 dataUser = body;
                 resolve(dataUser);
