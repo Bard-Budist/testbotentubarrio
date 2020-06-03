@@ -108,7 +108,7 @@ module.exports = class Messages {
                     title: 'Hacer pedido',
                     type: 'web_url',
                     url: "https://entubarrio.co/crear_pedido/",
-                    webview_height_ratio: 'tall'                
+                    webview_height_ratio: 'full'                
                 }]
             }]
         );
