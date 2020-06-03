@@ -261,7 +261,7 @@ restService.post("/", function(request, response) {
     const address = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
+      'Client',
       `{address: "${resdataUser.client.address + '/' + address}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
