@@ -152,7 +152,8 @@ let operaciones = {
         let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
         dbResult.then( function (result) {  
           console.log(result);
-          if (result.data.data) {
+          console.log(result.data.data);
+          if (!result.data.errors) {
             existUser = true;
             result.first_name = result.data.data.name.split(' ')[0];
             dataUser = result.data.data;
