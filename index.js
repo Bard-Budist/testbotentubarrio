@@ -94,7 +94,7 @@ let database = {
    * @param {*} listColumn list of columns to update
    * @param {*} listValue  list of values in columns
    */
-  updateWhereID: function (ID, nameTable, listColumn, listValue){
+  updateWhereID: function (ID, nameTable, attrs){
     return graphQl({
       url: 'http://177.71.195.136/graphql/',
       method: 'post',
