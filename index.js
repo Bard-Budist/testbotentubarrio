@@ -188,6 +188,7 @@ async function processData (id, dataUser, value, name) {
         break;
       case 2:
         result = await operaciones.getGender(name, dataUser)
+        break;
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
