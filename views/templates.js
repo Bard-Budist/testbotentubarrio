@@ -1,9 +1,6 @@
 "use strict";
 /**
  * This file have templates for response in Payload
- * :D
- * 
- * 
  */
 
 module.exports = class Templates {
@@ -15,29 +12,32 @@ module.exports = class Templates {
    * @param {buttons[]} buttons List of Buttons in template
    * 
   */
-  static CardTemplate(title, subtitle, image_url, list_button) {
-    let template = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [
-            {
-              title: title,
-              subtitle: subtitle,
-              image_url: image_url,
-              buttons: []
-            }
-          ]
-        }
-      }
-    };
-    if (list_button != undefined) {
-      console.log('button');
-      for (let button of list_button) {
-        template.attachment.payload.elements[0].buttons.push(button);
+ static CardTemplate(list_cards) {
+  let template = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "generic",
+        elements: []
       }
     }
+  };
+  if (list_cards !=  undefined) {
+    for (let card of list_cards) {
+      let newCard = {};
+      newCard.title = card.title;
+      newCard.subtitle = card.subtitle;
+      newCard.image_url = card.image_url;
+      if (card.buttons != undefined) {
+        console.log('button');
+        newCard.buttons = [];
+        for (let button of card.buttons) {
+          newCard.buttons.push(button);
+        }
+      }
+      template.attachment.payload.elements.push(newCard);
+    }
+  }
     return template;
   }
 
@@ -73,15 +73,4 @@ module.exports = class Templates {
       }
     return template;
   }
-
-  // static emailTemplate() {
-  //   let template = {
-  //     text: 'Selecciona tu correo de lo contrario digitalo por favor',
-  //     quick_replies: [
-  //     {
-  //       content_type:"user_email"
-  //     }]
-  //   }
-  //   return template;
-  // }
 }
