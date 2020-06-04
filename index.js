@@ -25,6 +25,7 @@ process.env.DEBUG = 'dialogflow:debug';
 
 
 const url = 'http://177.71.195.136/graphql/';
+const API_GENDER = "5ed861fc756fae13585e34e2"
 /**
  * @description All operation with database
  */
