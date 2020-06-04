@@ -113,7 +113,7 @@ let operaciones = {
   checkUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
         let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
-        dbResult.then( function (result) {  
+        dbResult.then( function (result) {
           console.log(result.data);
           console.log(result.data.data.client);
           if (!result.data.errors) {
@@ -160,15 +160,9 @@ let operaciones = {
     return promise;
   },
 
-  getGender : function (name, dataUser) {
-    const promise = new Promise(function (resolve, reject) {
-      requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
-        .then(Body => {
-          dataUser = Body;
-          resolve(dataUser);
-        })
-    })
-    return promise;
+  getGender : async function (name, dataUser) {
+    const genderResponse = await requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
+    return genderResponse;
   }
 }
 
