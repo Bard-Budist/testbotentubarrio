@@ -215,9 +215,9 @@ restService.post("/", function(request, response) {
     let dataUser = {};
     let genderResult = {};
     const resdataUser = await processData(id, dataUser)
-    const restdataGeder = await processData(id, genderResult, 2, resdataUser.name)
-    console.log(restdataGeder);  
-    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGeder)));
+    const restdataGender = await processData(id, genderResult, 2, resdataUser.name)
+    console.log(restdataGender);  
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
     return Promise.resolve( agent );
   }
 

@@ -18,6 +18,8 @@ module.exports = class Messages {
 
     WelcomeUser (body, genderData) {
         let dinamycGreet = "";
+        console.log("Esto es el gender");
+        console.log(genderData);
         if (genderData.gender === "male") {
             dinamycGreet = " Bienvenido";
         } else {
