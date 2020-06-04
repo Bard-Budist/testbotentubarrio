@@ -16,10 +16,16 @@ const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
 
 module.exports = class Messages {
 
-    WelcomeUser (body) {
+    WelcomeUser (body, genderData) {
+        let dinamycGreet = "";
+        if (genderData.gender === "male") {
+            dinamycGreet = " Bienvenido";
+        } else {
+            dinamycGreet = " Bienvenida";
+        }
         return template.CardTemplate(
             [{
-                title: body.first_name + ` Bienvenido`,
+                title: body.first_name + dinamycGreet,
                 subtitle: `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
                 image_url: imageWelcomeUser,
                 buttons: [{
