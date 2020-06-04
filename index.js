@@ -179,13 +179,15 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser, value) {
+async function processData (id, dataUser, value, name) {
   try {
     let result;
     switch (value) {
       case 1:
         result = await operaciones.addressUser(id, dataUser);
         break;
+      case 2:
+        result = await operaciones.getGender(name, dataUser)
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
@@ -213,9 +215,9 @@ restService.post("/", function(request, response) {
     let dataUser = {};
     let genderResult = {};
     const resdataUser = await processData(id, dataUser)
-    const restdataGeder = await operaciones.getGender(resdataUser.name, genderResult)
+    const restdataGeder = await processData(id, genderResult, 2, resdataUser.name)
     console.log(restdataGeder);  
-    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGeder)));
     return Promise.resolve( agent );
   }
 
