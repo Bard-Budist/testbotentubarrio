@@ -79,7 +79,7 @@ let database = {
    */
   updateWhereID: function (ID, nameTable, attrs){
     return graphQl({
-      url: 'http://177.71.195.136/graphql/',
+      url: url,
       method: 'post',
       data: {
         query: `mutation update${nameTable}{
@@ -157,6 +157,17 @@ let operaciones = {
       // })
     });
     return promise;
+  },
+
+  getGender : function (name, dataUser) {
+    const promise = new Promise(function (resolve, reject) {
+      requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
+        .then(Body => {
+          dataUser = Body;
+          resolve(dataUser);
+        })
+    })
+    return promise;
   }
 }
 
@@ -198,8 +209,11 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   async function newSesion(agent) {
-    let dataUser = {};  
+    let dataUser = {};
+    let genderResult = {};
     const resdataUser = await processData(id, dataUser)
+    const restdataGeder = await operaciones.getGender(resdataUser.name, genderResult)
+    console.log(restdataGeder);  
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
