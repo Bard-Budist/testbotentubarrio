@@ -105,17 +105,17 @@ module.exports = class Messages {
             }]);
     };
 
-    OrderUser () {
+    OrderUser (id) {
         return template.CardTemplate(
             [{
                 title: 'Ir a la tienda',
-                subtitle: '🏡',
+                subtitle: '🏡 id' + id,
                 image_url: imageWeb,
                 buttons: [{
                     title: 'Hacer pedido',
                     type: 'web_url',
-                    url: "https://entubarrio.co/crear_pedido/",
-                    webview_height_ratio: 'tall'                
+                    url: "https://entubarrio.co/crear_pedido/" + id,
+                    webview_height_ratio: 'full'                
                 }]
             }]
         );

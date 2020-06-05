@@ -133,7 +133,7 @@ let operaciones = {
                 ).then(function (result) {
                   console.log(result.data);
                 });
-                console.log(body);
+                console.log('este es el body:', body);
                 dataUser = body;
                 resolve(dataUser);
               });
@@ -181,7 +181,7 @@ async function processData (id, dataUser, value, name) {
         result = await operaciones.addressUser(id, dataUser);
         break;
       case 2:
-        result = await operaciones.getGender(name, dataUser)
+        result = await operaciones.getGender(name, dataUser);
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
@@ -198,6 +198,8 @@ async function processData (id, dataUser, value, name) {
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+  console.log(request.body.originalDetectIntentRequest.payload.data.sender);
+  console.log('este es el ID :', id);
   let mesagges = new Mesagges();
   
   /**
@@ -209,8 +211,10 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let dataUser = {};
     let genderResult = {};
-    const resdataUser = await processData(id, dataUser)
-    const restdataGender = await processData(id, genderResult, 2, resdataUser.name) 
+    const resdataUser = await processData(id, dataUser);
+    const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
+    console.log('resdataUser --->', resdataUser);
+    console.log('resdataGender --->', JSON.parse(restdataGender));
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
     return Promise.resolve( agent );
   }
@@ -298,8 +302,8 @@ restService.post("/", function(request, response) {
    * @function order
    * @param {*} agent 
    */
-  function fastOrder(agent) {
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+  function fastOrder(agent, id) {
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser(id)));
     return Promise.resolve( agent );
   }
 
