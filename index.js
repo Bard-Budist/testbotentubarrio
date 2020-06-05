@@ -181,7 +181,7 @@ async function processData (id, dataUser, value, name) {
         result = await operaciones.addressUser(id, dataUser);
         break;
       case 2:
-        result = await operaciones.getGender(name, dataUser)
+        result = await operaciones.getGender(name, dataUser);
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
@@ -211,8 +211,10 @@ restService.post("/", function(request, response) {
   async function newSesion(agent) {
     let dataUser = {};
     let genderResult = {};
-    const resdataUser = await processData(id, dataUser)
-    const restdataGender = await processData(id, genderResult, 2, resdataUser.name) 
+    const resdataUser = await processData(id, dataUser);
+    const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
+    console.log('resdataUser --->', resdataUser);
+    console.log('resdataGender --->', JSON.parse(restdataGender));
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
     return Promise.resolve( agent );
   }
