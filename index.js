@@ -1,5 +1,6 @@
 'use strict';
 
+const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
@@ -10,7 +11,7 @@ const Promise = require('bluebird');
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
-const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
+const URLTOKEN = "EAALirSQUH18BACZB2yhsDNrTh8UZCWSdS5CdCYz6sZCfvDhCHeu6uc00tXkDNiqxVcsXiZA3zVr5X6gZB20k6pSU8LM6gyHQ2M0BmFWKtOV4kZByUnS3oMxmoj5IXp7KRHxeHE7mnY6ZBwLkQNWwSz2UZBKl0O37WIrG5ZAHf3p3IB7J595Qf7UwP"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
@@ -22,25 +23,9 @@ restService.use(bodyParser.urlencoded({ extended: false }));
 process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
-/**
- *  @description Options with bluebird and permit to manage posgres-promise
-*/
-const options = {
-  // Initialization Options
-  promiseLib: Promise,
-  error: function (error, event) {
-    if (event.cn) {
-        // A connection-related error;
-        console.log("CN:", event.cn);
-        console.log("EVENT:", error.message);
-    }
-  }
-};
 
-const pgp = require('pg-promise')(options);
-const connectionString = 'postgres://bot:root2020@bottest.cclxe6kinott.us-east-1.rds.amazonaws.com:5432/entubarrio';
-const db = pgp(connectionString);
-
+const url = 'https://api.entubarrio.co/graphql/';
+const API_GENDER = "5ed861fc756fae13585e34e2"
 /**
  * @description All operation with database
  */
@@ -48,53 +33,41 @@ let database = {
   /**
    * @param {*} ID of the User
    * @param {*} nameTable name of table in Data Base
+   * @param {*} attrs List of attributes
    */
-   selectAllByID: function(ID, nameTable) {
-    return (db.query(`SELECT * FROM ${nameTable} WHERE id = '${ID}'`));
+  selectAllByID: function(ID, nameTable, attrs) {
+    return graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `{
+          ${nameTable}(id: "${ID}") {
+            ${attrs}
+          }
+        }`
+      }
+    })
   },
-
-  /**
-   *  Select attributes in table with only
-   * @param {String} ID of the User
-   * @param {Sring[]} fields List of attributes the table
-   * @param {String} nameTable name of table in Data Base
-   */
-  selectAddressByID: function(ID, nameTable) {
-    return (db.query(`SELECT address FROM ${nameTable} WHERE id = '${ID}'`));
-  },
-
+  
   /**
    * @param {String} nameTable name of table in Data Base
    * @param {String[]} attrs atributs of one table
    * @param {String[]} values values of one table
    */
-  insertInTable: function(nameTable, attrs, values){
-    let stringValues = '('
-    for (let i = 0; i < values.length; i++) {
-      stringValues +=  "'" + values[i].toString() + "'" ;
-      if (i !== values.length -1) {
-        stringValues += ",";
+  insertInTable: function(nameTable, attrs){
+    return graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `mutation create${nameTable}{
+          create${nameTable}(input:
+            ${attrs}
+            )
+          {
+            ok,
+          }
+        }`
       }
-    }
-    stringValues += ')';
-
-    let stringAttr = '('
-    for (let i = 0; i < attrs.length; i++) {
-      stringAttr +=  attrs[i] ;
-      if (i !== attrs.length -1) {
-        stringAttr += ",";
-      }
-    }
-    stringAttr += ')';
-
-    console.log(stringAttr);
-    
-    db.none(`INSERT INTO ${nameTable}${stringAttr} VALUES ${stringValues}`)
-    .then(function () {
-      console.log(`Insert in table ${nameTable} is ok`);
-    })
-    .catch(function (err) {
-      console.log(`fail insert to table in ${nameTable} Error: ${err}`);
     })
   },
     
@@ -105,23 +78,24 @@ let database = {
    * @param {*} listColumn list of columns to update
    * @param {*} listValue  list of values in columns
    */
-  updateWhereID: function (ID, nameTable, listColumn, listValue){
-    let stringQuery = "";
-    for (let i = 0; i < listColumn.length; i++) {
-      stringQuery += `${listColumn[i]} = '${listValue[i]}'`
-      if (i !== listColumn.length - 1) {
-        stringQuery += ", ";
+  updateWhereID: function (ID, nameTable, attrs){
+    return graphQl({
+      url: url,
+      method: 'post',
+      data: {
+        query: `mutation update${nameTable}{
+          update${nameTable}(id: "${ID}" input:
+            ${attrs}
+            )
+          {
+            ok,
+          }
+        }`
       }
-    }
-    console.log(stringQuery);
-    db.none(`UPDATE ${nameTable} SET ${stringQuery} WHERE id = '${ID}'`)
-      .then(function () {
-        console.log("Update is ok");
-      })
-      .catch(function (err) {
-        console.log(`Error to update in ${nameTable} Error= ${err}`);
-        
-      })
+    }).then(function (result) {
+      console.log(result.data);
+      
+    })
   }
 }
 
@@ -138,12 +112,15 @@ let operaciones = {
    */
   checkUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-        let dbResult = database.selectAllByID(id,'client');
-        dbResult.then( function (data) {  
-          if (data.length > 0) {
+        let dbResult = database.selectAllByID(id,'client', ["name,", "address,"]);
+        dbResult.then( function (result) {
+          console.log(result.data);
+          console.log(result.data.data.client);
+          if (!result.data.errors) {
             existUser = true;
-            data.first_name = data[0].name.split(' ')[0];
-            dataUser = data;
+            result.data.data.client.first_name = result.data.data.client.name.split(' ')[0];
+            dataUser = result.data.data.client;
+            console.log(dataUser);
             resolve(dataUser);
             } else {
               console.log('This User not exits');
@@ -151,10 +128,11 @@ let operaciones = {
               requesthttp.get("https://graph.facebook.com/" + id + "?fields=name,first_name&access_token=" + URLTOKEN).then(jsonBody => {
                 const body = JSON.parse(jsonBody);
                 database.insertInTable(
-                  'client',
-                  ['id', 'name'],
-                  [body.id, body.name]
-                );
+                  'Client',
+                  `{id: "${body.id}", name: "${body.name}"}`
+                ).then(function (result) {
+                  console.log(result.data);
+                });
                 console.log(body);
                 dataUser = body;
                 resolve(dataUser);
@@ -170,9 +148,9 @@ let operaciones = {
 
   addressUser : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult = database.selectAddressByID(id, 'client');
-      dbResult.then(function (data) {
-        dataUser = data[0].address.split('/')[1].trim();
+      const dbResult = database.selectAllByID(id, 'client', ["address,"]);
+      dbResult.then(function (result) {
+        dataUser = result.data.data.client.address.split('/')[1].trim();
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
@@ -180,6 +158,11 @@ let operaciones = {
       // })
     });
     return promise;
+  },
+
+  getGender : async function (name, dataUser) {
+    const genderResponse = await requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
+    return genderResponse;
   }
 }
 
@@ -190,12 +173,15 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser, value) {
+async function processData (id, dataUser, value, name) {
   try {
     let result;
     switch (value) {
       case 1:
         result = await operaciones.addressUser(id, dataUser);
+        break;
+      case 2:
+        result = await operaciones.getGender(name, dataUser)
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
@@ -221,9 +207,11 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   async function newSesion(agent) {
-    let dataUser = {};  
+    let dataUser = {};
+    let genderResult = {};
     const resdataUser = await processData(id, dataUser)
-    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
+    const restdataGender = await processData(id, genderResult, 2, resdataUser.name) 
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
     return Promise.resolve( agent );
   }
 
@@ -249,9 +237,8 @@ restService.post("/", function(request, response) {
     let cityBarrio = request.body.queryResult.queryText;
     database.updateWhereID(
         id,
-        'client',
-        ['address'],
-        [cityBarrio]
+        'Client',
+        `{address: "${cityBarrio}"}`
         );
     agent.add(new Payload(agent.FACEBOOK, mesagges.AddresHouse()));
     return Promise.resolve( agent );
@@ -269,9 +256,8 @@ restService.post("/", function(request, response) {
     const address = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
-      ['address'],
-      [resdataUser[0].address.trim() + '/' + address]
+      'Client',
+      `{address: "${resdataUser.address + '/' + address}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     return Promise.resolve( agent );
@@ -286,9 +272,8 @@ restService.post("/", function(request, response) {
     let PhoneNumber = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
-      ['phone_number'],
-      [PhoneNumber]
+      'Client',
+      `{phoneNumber: "${PhoneNumber}"}`
     );
     agent.add(new Payload(agent.FACEBOOK, mesagges.EmailUser()));
     return Promise.resolve( agent );
@@ -302,9 +287,8 @@ restService.post("/", function(request, response) {
     let EmailUser = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
-      'client',
-      ['email'],
-      [EmailUser]
+      'Client',
+      `{email: "${EmailUser}"}`
     )
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
