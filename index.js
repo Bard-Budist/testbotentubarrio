@@ -302,8 +302,8 @@ restService.post("/", function(request, response) {
    * @function order
    * @param {*} agent 
    */
-  function fastOrder(agent) {
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+  function fastOrder(agent, id) {
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser(id)));
     return Promise.resolve( agent );
   }
 
