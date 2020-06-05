@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
-const URLTOKEN = "EAALirSQUH18BAPrZBZAunVCadWzndElALsyjowoFWyORDyfZB6gMy0K5o28Xpinvc82vDeBs9zvAnUrgZA1o1xrHyuSfJbQwi1OgtvbnYJM6ehgNwvq9xPCmIduFo2MQGZCaaI8GG7P29zFDWiFJvjhBzOeQqUOAF41E2ZBfNxRgZDZD"
+const URLTOKEN = "EAAJVfaIQvZCwBABv61qkN2LrqUZCMQUsEbksnrsQo1Jd56mlMkhPV10yuJ8N8b2t5tGATZAnVSQGzUj6fVpFsVyU7t50xAHuyJT2G5mU7OKq7Eq3qhBm4eYw9NK3ZCX3qNklbzuVTBeW5cZB5Qtfx5jNvPxVNXrVpqrAOffLdOn9UCEsEdApq"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
@@ -302,7 +302,7 @@ restService.post("/", function(request, response) {
    * @function order
    * @param {*} agent 
    */
-  function fastOrder(agent, id) {
+  function fastOrder(agent) {
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser(id)));
     return Promise.resolve( agent );
   }
