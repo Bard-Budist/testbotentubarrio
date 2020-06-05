@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
-const URLTOKEN = "EAALirSQUH18BAPHJAr6aaZAxIGXy1LMjxsMNc8DQtJHh6MDagCeHPVp5eVkD2xCZAm3IDI8yZCH43cTLEIxzP5jKbJ6LpBuPFfRJ31r72pelJUzeAZBZBXPJlOIeznmpbqovMtE9fJk9beWTf3kdQEYeB94lolfZC2AcZAz3yXpeGSv5gKbON2F"
+const URLTOKEN = "EAALirSQUH18BANqYU0nMN1jdHwpBjMZAk6sGUmbzVaYDHq7lF9g4NZCk5K2PzMqLFe7GBZAjNaTRAdHgsH77ZB8MHRhLGlvvkuvJ28JDA1HIZCMnfZCcIg9HzDqjng2XGXvSuF1P3CHpAZAZCyilExyNJiHgBUqz3YUDFCCmxS2cW10HtkU8fa62"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
@@ -210,8 +210,7 @@ restService.post("/", function(request, response) {
     let dataUser = {};
     let genderResult = {};
     const resdataUser = await processData(id, dataUser)
-    const restdataGender = await processData(id, genderResult, 2, resdataUser.name)
-    console.log(restdataGender);  
+    const restdataGender = await processData(id, genderResult, 2, resdataUser.name) 
     agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
     return Promise.resolve( agent );
   }
