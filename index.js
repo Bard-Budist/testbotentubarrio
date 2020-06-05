@@ -133,7 +133,7 @@ let operaciones = {
                 ).then(function (result) {
                   console.log(result.data);
                 });
-                console.log(body);
+                console.log('este es el body:', body);
                 dataUser = body;
                 resolve(dataUser);
               });
@@ -198,6 +198,7 @@ async function processData (id, dataUser, value, name) {
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
+  console.log('este es el ID :', id);
   let mesagges = new Mesagges();
   
   /**
