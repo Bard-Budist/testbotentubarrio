@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
-const URLTOKEN = "EAALirSQUH18BANqYU0nMN1jdHwpBjMZAk6sGUmbzVaYDHq7lF9g4NZCk5K2PzMqLFe7GBZAjNaTRAdHgsH77ZB8MHRhLGlvvkuvJ28JDA1HIZCMnfZCcIg9HzDqjng2XGXvSuF1P3CHpAZAZCyilExyNJiHgBUqz3YUDFCCmxS2cW10HtkU8fa62"
+const URLTOKEN = "EAALirSQUH18BAME7ssMIGuLu6dOjAGiMIPdV2t9i2wbjLcVrBK4tMOGOyTei2WVdLglA4nPFZCWESZAkskzlumFHWha34geR2e2ymlMK9WkMUZBBcQRWvXRTWff4ni55quC6GUz2HljSZCwwZBPYgfyqlWkBFJRewpjihZCZBmkQZCWJm5F5Nmk8"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
