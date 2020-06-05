@@ -24,7 +24,7 @@ process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
 
-const url = 'http://177.71.195.136/graphql/';
+const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
 /**
  * @description All operation with database
