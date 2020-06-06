@@ -210,12 +210,11 @@ restService.post("/", function(request, response) {
    */
   async function newSesion(agent) {
     let dataUser = {};
-    let genderResult = {};
+    //let genderResult = {};
     const resdataUser = await processData(id, dataUser);
-    const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
-    console.log('resdataUser --->', resdataUser);
-    console.log('resdataGender --->', JSON.parse(restdataGender));
-    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
+    //const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
+    // add how paramenter , restdataGender
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
 
