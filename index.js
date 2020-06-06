@@ -319,7 +319,7 @@ agent.handleRequest(intentMap);
 });
 
 
-restService.post("/orderResponse", function(request, response){
+restService.options("/orderResponse", function(request, response){
   console.log(request.body);
   let request_body = {
     "recipient": {
