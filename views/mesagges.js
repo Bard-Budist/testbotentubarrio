@@ -16,18 +16,19 @@ const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
 
 module.exports = class Messages {
 
-    WelcomeUser (body, genderData) {
-        let dinamycGreet = "";
-        genderData = JSON.parse(genderData)
-        if (genderData.gender == "male") {
-            dinamycGreet = " Bienvenido🖐";
-        } else {
-            dinamycGreet = " Bienvenida🖐";
-        }
+    WelcomeUser (body) {
+        // change to ""
+        let dinamycGreet = "Bienvenido";
+        // genderData = JSON.parse(genderData)
+        // if (genderData.gender == "male") {
+        //     dinamycGreet = " Bienvenido🖐";
+        // } else {
+        //     dinamycGreet = " Bienvenida🖐";
+        // }
         return template.CardTemplate(
             [{
                 title: body.first_name + dinamycGreet,
-                subtitle: `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
+                subtitle: `Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
                 image_url: imageWelcomeUser,
                 buttons: [{
                     title: 'Pedir Orden',
@@ -115,7 +116,8 @@ module.exports = class Messages {
                     title: 'Hacer pedido',
                     type: 'web_url',
                     url: "https://entubarrio.co/crear_pedido/",
-                    webview_height_ratio: 'tall'                
+                    webview_height_ratio: 'tall',
+                    messenger_extensions: true               
                 }]
             }]
         );
