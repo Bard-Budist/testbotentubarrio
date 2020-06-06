@@ -339,6 +339,7 @@ restService.post("/orderResponse", function(request, response){
       return data;
     }]
   };
+  response.status(200).send('close window');
   graphQl(options)
 
 });
