@@ -320,7 +320,7 @@ agent.handleRequest(intentMap);
 
 
 restService.options("/orderResponse", function(request, response){
-  console.log(request.body);
+  console.log(request);
   let request_body = {
     "recipient": {
         "id": request.body.psid
