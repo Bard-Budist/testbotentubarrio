@@ -303,7 +303,7 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function fastOrder(agent) {
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser(id)));
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
 
