@@ -194,7 +194,7 @@ async function processData (id, dataUser, value, name) {
 }
 restService.post("/webview/", function(request, response) {
   alert('sirve');
-}
+});
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
