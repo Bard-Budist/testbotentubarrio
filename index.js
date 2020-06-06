@@ -11,7 +11,7 @@ const Promise = require('bluebird');
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
-const URLTOKEN = "EAAD9ZCSjO2v4BAGzWpPawcxtTVH22O9IdZBZBfDD9r71wEt7gO4wy9ZAjgQO6MgZCdeiBorooZCKZA2tqRl60tJhu3518E0LnMry3iJ7fRsTxeJNCTLUfUHlXBLN2zB1nxMaVIMKh5bjTzVIyeiCrvgcPvCfMJZCurfeA1u6jp0NGgZDZD"
+const URLTOKEN = "EAAJVfaIQvZCwBABv61qkN2LrqUZCMQUsEbksnrsQo1Jd56mlMkhPV10yuJ8N8b2t5tGATZAnVSQGzUj6fVpFsVyU7t50xAHuyJT2G5mU7OKq7Eq3qhBm4eYw9NK3ZCX3qNklbzuVTBeW5cZB5Qtfx5jNvPxVNXrVpqrAOffLdOn9UCEsEdApq"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
 // urlencoded -> acts as a bridge between an operating system
@@ -210,12 +210,11 @@ restService.post("/", function(request, response) {
    */
   async function newSesion(agent) {
     let dataUser = {};
-    let genderResult = {};
+    //let genderResult = {};
     const resdataUser = await processData(id, dataUser);
-    const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
-    console.log('resdataUser --->', resdataUser);
-    console.log('resdataGender --->', JSON.parse(restdataGender));
-    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser, restdataGender)));
+    //const restdataGender = await processData(id, genderResult, 2, resdataUser.name);
+    // add how paramenter , restdataGender
+    agent.add(new Payload(agent.FACEBOOK, mesagges.WelcomeUser(resdataUser)));
     return Promise.resolve( agent );
   }
 
@@ -303,7 +302,7 @@ restService.post("/", function(request, response) {
    * @param {*} agent 
    */
   function fastOrder(agent) {
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser(id)));
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     return Promise.resolve( agent );
   }
 
@@ -318,6 +317,32 @@ intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
 agent.handleRequest(intentMap);
 });
+
+
+restService.post("/orderResponse", function(request, response){
+  console.log(request.body);
+  let request_body = {
+    "recipient": {
+        "id": request.body.psid
+    },
+    "message":{
+        "text" : "Su orden esta siendo procesada! Numero de orden " + request.body.res
+    }
+  };
+  const options = {
+    method: 'post',
+    url: "https://graph.facebook.com/v7.0/me/messages?access_token=" + URLTOKEN,
+    data: request_body,
+    transformResponse: [(data) => {
+      console.log(data)
+  
+      return data;
+    }]
+  };
+  graphQl(options)
+
+});
+
 
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");

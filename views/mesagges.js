@@ -16,18 +16,19 @@ const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
 
 module.exports = class Messages {
 
-    WelcomeUser (body, genderData) {
-        let dinamycGreet = "";
-        genderData = JSON.parse(genderData)
-        if (genderData.gender == "male") {
-            dinamycGreet = " Bienvenido🖐";
-        } else {
-            dinamycGreet = " Bienvenida🖐";
-        }
+    WelcomeUser (body) {
+        // change to ""
+        let dinamycGreet = "Bienvenido";
+        // genderData = JSON.parse(genderData)
+        // if (genderData.gender == "male") {
+        //     dinamycGreet = " Bienvenido🖐";
+        // } else {
+        //     dinamycGreet = " Bienvenida🖐";
+        // }
         return template.CardTemplate(
             [{
                 title: body.first_name + dinamycGreet,
-                subtitle: `👵 Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
+                subtitle: `Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
                 image_url: imageWelcomeUser,
                 buttons: [{
                     title: 'Pedir Orden',
@@ -81,14 +82,14 @@ module.exports = class Messages {
 
     PhoneNumber () {
         return template.QuickRepliesTemplate(
-            'Por favor indicanos tu número de Celular',
+            'Por favor indicanos tu número de Celular 📱',
             'user_phone_number'
         );
     }
 
     EmailUser () {
         return template.QuickRepliesTemplate(
-            'Por favor indiacanos tu email',
+            'Por favor indicanos tu email 📬',
             'user_email'
         );
     }
@@ -105,17 +106,18 @@ module.exports = class Messages {
             }]);
     };
 
-    OrderUser (id) {
+    OrderUser () {
         return template.CardTemplate(
             [{
                 title: 'Ir a la tienda',
-                subtitle: '🏡 id' + id,
+                subtitle: '🏡',
                 image_url: imageWeb,
                 buttons: [{
                     title: 'Hacer pedido',
                     type: 'web_url',
-                    url: "https://entubarrio.co/crear_pedido/" + id,
-                    webview_height_ratio: 'full'                
+                    url: "https://entubarrio.co/crear_pedido/",
+                    webview_height_ratio: 'tall',
+                    messenger_extensions: true               
                 }]
             }]
         );
