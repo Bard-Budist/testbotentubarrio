@@ -81,14 +81,14 @@ module.exports = class Messages {
 
     PhoneNumber () {
         return template.QuickRepliesTemplate(
-            'Por favor indicanos tu número de Celular',
+            'Por favor indicanos tu número de Celular 📱',
             'user_phone_number'
         );
     }
 
     EmailUser () {
         return template.QuickRepliesTemplate(
-            'Por favor indiacanos tu email',
+            'Por favor indicanos tu email 📬',
             'user_email'
         );
     }
@@ -115,7 +115,7 @@ module.exports = class Messages {
                     title: 'Hacer pedido',
                     type: 'web_url',
                     url: "https://entubarrio.co/crear_pedido/" + id,
-                    webview_height_ratio: 'full'                
+                    webview_height_ratio: 'tall'                
                 }]
             }]
         );
