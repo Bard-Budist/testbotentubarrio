@@ -320,13 +320,15 @@ agent.handleRequest(intentMap);
 
 
 restService.get("/orderResponse", function(request, response){
-  console.log(request.data);
+  console.log(request.params());
+  console.log(request.req.query());
+  
   let request_body = {
     "recipient": {
         "id": request.body.psid
     },
     "message":{
-        "text" : "Su orden esta siendo procesada! Numero de orden " + request.body.res
+        "text" : "Su orden esta siendo procesada!"
     }
   };
   const options = {
