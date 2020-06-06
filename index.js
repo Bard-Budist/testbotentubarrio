@@ -319,8 +319,8 @@ agent.handleRequest(intentMap);
 });
 
 
-restService.options("/orderResponse", function(request, response){
-  console.log(request);
+restService.get("/orderResponse", function(request, response){
+  console.log(request.data);
   let request_body = {
     "recipient": {
         "id": request.body.psid
