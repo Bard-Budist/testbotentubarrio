@@ -319,10 +319,7 @@ agent.handleRequest(intentMap);
 });
 
 
-restService.get("/orderResponse", function(request, response){
-  console.log(request.params());
-  console.log(request.req.query());
-  
+restService.post("/orderResponse", function(request, response){
   let request_body = {
     "recipient": {
         "id": request.body.psid
@@ -341,7 +338,7 @@ restService.get("/orderResponse", function(request, response){
       return data;
     }]
   };
-  response.status(200).send('close window');
+
   graphQl(options)
 
 });
