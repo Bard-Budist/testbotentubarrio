@@ -320,9 +320,10 @@ agent.handleRequest(intentMap);
 
 
 restService.post("/orderResponse", function(request, response){
-  console.log(request.body);
+  console.log(request.query);
+  
   console.log(request.params)
-  console.log(request.json());
+  console.log(request.headers);
   
   
   let request_body = {
