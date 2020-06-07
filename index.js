@@ -163,6 +163,16 @@ let operaciones = {
   getGender : async function (name, dataUser) {
     const genderResponse = await requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
     return genderResponse;
+  },
+
+  getStatus : function (id, dataUser) {
+    const promise = new Promise(function (resolve, reject) {
+      const dbResult = database.selectAllByID(id, 'client', ["orderSet { status }"]);
+      dbResult.then(function (result) {
+        dataUser = result.data.data;
+      });
+    })
+    return promise;
   }
 }
 
@@ -184,7 +194,7 @@ async function processData (id, dataUser, value, name) {
         result = await operaciones.getGender(name, dataUser);
         break;
       case 3:
-        result = await operaciones.getStatus()
+        result = await operaciones.getStatus(id, dataUser);
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
@@ -309,7 +319,9 @@ restService.post("/", function(request, response) {
   }
 
   async function statusOrder(agent) {
-
+    const resdataUser = await processData(id, {}, 3);
+    console.log(resdataUser);
+    
 
   }
 
