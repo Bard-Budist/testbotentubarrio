@@ -122,4 +122,19 @@ module.exports = class Messages {
             }]
         );
     };
+
+    OrderStatus (status, url) {
+        return template.CardTemplate(
+            [{
+                title: "Tu orden esta en el estado: " + status,
+                subtitle: `Para ver su estado presione el boton`,
+                image_url: url,
+                buttons: [{
+                    title: 'Estado',
+                    type: 'postback',
+                    payload: 'Estado',
+                }]
+            }]);
+
+    };
 }
