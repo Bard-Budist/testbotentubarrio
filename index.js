@@ -18,7 +18,6 @@ let existUser = false;
 // or database and applications, especially on a network
 const restService = express();
 restService.use(bodyParser.json());
-restService.use(express.bodyParser());
 restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug';
