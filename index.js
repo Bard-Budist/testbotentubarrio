@@ -19,7 +19,7 @@ let existUser = false;
 const restService = express();
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors())
+restService.use(cors())
 process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
