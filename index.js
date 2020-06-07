@@ -200,6 +200,7 @@ async function processData (id, dataUser, value, name) {
         break;
       case 3:
         result = await operaciones.getStatus(id, dataUser);
+        break;
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
