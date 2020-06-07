@@ -26,6 +26,7 @@ process.env.DEBUG = 'dialogflow:debug';
 
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
+const mesagges = new Mesagges();
 /**
  * @description All operation with database
  */
@@ -183,6 +184,8 @@ async function processData (id, dataUser, value, name) {
       case 2:
         result = await operaciones.getGender(name, dataUser);
         break;
+      case 3:
+        result = await operaciones.getStatus()
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
@@ -200,7 +203,7 @@ restService.post("/", function(request, response) {
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   console.log(request.body.originalDetectIntentRequest.payload.data.sender);
   console.log('este es el ID :', id);
-  let mesagges = new Mesagges();
+ 
   
   /**
    * @function newSesion This function gets the id of the User who starts a conversation
@@ -306,6 +309,12 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
   }
 
+  async function statusOrder(agent) {
+
+
+  }
+
+
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
@@ -315,6 +324,7 @@ intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
+intentMap.set('Estado', statusOrder);
 agent.handleRequest(intentMap);
 });
 
@@ -326,9 +336,9 @@ restService.post("/orderResponse", function(request, response){
     "recipient": {
         "id": request.body.psid
     },
-    "message":{
-        "text" : "Su orden esta siendo procesada!✅\nNUMERO DE ORDEN: " + idOrder 
-    }
+    "message":
+        mesagges.OrderStatus("Procesada", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/StatusRecibido.png")
+    
   };
   const options = {
     method: 'post',
