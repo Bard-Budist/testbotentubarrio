@@ -338,7 +338,7 @@ restService.post("/", function(request, response) {
     const resdataUser = await processData(id, data, 3);
     const status = resdataUser.status;
     console.log("Se imprime el estado");
-
+    console.log(status);
     
       if (status === 'RECIBIDO'){
         msg = "Tu pedido a sido recibido";
