@@ -336,7 +336,7 @@ restService.post("/orderResponse", function(request, response){
         "id": request.body.psid
     },
     "message":
-        mesagges.OrderStatus("Procesada", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/StatusRecibido.png")
+        mesagges.OrderStatus("Procesada", "https://raw.githubusercontent.com/Bard-Budist/testbotentubarrio/testdaniel/Procesado.png")
     
   };
   const options = {
