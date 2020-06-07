@@ -320,7 +320,7 @@ agent.handleRequest(intentMap);
 
 
 restService.post("/orderResponse", function(request, response){
-  console.log(request.body);
+  console.log(request.body.res.data.createOrder);
   
   let request_body = {
     "recipient": {
