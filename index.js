@@ -337,17 +337,17 @@ restService.post("/", function(request, response) {
     let msg = "";
     const resdataUser = await processData(id, data, 3);
     console.log("Se imprime el estado");
-    console.log(resdataUser);
+    console.log(resdataUser.status);
     switch (resdataUser.status) {
-      case "Recibido":
+      case 'RECIBIDO':
         msg = "Tu pedido a sido recibido";
         numberUrl = 1;
         break;
-      case "En reparto":
+      case 'EN_REPARTO':
         msg = "Tu pedido esta en camino, no tardaremos!";
         numberUrl = 2;
         break;
-      case "Entregado":
+      case 'ENTREGADO':
         msg = "Tu pedido a sido entregado!🙂";
         numberUrl = 3
         break;
