@@ -320,15 +320,9 @@ agent.handleRequest(intentMap);
 
 
 restService.post("/orderResponse", function(request, response){
-  console.log(request.body);
-  
-  console.log(request.params)
-  console.log(request.headers);
-  
-  
   let request_body = {
     "recipient": {
-        "id": "3284132658310743"
+        "id": request.body.psid
     },
     "message":{
         "text" : "Su orden esta siendo procesada!"
