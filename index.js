@@ -327,7 +327,7 @@ restService.post("/orderResponse", function(request, response){
         "id": request.body.psid
     },
     "message":{
-        "text" : "Su orden esta siendo procesada! Numero de orde: " + idOrder
+        "text" : "Su orden esta siendo procesada!✅\nNUMERO DE ORDEN: " + idOrder 
     }
   };
   const options = {
