@@ -332,13 +332,31 @@ restService.post("/", function(request, response) {
   }
 
   async function StatusOrder(agent) {
-    let data = {}
+    let data = {} 
+    let numberUrl = 0;
+    let msg = "";
     const resdataUser = await processData(id, data, 3);
     console.log("Se imprime el estado");
-    
     console.log(resdataUser);
-
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", listStatus[1])))
+    switch (resdataUser.status) {
+      case "Recibido":
+        msg = "Tu pedido a sido recibido";
+        numberUrl = 1;
+        break;
+      case "En reparto":
+        msg = "Tu pedido esta en camino, no tardaremos!";
+        numberUrl = 2;
+        break;
+      case "Entregado":
+        msg = "Tu pedido a sido entregado!🙂";
+        numberUrl = 3
+        break;
+      default:
+        msg = "Tu pedido aun esta en proceso, se paciente!";
+        numberUrl = 0;
+        break;
+    }
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, numberUrl)))
   }
 
 
