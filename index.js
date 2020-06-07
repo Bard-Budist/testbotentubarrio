@@ -172,6 +172,10 @@ let operaciones = {
         dataUser = result.data.data;
         resolve(dataUser);
       });
+      dbResult.catch(function(error) {
+        console.log(error);
+        
+      })
     })
     return promise;
   }
@@ -320,8 +324,12 @@ restService.post("/", function(request, response) {
   }
 
   async function StatusOrder(agent) {
-    const resdataUser = await processData(id, {}, 3);
+    let data = {}
+    const resdataUser = await processData(id, data, 3);
+    console.log("Se imprime el estado");
+    
     console.log(resdataUser);
+
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true")))
   }
 
