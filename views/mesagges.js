@@ -123,11 +123,11 @@ module.exports = class Messages {
         );
     };
 
-    OrderStatus (status, url) {
+    OrderStatus (msg, url) {
         return template.CardTemplate(
             [{
-                title: "Tu orden esta en el estado: " + status,
-                subtitle: `Para ver su estado presione el boton`,
+                title: msg,
+                subtitle: `Para ver el estado del pedido, presiona el boton.`,
                 image_url: url,
                 buttons: [{
                     title: 'Estado',
