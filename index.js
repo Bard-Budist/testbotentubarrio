@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 //Import package for postgres
 const Promise = require('bluebird');
-
+var cors = require('cors')
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
@@ -19,7 +19,7 @@ let existUser = false;
 const restService = express();
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors())
 process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
