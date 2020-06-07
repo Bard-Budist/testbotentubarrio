@@ -26,6 +26,12 @@ process.env.DEBUG = 'dialogflow:debug';
 
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
+const listStatus = [
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Recibido.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Entregado.png?raw=true"
+]
 /**
  * @description All operation with database
  */
@@ -167,9 +173,10 @@ let operaciones = {
 
   getStatus : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult = database.selectAllByID(id, 'client', "orderSet { status }");
+      const dbResult = database.selectAllByID(id, 'client', "orderSet { status, id }");
       dbResult.then(function (result) {
-        dataUser = result.data.data;
+        dataOrder = result.data.data.client.orderSet;
+        dataUser = dataOrder[dataOrder.length - 1];
         resolve(dataUser);
       });
       dbResult.catch(function(error) {
@@ -331,7 +338,7 @@ restService.post("/", function(request, response) {
     
     console.log(resdataUser);
 
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true")))
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", listStatus[0])))
   }
 
 
@@ -357,7 +364,7 @@ restService.post("/orderResponse", function(request, response){
         "id": request.body.psid
     },
     "message":
-        mesagges.OrderStatus("Tu orden esta siendo procesada!✅", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true")
+        mesagges.OrderStatus("Tu orden esta siendo procesada!✅", listStatus[0])
     
   };
   const options = {
