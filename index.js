@@ -26,7 +26,6 @@ process.env.DEBUG = 'dialogflow:debug';
 
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
-const mesagges = new Mesagges();
 /**
  * @description All operation with database
  */
