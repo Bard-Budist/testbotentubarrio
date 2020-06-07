@@ -318,7 +318,7 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
   }
 
-  async function statusOrder(agent) {
+  async function StatusOrder(agent) {
     const resdataUser = await processData(id, {}, 3);
     console.log(resdataUser);
     
@@ -335,7 +335,7 @@ intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
-intentMap.set('Estado', statusOrder);
+intentMap.set('Estado', StatusOrder);
 agent.handleRequest(intentMap);
 });
 
