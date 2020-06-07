@@ -170,6 +170,7 @@ let operaciones = {
       const dbResult = database.selectAllByID(id, 'client', ["orderSet { status }"]);
       dbResult.then(function (result) {
         dataUser = result.data.data;
+        resolve(dataUser);
       });
     })
     return promise;
@@ -321,8 +322,7 @@ restService.post("/", function(request, response) {
   async function StatusOrder(agent) {
     const resdataUser = await processData(id, {}, 3);
     console.log(resdataUser);
-    
-
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true")))
   }
 
 
