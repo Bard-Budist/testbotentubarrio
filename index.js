@@ -354,7 +354,7 @@ restService.post("/", function(request, response) {
         numberUrl = 0;
       }
   
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, numberUrl)))
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, listStatus[numberUrl])))
   }
   
 
