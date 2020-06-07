@@ -18,6 +18,7 @@ let existUser = false;
 // or database and applications, especially on a network
 const restService = express();
 restService.use(bodyParser.json());
+restService.use(express.bodyParser());
 restService.use(bodyParser.urlencoded({ extended: false }));
 
 process.env.DEBUG = 'dialogflow:debug';
@@ -322,11 +323,12 @@ agent.handleRequest(intentMap);
 restService.post("/orderResponse", function(request, response){
   console.log(request.body);
   console.log(request.params)
-
+  console.log(request.json());
+  
   
   let request_body = {
     "recipient": {
-        "id": request.body.psid
+        "id": "3284132658310743"
     },
     "message":{
         "text" : "Su orden esta siendo procesada!"
@@ -338,7 +340,6 @@ restService.post("/orderResponse", function(request, response){
     data: request_body,
     transformResponse: [(data) => {
       console.log(data)
-  
       return data;
     }]
   };
