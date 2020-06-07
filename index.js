@@ -167,7 +167,7 @@ let operaciones = {
 
   getStatus : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult = database.selectAllByID(id, 'client', ["orderSet { status }"]);
+      const dbResult = database.selectAllByID(id, 'client', "orderSet { status }");
       dbResult.then(function (result) {
         dataUser = result.data.data;
         resolve(dataUser);
