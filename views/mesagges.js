@@ -12,7 +12,7 @@ const imageMedellin = 'https://medellin.travel/wp-content/uploads/2018/10/Plaza-
 const imagePereira = 'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg';
 
 // links of image for webview
-const imageWeb = 'https://www.micasamarket.com/images/mcm-products2.png';
+const imageWeb = 'http://www.suppliescolombia.com/wp-content/uploads/2019/04/AimentosYBebidas.png';
 
 module.exports = class Messages {
 
