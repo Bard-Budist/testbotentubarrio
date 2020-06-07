@@ -321,7 +321,7 @@ agent.handleRequest(intentMap);
 
 restService.post("/orderResponse", function(request, response){
   console.log(request.body);
-  console.log(request.params())
+  console.log(request.params)
 
   
   let request_body = {
