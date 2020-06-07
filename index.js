@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 //Import package for postgres
 const Promise = require('bluebird');
-
+var cors = require('cors')
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
@@ -19,7 +19,7 @@ let existUser = false;
 const restService = express();
 restService.use(bodyParser.json());
 restService.use(bodyParser.urlencoded({ extended: false }));
-
+restService.use(cors())
 process.env.DEBUG = 'dialogflow:debug';
 // enables lib debugging statements
 
@@ -318,6 +318,33 @@ intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
 agent.handleRequest(intentMap);
 });
+
+
+restService.post("/orderResponse", function(request, response){
+  console.log(request.body.res.data.createOrder.order.id);
+  const idOrder = request.body.res.data.createOrder.order.id;
+  let request_body = {
+    "recipient": {
+        "id": request.body.psid
+    },
+    "message":{
+        "text" : "Su orden esta siendo procesada!✅\nNUMERO DE ORDEN: " + idOrder 
+    }
+  };
+  const options = {
+    method: 'post',
+    url: "https://graph.facebook.com/v7.0/me/messages?access_token=" + URLTOKEN,
+    data: request_body,
+    transformResponse: [(data) => {
+      console.log(data)
+      return data;
+    }]
+  };
+  response.status(200).send("Response ok")
+  graphQl(options)
+
+});
+
 
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
