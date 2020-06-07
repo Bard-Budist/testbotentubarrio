@@ -175,7 +175,7 @@ let operaciones = {
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', "orderSet { status, id }");
       dbResult.then(function (result) {
-        dataOrder = result.data.data.client.orderSet;
+        let dataOrder = result.data.data.client.orderSet;
         dataUser = dataOrder[dataOrder.length - 1];
         resolve(dataUser);
       });
@@ -338,7 +338,7 @@ restService.post("/", function(request, response) {
     
     console.log(resdataUser);
 
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", listStatus[0])))
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus("Estado de tu orden: En Proceso", listStatus[1])))
   }
 
 
