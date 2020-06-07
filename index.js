@@ -336,28 +336,27 @@ restService.post("/", function(request, response) {
     let numberUrl = 0;
     let msg = "";
     const resdataUser = await processData(id, data, 3);
+    const status = resdataUser.status;
     console.log("Se imprime el estado");
-    console.log(resdataUser.status);
-    switch (resdataUser.status) {
-      case 'RECIBIDO':
+
+    
+      if (status === 'RECIBIDO'){
         msg = "Tu pedido a sido recibido";
         numberUrl = 1;
-        break;
-      case 'EN_REPARTO':
+      } else if (status === 'EN_REPARTO'){
         msg = "Tu pedido esta en camino, no tardaremos!";
-        numberUrl = 2;
-        break;
-      case 'ENTREGADO':
+        numberUrl = 2;  
+      } else if (status === 'ENTREGADO'){
         msg = "Tu pedido a sido entregado!🙂";
         numberUrl = 3
-        break;
-      default:
+      } else {
         msg = "Tu pedido aun esta en proceso, se paciente!";
         numberUrl = 0;
-        break;
-    }
+      }
+  
     agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, numberUrl)))
   }
+  
 
 
 // Run the proper function handler based on the matched Dialogflow intent name
