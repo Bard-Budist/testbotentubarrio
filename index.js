@@ -320,14 +320,14 @@ agent.handleRequest(intentMap);
 
 
 restService.post("/orderResponse", function(request, response){
-  console.log(request.body.res.data.createOrder);
-  
+  console.log(request.body.res.data.createOrder.order.id);
+  const idOrder = request.body.res.data.createOrder.order.id;
   let request_body = {
     "recipient": {
         "id": request.body.psid
     },
     "message":{
-        "text" : "Su orden esta siendo procesada!"
+        "text" : "Su orden esta siendo procesada! Numero de orde: " + idOrder
     }
   };
   const options = {
@@ -339,7 +339,7 @@ restService.post("/orderResponse", function(request, response){
       return data;
     }]
   };
-
+  response.status(200).send("Response ok")
   graphQl(options)
 
 });
