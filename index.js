@@ -186,7 +186,7 @@ let operaciones = {
           return a.id - b.id;
         })
         console.log('ASI ES ORGANIZADA:', dataOrder);
-        dataUser = dataOrder[0];
+        dataUser = dataOrder[dataOrder.length - 1];
         console.log('ESTA ES LA ORDEN QUE TRAE: ', dataUser);
         resolve(dataUser);
       });
