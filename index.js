@@ -157,11 +157,11 @@ let operaciones = {
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', ["address,"]);
       dbResult.then(function (result) {
-        dataUser = result.data.data.client.address.split('/');
-        for (let address in dataUser) {
-          list_address.push(address);
-        }
-        console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
+        dataUser = result.data.data.client.address.split('/')[1].tim();
+        // for (let address in dataUser) {
+        //   list_address.push(address);
+        // }
+        // console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
