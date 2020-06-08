@@ -161,7 +161,8 @@ let operaciones = {
         for (let address of dataUser) {
           list_address.push(address);
         }
-        resolve(list_address.splice(0,1));
+        list_address.splice(0,1)
+        resolve(list_address);
       });
       // dataUser.catch( function(error) {
       //   console.log('Error AddressUser: ' + error)
