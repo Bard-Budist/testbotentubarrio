@@ -27,10 +27,10 @@ process.env.DEBUG = 'dialogflow:debug';
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
 const listStatus = [
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Aceptado.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Finalizado.png?raw=true"
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/Procesado.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/Aceptado.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/EnReparto.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/Finalizado.png?raw=true"
 ]
 /**
  * @description All operation with database
@@ -156,16 +156,12 @@ let operaciones = {
     let list_address = [];
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', ["address,"]);
-      console.log('ESTO ES dbResult: ', dbResult);
       dbResult.then(function (result) {
-        dataUser = result.data.data.client.address.split('/')[1].trim();
-        const prueba = result.data.data.client.address.split('/');
-        for (let address of prueba) {
+        dataUser = result.data.data.client.address.split('/');
+        for (let address of dataUser) {
           list_address.push(address);
         }
-        list_address.splice(0,1);
-        console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
-        resolve(list_address);
+        resolve(list_address.splice(0,1));
       });
       // dataUser.catch( function(error) {
       //   console.log('Error AddressUser: ' + error)
