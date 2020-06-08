@@ -183,6 +183,7 @@ let operaciones = {
         let dataOrder = result.data.data.client.orderSet;
         console.log('ESTOS SON LOS PEDIDOS : ', dataOrder);
         dataUser = dataOrder[dataOrder.length - 1];
+        console.log('ESTA ES LA ORDEN QUE TRAE: ', dataUser);
         resolve(dataUser);
       });
       dbResult.catch(function(error) {
