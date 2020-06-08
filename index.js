@@ -181,6 +181,7 @@ let operaciones = {
       const dbResult = database.selectAllByID(id, 'client', "orderSet { status, id }");
       dbResult.then(function (result) {
         let dataOrder = result.data.data.client.orderSet;
+        console.log('ESTOS SON LOS PEDIDOS : ', dataOrder);
         dataUser = dataOrder[dataOrder.length - 1];
         resolve(dataUser);
       });
