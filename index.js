@@ -27,7 +27,7 @@ process.env.DEBUG = 'dialogflow:debug';
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
 const listStatus = [
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
+  "./ImageStatus/Procesado.png",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Aceptado.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Finalizado.png?raw=true"
