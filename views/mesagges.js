@@ -18,7 +18,7 @@ module.exports = class Messages {
 
     WelcomeUser (body) {
         // change to ""
-        let dinamycGreet = "Bienvenido";
+        let dinamycGreet = " Bienvenido";
         // genderData = JSON.parse(genderData)
         // if (genderData.gender == "male") {
         //     dinamycGreet = " Bienvenido🖐";
@@ -98,23 +98,15 @@ module.exports = class Messages {
         let buttons = [];
         let dataButton = {};
         for (let address of list_address) {
-            dataButton = {};
             dataButton.title = address;
             dataButton.payload = "Address";
             buttons.push(dataButton);
+            dataButton = {};
         }
         buttons.push({title:"Otra", payload:"newAddress"});
-        console.log('ACA LOS QUICK ', buttons);
         return template.QuickReplies(
             'A que dirección deseas que llevemos tu pedido:',
             buttons
-            // [{
-            //     title:Address,
-            //     payload:"Address"
-            // },{
-            //     title:"Otra",
-            //     payload:"newAddress"
-            // }]
             );
     };
 
