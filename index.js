@@ -287,7 +287,12 @@ restService.post("/", function(request, response) {
       'Client',
       `{address: "${resdataUser.address + '/' + address}"}`
     );
-    agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    if (existUser == false) {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    } else {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+    }
+    
     return Promise.resolve( agent );
   }
 
