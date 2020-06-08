@@ -159,7 +159,7 @@ let operaciones = {
       console.log('ESTO ES dbResult: ', dbResult);
       dbResult.then(function (result) {
         dataUser = result.data.data.client.address.split('/')[1].trim();
-        const prueba = dataUser;
+        const prueba = result.data.data.client.address.split('/');
         for (let address of prueba) {
           list_address.push(address);
         }
