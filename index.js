@@ -156,12 +156,14 @@ let operaciones = {
     let list_address = [];
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', ["address,"]);
+      console.log('ESTO ES dbResult: ', dbResult);
       dbResult.then(function (result) {
         dataUser = result.data.data.client.address.split('/')[1].trim();
-        // for (let address in dataUser) {
-        //   list_address.push(address);
-        // }
-        // console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
+        const prueba = dataUser;
+        for (let address of prueba) {
+          list_address.push(address);
+        }
+        console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
