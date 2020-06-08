@@ -153,10 +153,15 @@ let operaciones = {
   },
 
   addressUser : function (id, dataUser) {
+    let list_address = [];
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', ["address,"]);
       dbResult.then(function (result) {
-        dataUser = result.data.data.client.address.split('/')[1].trim();
+        dataUser = result.data.data.client.address.split('/').trim();
+        for (let address in dataUser) {
+          list_address.push(address);
+        }
+        console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
