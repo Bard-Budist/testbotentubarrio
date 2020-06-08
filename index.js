@@ -26,6 +26,12 @@ process.env.DEBUG = 'dialogflow:debug';
 
 const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
+const listStatus = [
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Recibido.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Entregado.png?raw=true"
+]
 /**
  * @description All operation with database
  */
@@ -163,6 +169,22 @@ let operaciones = {
   getGender : async function (name, dataUser) {
     const genderResponse = await requesthttp.get(`https://genderapi.io/api/?name=${name}&key=${API_GENDER}`)
     return genderResponse;
+  },
+
+  getStatus : function (id, dataUser) {
+    const promise = new Promise(function (resolve, reject) {
+      const dbResult = database.selectAllByID(id, 'client', "orderSet { status, id }");
+      dbResult.then(function (result) {
+        let dataOrder = result.data.data.client.orderSet;
+        dataUser = dataOrder[dataOrder.length - 1];
+        resolve(dataUser);
+      });
+      dbResult.catch(function(error) {
+        console.log(error);
+        
+      })
+    })
+    return promise;
   }
 }
 
@@ -183,6 +205,9 @@ async function processData (id, dataUser, value, name) {
       case 2:
         result = await operaciones.getGender(name, dataUser);
         break;
+      case 3:
+        result = await operaciones.getStatus(id, dataUser);
+        break;
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
@@ -201,7 +226,7 @@ restService.post("/", function(request, response) {
   let id = request.body.originalDetectIntentRequest.payload.data.sender.id;
   console.log(request.body.originalDetectIntentRequest.payload.data.sender);
   console.log('este es el ID :', id);
-  let mesagges = new Mesagges();
+ 
   
   /**
    * @function newSesion This function gets the id of the User who starts a conversation
@@ -263,7 +288,12 @@ restService.post("/", function(request, response) {
       'Client',
       `{address: "${resdataUser.address + '/' + address}"}`
     );
-    agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    if (existUser == false) {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
+    } else {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+    }
+    
     return Promise.resolve( agent );
   }
 
@@ -307,6 +337,34 @@ restService.post("/", function(request, response) {
     return Promise.resolve( agent );
   }
 
+  async function StatusOrder(agent) {
+    let data = {} 
+    let numberUrl = 0;
+    let msg = "";
+    const resdataUser = await processData(id, data, 3);
+    const status = resdataUser.status;
+    console.log("Se imprime el estado");
+    console.log(status);
+    
+      if (status === 'RECIBIDO'){
+        msg = "Tu pedido a sido recibido";
+        numberUrl = 1;
+      } else if (status === 'EN_REPARTO'){
+        msg = "Tu pedido esta en camino, no tardaremos!";
+        numberUrl = 2;  
+      } else if (status === 'ENTREGADO'){
+        msg = "Tu pedido a sido entregado!🙂";
+        numberUrl = 3
+      } else {
+        msg = "Tu pedido aun esta en proceso, se paciente!";
+        numberUrl = 0;
+      }
+  
+    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, listStatus[numberUrl])))
+  }
+  
+
+
 // Run the proper function handler based on the matched Dialogflow intent name
 let intentMap = new Map();
 intentMap.set('Bienvenida', newSesion);
@@ -316,6 +374,7 @@ intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
+intentMap.set('StatusOrder', StatusOrder);
 agent.handleRequest(intentMap);
 });
 
@@ -327,9 +386,9 @@ restService.post("/orderResponse", function(request, response){
     "recipient": {
         "id": request.body.psid
     },
-    "message":{
-        "text" : "Su orden esta siendo procesada!✅\nNUMERO DE ORDEN: " + idOrder 
-    }
+    "message":
+        mesagges.OrderStatus("Tu orden esta siendo procesada!✅", listStatus[0])
+    
   };
   const options = {
     method: 'post',
