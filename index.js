@@ -281,17 +281,17 @@ restService.post("/", function(request, response) {
    */
   async function save_address(agent) {
     let dataUser = {};
-    console.log('EL ESTADO DEL USER ES:', existUser);
+    // import for a new User
+    const StateUser = existUser;
     const resdataUser = await processData(id, dataUser);
     console.log(resdataUser);
-    console.log('EL ESTADO DEL USER ES:', existUser);
     const address = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
       'Client',
       `{address: "${resdataUser.address + '/' + address}"}`
     );
-    if (existUser === false) {
+    if (StateUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     } else {
       agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
