@@ -133,6 +133,12 @@ module.exports = class Messages {
                     title: 'Estado',
                     type: 'postback',
                     payload: 'Estado',
+                },{
+                    title: 'Chat Vecino Autorizado 💬',
+                    type: 'web_url',
+                    url: "https://chatentubarrio.herokuapp.com/",
+                    webview_height_ratio: 'tall',
+                    messenger_extensions: true   
                 }]
             }]);
 
