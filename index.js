@@ -277,10 +277,11 @@ restService.post("/", function(request, response) {
    /**
    * @function save_address save the house address and how to answer ask
    * by the phone number of the user 
-   * @param {*} agent 
+   * @param {*} agent
    */
   async function save_address(agent) {
     let dataUser = {};
+    console.log('EL ESTADO DEL USER ES:', existUser);
     const resdataUser = await processData(id, dataUser);
     console.log(resdataUser);
     console.log('EL ESTADO DEL USER ES:', existUser);
