@@ -283,6 +283,7 @@ restService.post("/", function(request, response) {
     let dataUser = {};
     const resdataUser = await processData(id, dataUser);
     console.log(resdataUser);
+    console.log('EL ESTADO DEL USER ES:', existUser);
     const address = request.body.queryResult.queryText;
     database.updateWhereID(
       id,
