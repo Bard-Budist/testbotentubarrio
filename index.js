@@ -288,12 +288,22 @@ restService.post("/", function(request, response) {
       'Client',
       `{address: "${resdataUser.address + '/' + address}"}`
     );
-    if (existUser == false) {
+    if (existUser === false) {
       agent.add(new Payload(agent.FACEBOOK, mesagges.PhoneNumber()));
     } else {
       agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
     }
     
+    return Promise.resolve( agent );
+  }
+
+  /**
+   * @function create_new_address this function create a new address for one user
+   * indicate the paht of conversation with locationuser.
+   * @param {*} agent 
+   */
+  function create_new_address(agent) {
+    agent.add(new Payload(agent.FACEBOOK, mesagges.AddresHouse()));
     return Promise.resolve( agent );
   }
 
@@ -374,7 +384,7 @@ intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
-intentMap.set('newAddress', save_address);
+intentMap.set('newAddress', create_new_address);
 intentMap.set('StatusOrder', StatusOrder);
 agent.handleRequest(intentMap);
 });
