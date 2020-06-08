@@ -159,11 +159,11 @@ let operaciones = {
       console.log('ESTO ES dbResult: ', dbResult);
       dbResult.then(function (result) {
         dataUser = result.data.data.client.address.split('/')[1].trim();
-        const prueba = result.data.data.client.address.split('/');
-        for (let address of prueba.substr(1)) {
-          list_address.push(address);
-        }
-        console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
+        // const prueba = result.data.data.client.address.split('/');
+        // for (let address of prueba.substr(1)) {
+        //   list_address.push(address);
+        // }
+        // console.log('ESTAS SON LAS DIRECCIONES : ', list_address);
         resolve(dataUser);
       });
       // dataUser.catch( function(error) {
