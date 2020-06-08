@@ -157,7 +157,7 @@ let operaciones = {
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', ["address,"]);
       dbResult.then(function (result) {
-        dataUser = result.data.data.client.address.split('/')[1].tim();
+        dataUser = result.data.data.client.address.split('/')[1].trim();
         // for (let address in dataUser) {
         //   list_address.push(address);
         // }
