@@ -374,6 +374,7 @@ intentMap.set('direccion', save_address);
 intentMap.set('Phone_number', save_PhoneNumber);
 intentMap.set('email', save_Email);
 intentMap.set('Address', fastOrder);
+intentMap.set('newAddress', save_address);
 intentMap.set('StatusOrder', StatusOrder);
 agent.handleRequest(intentMap);
 });
