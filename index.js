@@ -365,7 +365,7 @@ restService.post("/", function(request, response) {
     console.log(status);
     
       if (status === 'RECIBIDO'){
-        msg = "Tu pedido a sido recibido";
+        msg = "Nuestro tendero esta seleccionando todo lo que necesitas 🍅🛒";
         numberUrl = 1;
       } else if (status === 'EN_REPARTO'){
         msg = "Tu pedido esta en camino, no tardaremos!";
@@ -374,7 +374,7 @@ restService.post("/", function(request, response) {
         msg = "Tu pedido a sido entregado!🙂";
         numberUrl = 3
       } else {
-        msg = "Tu pedido aun esta en proceso, se paciente!";
+        msg = "Estamos procesando tu orden, no tardaremos 😉";
         numberUrl = 0;
       }
   
