@@ -98,8 +98,7 @@ module.exports = class Messages {
         let buttons = [];
         let dataButton = {};
         for (let address of list_address) {
-            dataButton.title = address;
-            dataButton.payload = "Address";
+            dataButton = {title: address, payload:"Address"};
             buttons.push(dataButton);
             dataButton = {};
         }
