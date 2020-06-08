@@ -182,7 +182,9 @@ let operaciones = {
       dbResult.then(function (result) {
         let dataOrder = result.data.data.client.orderSet;
         console.log('ESTOS SON LOS PEDIDOS : ', dataOrder);
-        dataOrder.sort();
+        dataOrder.sort(function(a, b) {
+          return a.id - b.id;
+        })
         console.log('ASI ES ORGANIZADA:', dataOrder);
         dataUser = dataOrder[0];
         console.log('ESTA ES LA ORDEN QUE TRAE: ', dataUser);
