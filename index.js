@@ -28,9 +28,9 @@ const url = 'https://api.entubarrio.co/graphql/';
 const API_GENDER = "5ed861fc756fae13585e34e2"
 const listStatus = [
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Recibido.png?raw=true",
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Aceptado.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Entregado.png?raw=true"
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Finalizado.png?raw=true"
 ]
 /**
  * @description All operation with database
