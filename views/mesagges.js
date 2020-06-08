@@ -94,16 +94,27 @@ module.exports = class Messages {
         );
     }
 
-    AddressUser (Address) {
+    AddressUser (list_address) {
+        let buttons = [];
+        let dataButton = {};
+        for (let address of list_address) {
+            dataButton.title = address;
+            dataButton.payload = "Address";
+            buttons.push(dataButton);
+        }
+        buttons.push({title:"Otra", payload:"newAddress"});
+        console.log('ACA LOS QUICK ', buttons);
         return template.QuickReplies(
             'A que dirección deseas que llevemos tu pedido:',
-            [{
-                title:Address,
-                payload:"Address"
-            },{
-                title:"Otra",
-                payload:"newAddress"
-            }]);
+            buttons
+            // [{
+            //     title:Address,
+            //     payload:"Address"
+            // },{
+            //     title:"Otra",
+            //     payload:"newAddress"
+            // }]
+            );
     };
 
     OrderUser () {
