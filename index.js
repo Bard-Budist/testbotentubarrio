@@ -30,7 +30,7 @@ const listStatus = [
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Procesado.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Recibido.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/EnReparto.png?raw=true",
-  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/Entregado.png?raw=true"
+  "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/103251201_667749157138529_333223753044355611_n.png"
 ]
 /**
  * @description All operation with database
