@@ -41,18 +41,33 @@ let database = {
    * @param {*} nameTable name of table in Data Base
    * @param {*} attrs List of attributes
    */
-  selectAllByID: function(ID, nameTable, attrs) {
-    return graphQl({
-      url: url,
-      method: 'post',
-      data: {
-        query: `{
-          ${nameTable}(id: "${ID}") {
-            ${attrs}
-          }
-        }`
-      }
-    })
+  selectAllByID: function(ID, nameTable, attrs, type) {
+    if (type) {
+      return graphQl({
+        url: url,
+        method: 'post',
+        data: {
+          query: `{
+            ${nameTable}(id: ${ID}) {
+              ${attrs}
+            }
+          }`
+        }
+      })
+    } else {
+      return graphQl({
+        url: url,
+        method: 'post',
+        data: {
+          query: `{
+            ${nameTable}(id: "${ID}") {
+              ${attrs}
+            }
+          }`
+        }
+      })
+    }
+    
   },
   
   /**
@@ -203,9 +218,9 @@ let operaciones = {
    * @param {*} id 
    * @param {*} dataUser 
    */
-  getOrder : function (id, dataUser) {
+  getOrder : function (id, dataUser, type) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products");
+      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products", type);
       dbResult.then (function (result) {
         dataUser = result.data.data;
         resolve(dataUser)
@@ -241,7 +256,7 @@ async function processData (id, dataUser, value, name) {
         result = await operaciones.getStatus(id, dataUser);
         break;
       case 4:
-        result = await operaciones.getOrder(id, dataUser);
+        result = await operaciones.getOrder(id, dataUser, type);
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
@@ -450,7 +465,7 @@ restService.post("/orderResponse", async function(request, response){
   };
   response.status(200).send("Response ok")
   graphQl(options)
-  let dataOrder = await processData(id, dataAsync, 4);
+  let dataOrder = await processData(id, dataAsync, 4, true);
   socket.emit("orderStore", dataOrder);
 });
 
