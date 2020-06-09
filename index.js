@@ -42,19 +42,6 @@ let database = {
    * @param {*} attrs List of attributes
    */
   selectAllByID: function(ID, nameTable, attrs, type) {
-    if (type) {
-      return graphQl({
-        url: url,
-        method: 'post',
-        data: {
-          query: `{
-            ${nameTable}(id: ${ID}) {
-              ${attrs}
-            }
-          }`
-        }
-      })
-    } else {
       return graphQl({
         url: url,
         method: 'post',
@@ -66,8 +53,7 @@ let database = {
           }`
         }
       })
-    }
-    
+  
   },
   
   /**
@@ -220,7 +206,7 @@ let operaciones = {
    */
   getOrder : function (id, dataUser, type) {
     const promise = new Promise(function (resolve, reject) {
-      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products", type);
+      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products", true);
       dbResult.then (function (result) {
         dataUser = result.data.data;
         resolve(dataUser)
@@ -463,10 +449,31 @@ restService.post("/orderResponse", async function(request, response){
       return data;
     }]
   };
-  response.status(200).send("Response ok")
+  
   graphQl(options)
-  let dataOrder = await processData(id, dataAsync, 4, true);
-  socket.emit("orderStore", dataOrder);
+
+  graphQl({
+    url: url,
+    method: 'post',
+    data: {
+      query: `{
+        order(id: ${id}) {
+          client {
+            name,
+            address,
+            phoneNumber
+          } 
+          products
+        }
+      }`
+    }
+  }).then(function(order) {
+    socket.emit("orderStore", order.data.data);
+  })
+  
+  //let dataOrder = await processData(id, dataAsync, 4, true);
+  
+  response.status(200).send("Response ok")
 });
 
 
