@@ -242,7 +242,7 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser, value, name) {
+async function processData (id, dataUser, value, name, type) {
   try {
     let result;
     switch (value) {
