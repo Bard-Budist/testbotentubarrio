@@ -1,9 +1,7 @@
 'use strict';
-import io from 'socket.io-client';
-
 const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
-const socket = io('https://websocktestest.herokuapp.com');
+const socket = require('socket.io-client')('https://websocktestest.herokuapp.com');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
