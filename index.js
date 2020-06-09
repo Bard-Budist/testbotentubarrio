@@ -1,7 +1,9 @@
 'use strict';
+import io from 'socket.io-client';
 
 const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
+const socket = io('https://websocktestest.herokuapp.com');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -196,7 +198,28 @@ let operaciones = {
       })
     })
     return promise;
+  },
+
+  /**
+   * 
+   * @param {*} id 
+   * @param {*} dataUser 
+   */
+  getOrder : function (id, dataUser) {
+    const promise = new Promise(function (resolve, reject) {
+      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products");
+      dbResult.then (function (result) {
+        dataUser = result.data.data;
+        resolve(dataUser)
+      })
+      dbResult.catch(function(error) {
+        console.log(error);
+      })
+    })
+    return promise;
   }
+
+  
 }
 
 /**
@@ -218,6 +241,9 @@ async function processData (id, dataUser, value, name) {
         break;
       case 3:
         result = await operaciones.getStatus(id, dataUser);
+        break;
+      case 4:
+        result = await operaciones.getOrder(id, dataUser);
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
@@ -404,9 +430,9 @@ agent.handleRequest(intentMap);
 });
 
 
-restService.post("/orderResponse", function(request, response){
-  console.log(request.body.res.data.createOrder.order.id);
-  const idOrder = request.body.res.data.createOrder.order.id;
+restService.post("/orderResponse", async function(request, response){
+  const id = request.body.res.data.createOrder.order.id;
+  let dataAsync = {};
   let request_body = {
     "recipient": {
         "id": request.body.psid
@@ -426,7 +452,8 @@ restService.post("/orderResponse", function(request, response){
   };
   response.status(200).send("Response ok")
   graphQl(options)
-
+  let dataOrder = await processData(id, dataAsync, 4);
+  socket.emit("orderStore", dataOrder);
 });
 
 
