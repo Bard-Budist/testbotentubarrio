@@ -435,24 +435,24 @@ restService.post("/orderResponse", async function(request, response){
       query: `{
         order(id: 312) {
           client {
-            id
-            name
-            address
+            name,
+            address,
             phoneNumber
           }
           store {
-            phoneNumber
+            phoneNumber,
             address
           }
           products
-          price
-        }`
+        }
+      }`
     }
   }).then(function(order) {
     socket.emit("orderStore", order.data.data);
   })
   
   //let dataOrder = await processData(id, dataAsync, 4, true);
+  
   response.status(200).send("Response ok")
 });
 
