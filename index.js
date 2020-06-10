@@ -448,6 +448,7 @@ restService.post("/orderResponse", async function(request, response){
       }`
     }
   }).then(function(order) {
+    console.log(order.data.data);
     socket.emit("order", order.data.data);
   })
   
