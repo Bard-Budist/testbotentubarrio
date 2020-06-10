@@ -197,28 +197,7 @@ let operaciones = {
       })
     })
     return promise;
-  },
-
-  /**
-   * 
-   * @param {*} id 
-   * @param {*} dataUser 
-   */
-  getOrder : function (id, dataUser, type) {
-    const promise = new Promise(function (resolve, reject) {
-      const dbResult =  database.selectAllByID(id, 'order', "client { name, address, phoneNumber } products", true);
-      dbResult.then (function (result) {
-        dataUser = result.data.data;
-        resolve(dataUser)
-      })
-      dbResult.catch(function(error) {
-        console.log(error);
-      })
-    })
-    return promise;
   }
-
-  
 }
 
 /**
@@ -240,9 +219,6 @@ async function processData (id, dataUser, value, name, type) {
         break;
       case 3:
         result = await operaciones.getStatus(id, dataUser);
-        break;
-      case 4:
-        result = await operaciones.getOrder(id, dataUser, type);
         break;
       default:
         result = await operaciones.checkUser(id, dataUser);
