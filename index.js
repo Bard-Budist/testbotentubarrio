@@ -1,7 +1,7 @@
 'use strict';
 const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
-const socket = require('socket.io-client')('https://websocktestest.herokuapp.com');
+const socket = require('socket.io-client')('https://server-websocket-entubarrio.herokuapp.com');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -198,6 +198,10 @@ let operaciones = {
     })
     return promise;
   }
+}
+
+function sendMessage(idOrder) {
+  
 }
 
 /**
@@ -428,29 +432,9 @@ restService.post("/orderResponse", async function(request, response){
   
   graphQl(options)
 
-  graphQl({
-    url: url,
-    method: 'post',
-    data: {
-      query: `{
-        order(id: 312) {
-          client {
-            name,
-            address,
-            phoneNumber
-          }
-          store {
-            phoneNumber,
-            address
-          }
-          products
-        }
-      }`
-    }
-  }).then(function(order) {
-    console.log(order.data.data);
-    socket.emit("order", order.data.data);
-  })
+  //Emito evento NumberOrder y este emite al Store
+  socket.emit("NumberOrder", id);
+  
   
   //let dataOrder = await processData(id, dataAsync, 4, true);
   
