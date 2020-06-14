@@ -201,7 +201,7 @@ let operaciones = {
 }
 
 function sendMessage(idOrder) {
-  
+
 }
 
 /**
@@ -410,6 +410,8 @@ agent.handleRequest(intentMap);
 
 
 restService.post("/orderResponse", async function(request, response){
+  console.log(request.body.res.data);
+  
   const id = request.body.res.data.createOrder.order.id;
   let dataAsync = {};
   let request_body = {
