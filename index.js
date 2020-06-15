@@ -1,7 +1,7 @@
 'use strict';
-
 const graphQl = require("axios")
 const {WebhookClient} = require('dialogflow-fulfillment');
+const socket = require('socket.io-client')('https://server-websocket-entubarrio.herokuapp.com');
 const {Card, Suggestion, Payload} = require('dialogflow-fulfillment');
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -41,18 +41,19 @@ let database = {
    * @param {*} nameTable name of table in Data Base
    * @param {*} attrs List of attributes
    */
-  selectAllByID: function(ID, nameTable, attrs) {
-    return graphQl({
-      url: url,
-      method: 'post',
-      data: {
-        query: `{
-          ${nameTable}(id: "${ID}") {
-            ${attrs}
-          }
-        }`
-      }
-    })
+  selectAllByID: function(ID, nameTable, attrs, type) {
+      return graphQl({
+        url: url,
+        method: 'post',
+        data: {
+          query: `{
+            ${nameTable}(id: "${ID}") {
+              ${attrs}
+            }
+          }`
+        }
+      })
+  
   },
   
   /**
@@ -199,6 +200,10 @@ let operaciones = {
   }
 }
 
+function sendMessage(idOrder) {
+
+}
+
 /**
 * @function processData This asynchronous function waits for the existence of a user to be
 *              evaluated with its id and return its data and then give WelcomeUser
@@ -206,7 +211,7 @@ let operaciones = {
 * @param {} dataUser  dict is empty
 * @param agent    
 * */
-async function processData (id, dataUser, value, name) {
+async function processData (id, dataUser, value, name, type) {
   try {
     let result;
     switch (value) {
@@ -404,9 +409,11 @@ agent.handleRequest(intentMap);
 });
 
 
-restService.post("/orderResponse", function(request, response){
-  console.log(request.body.res.data.createOrder.order.id);
-  const idOrder = request.body.res.data.createOrder.order.id;
+restService.post("/orderResponse", async function(request, response){
+  console.log(request.body.res.data);
+  
+  const id = request.body.res.data.createOrder.order.id;
+  let dataAsync = {};
   let request_body = {
     "recipient": {
         "id": request.body.psid
@@ -424,9 +431,16 @@ restService.post("/orderResponse", function(request, response){
       return data;
     }]
   };
-  response.status(200).send("Response ok")
+  
   graphQl(options)
 
+  //Emito evento NumberOrder y este emite al Store
+  socket.emit("NumberOrder", id);
+  
+  
+  //let dataOrder = await processData(id, dataAsync, 4, true);
+  
+  response.status(200).send("Response ok")
 });
 
 

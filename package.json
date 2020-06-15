@@ -19,6 +19,7 @@
     "pg-promise": "^5.9.7",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "request-promise-native": "^1.0.8"
+    "request-promise-native": "^1.0.8",
+    "socket.io-client": "^2.3.0"
   }
 }
