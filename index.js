@@ -451,7 +451,7 @@ socket.on('OrderForBot', function(idOrder) {
     method: 'post',
     data: {
       query: `{
-          order(id: ${idOrder}){
+          order(id: ${idOrder.order}){
             client {
               id,
               name,
