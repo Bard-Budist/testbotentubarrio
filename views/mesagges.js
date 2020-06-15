@@ -147,7 +147,10 @@ module.exports = class Messages {
 
     };
 
-    OrderReceipt () {
-        return template.CardReceipt ();
-    }
+    OrderReceipt (dataUser, order_number) {
+        return template.CardReceipt(
+            dataUser.client.name,
+            order_number,
+        );
+    };
 }
