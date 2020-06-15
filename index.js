@@ -465,7 +465,7 @@ socket.on('OrderForBot', function(idOrder) {
         }`
       }
     }).then(function(result) {
-      console.log(result);
+      console.log(result.data.data);
       console.log('Despues');
       let request_body = {
         "recipient": {
