@@ -446,28 +446,28 @@ restService.post("/orderResponse", async function(request, response){
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
   const id = JSON.parse(idOrder);
-  graphQl({
-    url: url,
-    method: 'post',
-    data: {
-      query: `{
-          order(id: ${id.order}){
-            client {
-              id,
-              name,
-              address,
-            },
-            products
-          }`
-        }
-      }).then(function(result) {
-      console.log(result);
-    });
-  // database.selectAllByID(idOrder, 'order', ["client {id, name, address,}, products})"]
-  // ).then(function (result) {
-  //   console.log(result.data);
-  //   psid = result.data;
-  // });
+  // graphQl({
+  //   url: url,
+  //   method: 'post',
+  //   data: {
+  //     query: `{
+  //         order(id: ${id.order}){
+  //           client {
+  //             id,
+  //             name,
+  //             address,
+  //           },
+  //           products
+  //         }`
+  //       }
+  //     }).then(function(result) {
+  //     console.log(result);
+  //   });
+  database.selectAllByID(id.order, 'order', ["client {id, name, address,}, products"]
+  ).then(function (result) {
+    console.log(result.data);
+    psid = result.data;
+  });
   console.log('Despues');
   let request_body = {
     "recipient": {
