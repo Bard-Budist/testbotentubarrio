@@ -443,6 +443,9 @@ restService.post("/orderResponse", async function(request, response){
   response.status(200).send("Response ok")
 });
 
+socket.io('OrderForBot', function(idOrder) {
+  console.log('Tendero Acepto la Orden ', idOrder);
+});
 
 restService.listen(process.env.PORT || 8000, function() {
   console.log("Server up and listening");
