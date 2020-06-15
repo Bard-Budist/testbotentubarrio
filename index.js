@@ -446,6 +446,9 @@ restService.post("/orderResponse", async function(request, response){
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
   const id = JSON.parse(idOrder);
+  console.log(typeof(id.order));
+  const nid = parseInt(id.order);
+  console.log(nid);
   // graphQl({
   //   url: url,
   //   method: 'post',
@@ -463,7 +466,7 @@ socket.on('OrderForBot', function(idOrder) {
   //     }).then(function(result) {
   //     console.log(result);
   //   });
-  database.selectAllByID(id.order, 'order', ["client {id, name, address,}, products"]
+  database.selectAllByID(parseInt(id.order), 'order', ["client {id, name, address,}, products"]
   ).then(function (result) {
     console.log(result.data);
     psid = result.data;
