@@ -43,8 +43,9 @@ module.exports = class Templates {
 
   static CardReceipt() {
     let template = {
-      attachment: {
-        payload: {
+      attachment:{
+        type:"template",
+        payload:{
           template_type:"receipt",
           recipient_name:"Stephane Crozatier",
           order_number:"12345678902",
@@ -95,8 +96,8 @@ module.exports = class Templates {
             }
           ]
         }
-      }
     }
+  }
     return template;
   }
 
