@@ -445,9 +445,9 @@ restService.post("/orderResponse", async function(request, response){
 
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
-  console.log(idOrder.order);
-  console.log(idOrder['order']);
-  const psid = "";
+  const psid = JSON.parse(idOrder);
+  console.log(psid);
+  console.log(psid.order);
   // graphQl({
   //   url: url,
   //   method: 'post',
