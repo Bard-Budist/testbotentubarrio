@@ -449,47 +449,46 @@ socket.on('OrderForBot', function(idOrder) {
   console.log(typeof(id.order));
   const nid = parseInt(id.order);
   console.log(typeof(nid));
-  // graphQl({
-  //   url: url,
-  //   method: 'post',
-  //   data: {
-  //     query: `{
-  //         order(id: ${id.order}){
-  //           client {
-  //             id,
-  //             name,
-  //             address,
-  //           },
-  //           products
-  //         }`
-  //       }
-  //     }).then(function(result) {
-  //     console.log(result);
-  //   });
-  database.selectAllByID(nid, 'order', ["client {id, name, address,}, products"]
-  ).then(function (result) {
-    console.log(result.data);
-    psid = result.data;
-  });
-  console.log('Despues');
-  let request_body = {
-    "recipient": {
-        "id": 2948575601931290
-    },
-    "message":
-      mesagges.OrderReceipt()
-  };
-  const options = {
+  graphQl({
+    url: url,
     method: 'post',
-    url: "https://graph.facebook.com/v7.0/me/messages?access_token=" + URLTOKEN,
-    data: request_body,
-    transformResponse: [(data) => {
-      console.log(data)
-      return data;
-    }]
-  };
-  
-  graphQl(options)
+    data: {
+      query: `{
+          order(id: ${nid}){
+            client {
+              id,
+              name,
+              address,
+            },
+            products
+          }`
+        }
+      }).then(function(result) {
+      console.log(result);
+      console.log('Despues');
+      let request_body = {
+        "recipient": {
+            "id": 2948575601931290
+        },
+        "message":
+          mesagges.OrderReceipt()
+      };
+      const options = {
+        method: 'post',
+        url: "https://graph.facebook.com/v7.0/me/messages?access_token=" + URLTOKEN,
+        data: request_body,
+        transformResponse: [(data) => {
+          console.log(data)
+          return data;
+        }]
+      };
+      
+      graphQl(options)
+    });
+  // database.selectAllByID(nid, 'order', ["client {id, name, address,}, products"]
+  // ).then(function (result) {
+  //   console.log(result.data);
+  // });
 });
 
 restService.listen(process.env.PORT || 8000, function() {
