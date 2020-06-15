@@ -445,7 +445,11 @@ restService.post("/orderResponse", async function(request, response){
 
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
-  const psid = database.selectAllByID(idOrder, 'order', [ "client {id, name, address,}, products})"]);
+  async function GetPSID(id) {
+    console.log('Entro a GetPSID function');
+    return await database.selectAllByID(id, 'order', [ "client {id, name, address,}, products})"]);
+  }
+  const psid = GetPSID(idOrder);
   console.log('El PSID es: ', psid);
   let request_body = {
     "recipient": {
