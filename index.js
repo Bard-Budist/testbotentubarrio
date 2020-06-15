@@ -451,7 +451,7 @@ socket.on('OrderForBot', function(idOrder) {
         "id": 2948575601931290
     },
     "message":
-        mesagges.OrderReceipt()
+    mesagges.OrderStatus("Tu orden esta siendo procesada!✅", listStatus[0])
   };
   const options = {
     method: 'post',
