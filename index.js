@@ -11,6 +11,7 @@ var cors = require('cors')
 const Mesagges = require('./views/mesagges');
 const mesagges = new Mesagges();
 const requesthttp = require('request-promise-native');
+const Templates = require("./views/templates");
 const URLTOKEN = "EAAJVfaIQvZCwBABv61qkN2LrqUZCMQUsEbksnrsQo1Jd56mlMkhPV10yuJ8N8b2t5tGATZAnVSQGzUj6fVpFsVyU7t50xAHuyJT2G5mU7OKq7Eq3qhBm4eYw9NK3ZCX3qNklbzuVTBeW5cZB5Qtfx5jNvPxVNXrVpqrAOffLdOn9UCEsEdApq"
 let existUser = false;
 // Create instance of express, and parse data in JSON format
@@ -445,6 +446,24 @@ restService.post("/orderResponse", async function(request, response){
 
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden ', idOrder);
+  let request_body = {
+    "recipient": {
+        "id": 2948575601931290
+    },
+    "message":
+        mesagges.OrderReceipt()
+  };
+  const options = {
+    method: 'post',
+    url: "https://graph.facebook.com/v7.0/me/messages?access_token=" + URLTOKEN,
+    data: request_body,
+    transformResponse: [(data) => {
+      console.log(data)
+      return data;
+    }]
+  };
+  
+  graphQl(options)
 });
 
 restService.listen(process.env.PORT || 8000, function() {
