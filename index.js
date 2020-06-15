@@ -465,14 +465,14 @@ socket.on('OrderForBot', function(idOrder) {
         }`
       }
     }).then(function(result) {
-      console.log(result.data.data);
-      console.log('Despues');
+      const data = result.data.data.order;
+      const psid = data.client.id;
       let request_body = {
         "recipient": {
-            "id": 2948575601931290
+            "id": psid
         },
         "message":
-          mesagges.OrderReceipt()
+          mesagges.OrderReceipt(data)
       };
       const options = {
         method: 'post',
@@ -483,13 +483,8 @@ socket.on('OrderForBot', function(idOrder) {
           return data;
         }]
       };
-      
       graphQl(options)
     });
-  // database.selectAllByID(nid, 'order', ["client {id, name, address,}, products"]
-  // ).then(function (result) {
-  //   console.log(result.data);
-  // });
 });
 
 restService.listen(process.env.PORT || 8000, function() {
