@@ -456,23 +456,22 @@ socket.on('OrderForBot', function(idOrder) {
         "payload":{
           "template_type":"receipt",
           "recipient_name":"Daniel Chinome",
-          "order_number":"12345",
+          "order_number":"12345678902",
           "currency":"COP",
           "payment_method":"Contra Entrega",        
           "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
           "timestamp":"1428444852",         
           "address":{
-            "street_1":"Cra 24 No. 34-56",
+            "street_1":"Cra 13 No 14-57",
             "street_2":"",
-            "city":"Medellin",
+            "city":"Medellín",
             "state":"Antioquia",
             "country":"COL"
           },
           "summary":{
-            "subtotal":7.000,
-            // impuestos iva
+            "subtotal":7.500,
             "total_tax":0,
-            "total_cost":8000
+            "total_cost":8500
           },
           "adjustments":[
             {
@@ -482,18 +481,18 @@ socket.on('OrderForBot', function(idOrder) {
           ],
           "elements":[
             {
-              "title":"Gaseosa Coca-cola",
-              "subtitle":"",
-              "quantity":2,
+              "title":"Gaseosa Coca-Cola",
+              "subtitle":"1.5 lts",
+              "quantity":1,
               "price":5000,
-              "currency":"COP",
+              "currency":"",
               "image_url":"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251872-1000-1000/7702535011799.jpg?v=637115009073170000"
             },
             {
-              "title":"Doritos",
-              "subtitle":"",
+              "title":"Dorios",
+              "subtitle":"185 g",
               "quantity":1,
-              "price":2000,
+              "price":2500,
               "currency":"COP",
               "image_url":"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
             }
