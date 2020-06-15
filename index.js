@@ -447,23 +447,24 @@ socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
   const id = JSON.parse(idOrder);
   console.log(typeof(id.order));
-  const nid = parseInt(id.order);
-  console.log(typeof(nid));
+  const OrderId = parseInt(id.order);
+  console.log(typeof(OrderId));
   graphQl({
     url: url,
     method: 'post',
     data: {
       query: `{
-          order(id: ${nid}){
+          order(id: ${OrderId}){
             client {
               id,
               name,
               address,
             },
             products
-          }`
-        }
-      }).then(function(result) {
+          }
+        }`
+      }
+    }).then(function(result) {
       console.log(result);
       console.log('Despues');
       let request_body = {
