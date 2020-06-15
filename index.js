@@ -462,11 +462,8 @@ socket.on('OrderForBot', function(idOrder) {
           "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
           "timestamp":"1428444852",         
           "address":{
-            "street_1":"Cra 13 No 14-57",
-            "street_2":"",
-            "city":"Medellín",
-            "state":"Antioquia",
-            "country":"COL"
+            "street_1":"Medellin-Poblado Cra 13 No 14-57",
+            "postal_code":"94025",
           },
           "summary":{
             "subtotal":7.500,
