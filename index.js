@@ -455,52 +455,47 @@ socket.on('OrderForBot', function(idOrder) {
         "type":"template",
         "payload":{
           "template_type":"receipt",
-          "recipient_name":"Stephane Crozatier",
-          "order_number":"12345678902",
-          "currency":"USD",
-          "payment_method":"Visa 2345",        
+          "recipient_name":"Daniel Chinome",
+          "order_number":"12345",
+          "currency":"COP",
+          "payment_method":"Contra Entrega",        
           "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
           "timestamp":"1428444852",         
           "address":{
-            "street_1":"1 Hacker Way",
+            "street_1":"Cra 24 No. 34-56",
             "street_2":"",
-            "city":"Menlo Park",
-            "postal_code":"94025",
-            "state":"CA",
-            "country":"US"
+            "city":"Medellin",
+            "state":"Antioquia",
+            "country":"COL"
           },
           "summary":{
-            "subtotal":75.00,
-            "shipping_cost":4.95,
-            "total_tax":6.19,
-            "total_cost":56.14
+            "subtotal":7.000,
+            // impuestos iva
+            "total_tax":0,
+            "total_cost":8000
           },
           "adjustments":[
             {
-              "name":"New Customer Discount",
-              "amount":20
-            },
-            {
-              "name":"$10 Off Coupon",
-              "amount":10
+              "name":"Costos de Envio",
+              "amount":1000
             }
           ],
           "elements":[
             {
-              "title":"Classic White T-Shirt",
-              "subtitle":"100% Soft and Luxurious Cotton",
+              "title":"Gaseosa Coca-cola",
+              "subtitle":"",
               "quantity":2,
-              "price":50,
-              "currency":"USD",
-              "image_url":"http://petersapparel.parseapp.com/img/whiteshirt.png"
+              "price":5000,
+              "currency":"COP",
+              "image_url":"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251872-1000-1000/7702535011799.jpg?v=637115009073170000"
             },
             {
-              "title":"Classic Gray T-Shirt",
-              "subtitle":"100% Soft and Luxurious Cotton",
+              "title":"Doritos",
+              "subtitle":"",
               "quantity":1,
-              "price":25,
-              "currency":"USD",
-              "image_url":"http://petersapparel.parseapp.com/img/grayshirt.png"
+              "price":2000,
+              "currency":"COP",
+              "image_url":"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
             }
           ]
         }
