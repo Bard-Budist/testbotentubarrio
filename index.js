@@ -448,7 +448,7 @@ socket.on('OrderForBot', function(idOrder) {
   const id = JSON.parse(idOrder);
   console.log(typeof(id.order));
   const nid = parseInt(id.order);
-  console.log(nid);
+  console.log(typeof(nid));
   // graphQl({
   //   url: url,
   //   method: 'post',
@@ -466,7 +466,7 @@ socket.on('OrderForBot', function(idOrder) {
   //     }).then(function(result) {
   //     console.log(result);
   //   });
-  database.selectAllByID(parseInt(id.order), 'order', ["client {id, name, address,}, products"]
+  database.selectAllByID(nid, 'order', ["client {id, name, address,}, products"]
   ).then(function (result) {
     console.log(result.data);
     psid = result.data;
