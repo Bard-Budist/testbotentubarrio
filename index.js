@@ -457,7 +457,6 @@ socket.on('OrderForBot', function(idOrder) {
           "template_type":"receipt",
           "recipient_name":"Daniel Chinome",
           "order_number":"12345678902",
-          "currency":"COP",
           "payment_method":"Contra Entrega",        
           "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
           "timestamp":"1428444852",         
@@ -486,7 +485,6 @@ socket.on('OrderForBot', function(idOrder) {
               "subtitle":"1.5 lts",
               "quantity":1,
               "price":5000,
-              "currency":"",
               "image_url":"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251872-1000-1000/7702535011799.jpg?v=637115009073170000"
             },
             {
@@ -494,7 +492,6 @@ socket.on('OrderForBot', function(idOrder) {
               "subtitle":"185 g",
               "quantity":1,
               "price":2500,
-              "currency":"COP",
               "image_url":"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
             }
           ]
