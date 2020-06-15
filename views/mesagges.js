@@ -146,4 +146,8 @@ module.exports = class Messages {
             }]);
 
     };
+
+    OrderReceipt () {
+        return template.CardReceipt ();
+    }
 }
