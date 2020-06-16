@@ -483,7 +483,7 @@ socket.on('OrderForBot', function(idOrder) {
             "id": psid
         },
         "message":
-          mesagges.OrderReceipt(data, idOrder, products)
+          mesagges.OrderReceipt(data, idOrder, products, listStatus[1])
       };
       const options = {
         method: 'post',
