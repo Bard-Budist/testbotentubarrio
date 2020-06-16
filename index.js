@@ -268,7 +268,6 @@ restService.post("/", function(request, response) {
   async function cities_barrios(agent) {
     console.log('EL ESTADO DEL USER ES:', existUser);
     if (existUser === false) {
-      const resdataUser = await processData(id, dataUser);
       agent.add(new Payload(agent.FACEBOOK, mesagges.LocationUser(resdataUser)));
     } else {
       const dataAddress = await processData(id, {}, 1);
