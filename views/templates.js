@@ -44,6 +44,8 @@ module.exports = class Templates {
   static CardReceipt(name_User, order_number, address, list_products) {
     console.log('Esto es list Products ------->', list_products);
     console.log(typeof(list_products));
+    const listProducts = JSON.parse(list_products);
+    console.log(typeof(listProducts));
     const city = address.split('/')[0];
     const street = address.split('/')[1];
     let template = {
@@ -81,8 +83,9 @@ module.exports = class Templates {
         }
     }
   };
-  if (list_products !=  undefined) {
-    for (let product of list_products) {
+  if (listProducts !=  undefined) {
+    for (let product of listProducts) {
+      console.log(product);
       let newCard = {};
       newCard.title = product.name;
       newCard.quantity = product.quantity;
