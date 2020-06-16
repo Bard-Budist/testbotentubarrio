@@ -93,7 +93,7 @@ module.exports = class Templates {
       template.attachment.payload.elements.push(newCard);
     }
   };
-  const delivery = template.attachment.payload.summary.adjustments.amount;
+  const delivery = template.attachment.payload.adjustments.amount;
   template.attachment.payload.summary.subtotal= subtotal;
   template.attachment.payload.summary.total_cost= subtotal + delivery;
   console.log('TOTAL --------->: ', total);
