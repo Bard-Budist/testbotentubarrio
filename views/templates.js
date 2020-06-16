@@ -68,7 +68,6 @@ module.exports = class Templates {
             subtotal:7500,
             // shipping_cost:0,
             // total_tax:0,
-            total_cost:
           },
           adjustments:[
             {
