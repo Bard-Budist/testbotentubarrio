@@ -181,11 +181,23 @@ module.exports = class Messages {
                 };
 
     OrderReceipt (dataUser, order_number, products) {
-        return template.CardReceipt(
+        return [template.CardReceipt(
             dataUser.client.name,
             order_number,
             dataUser.client.address,
             products,
-        );
+        ),
+        template.CardTemplate(
+            [{
+                title: msg,
+                subtitle: `Para ver el estado del pedido, presiona el boton.`,
+                image_url: url,
+                buttons: [{
+                    title: 'Estado',
+                    type: 'postback',
+                    payload: 'Estado',
+                }]
+            }])
+        ]
     };
 }
