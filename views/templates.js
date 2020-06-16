@@ -71,10 +71,6 @@ module.exports = class Templates {
           },
           adjustments:[
             {
-              name:"New Customer Discount",
-              amount:20
-            },
-            {
               name:"Costos de Envio",
               amount:1000
             }
@@ -85,7 +81,6 @@ module.exports = class Templates {
               subtitle:"1.5 Litros",
               quantity:1,
               price:5000,
-              currency:"USD",
               image_url:"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251879-400-400/7702535005941.jpg?v=637115014244030000"
             },
             {
