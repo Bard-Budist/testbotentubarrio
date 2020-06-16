@@ -65,8 +65,8 @@ module.exports = class Templates {
           // },
           summary:{
             subtotal:7500,
-            shipping_cost:0,
-            total_tax:0,
+            // shipping_cost:0,
+            // total_tax:0,
             total_cost:8500
           },
           adjustments:[
@@ -88,7 +88,6 @@ module.exports = class Templates {
               subtitle:"150 g",
               quantity:1,
               price:1500,
-              currency:"USD",
               image_url:"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
             }
           ]
