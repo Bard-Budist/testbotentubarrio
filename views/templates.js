@@ -68,7 +68,7 @@ module.exports = class Templates {
             subtotal:7500,
             // shipping_cost:0,
             // total_tax:0,
-            total_cost:8500
+            total_cost:
           },
           adjustments:[
             {
@@ -88,20 +88,16 @@ module.exports = class Templates {
       newCard.title = product.name;
       newCard.quantity = product.quantity;
       newCard.price = product.price;
-      console.log(typeof(product.price));
       const price = parseInt(product.price);
-      console.log(typeof(price));
       total += price;
-      console.log(price);
-      console.log(total);
-      console.log('ESTO ES newCard -------> ', newCard);
       // newCard.image_url = card.image_url;
       template.attachment.payload.elements.push(newCard);
     }
   };
-    console.log('TOTAL --------->: ', total);
-    return template;
-  }
+  template.attachment.payload.summary.total_cost= total;
+  console.log('TOTAL --------->: ', total);
+  return template;
+}
 
   static QuickRepliesTemplate(text, content_type) {
     let template = {
