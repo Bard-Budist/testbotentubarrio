@@ -445,16 +445,16 @@ restService.post("/orderResponse", async function(request, response){
 
 socket.on('OrderForBot', function(idOrder) {
   console.log('Tendero Acepto la Orden No: ', idOrder);
-  const id = JSON.parse(idOrder);
-  console.log(typeof(id.order));
-  const OrderId = parseInt(id.order);
-  console.log(typeof(OrderId));
+  // const id = JSON.parse(idOrder);
+  // console.log(typeof(id.order));
+  // const OrderId = parseInt(id.order);
+  // console.log(typeof(OrderId));
   graphQl({
     url: url,
     method: 'post',
     data: {
       query: `{
-          order(id: ${OrderId}){
+          order(id: ${idOrder}){
             client {
               id,
               name,
