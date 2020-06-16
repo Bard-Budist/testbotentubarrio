@@ -390,7 +390,12 @@ restService.post("/", function(request, response) {
         numberUrl = 0;
       }
   
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, listStatus[numberUrl])))
+      if (status === 'EN_REPARTO') {
+        agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatusChat(msg, listStatus[numberUrl])))
+      } else {
+        agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, listStatus[numberUrl])))
+      }
+      return Promise.resolve( agent );
   }
   
 
