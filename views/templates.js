@@ -65,7 +65,6 @@ module.exports = class Templates {
           //   country:"COL"
           // },
           summary:{
-            subtotal:7500,
             // shipping_cost:0,
             // total_tax:0,
           },
@@ -79,21 +78,24 @@ module.exports = class Templates {
         }
     }
   };
-  let total = 0;
+
+  let subtotal = 0;
+
   if (listProducts !=  undefined) {
     for (let product of listProducts) {
-      console.log(product);
       let newCard = {};
       newCard.title = product.name;
       newCard.quantity = product.quantity;
       newCard.price = product.price;
       const price = parseInt(product.price);
-      total += price;
+      subtotal += price;
       // newCard.image_url = card.image_url;
       template.attachment.payload.elements.push(newCard);
     }
   };
-  template.attachment.payload.summary.total_cost= total;
+  const delivery = template.attachment.payload.summary.adjustments.amount;
+  template.attachment.payload.summary.subtotal= subtotal;
+  template.attachment.payload.summary.total_cost= subtotal + delivery;
   console.log('TOTAL --------->: ', total);
   return template;
 }
