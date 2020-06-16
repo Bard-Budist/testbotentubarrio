@@ -41,10 +41,12 @@ module.exports = class Templates {
     return template;
   }
 
-  static CardReceipt(name_User, order_number, address, list_products) {
+  static CardReceipt(name_User, order_number, list_products) {
+    console.log(typeof(list_products));
     const listProducts = JSON.parse(list_products);
-    const city = address.split('/')[0];
-    const street = address.split('/')[1];
+    console.log('PRODUCTOS CARD -------> ', list_products);
+    // const city = address.split('/')[0];
+    // const street = address.split('/')[1];
     // let date = Date.now();
     // console.log(typeof(date));
     // console.log(date);

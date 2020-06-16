@@ -184,7 +184,6 @@ module.exports = class Messages {
         return [template.CardReceipt(
             dataUser.client.name,
             order_number,
-            dataUser.client.address,
             products,
         ),
         template.CardTemplate(
