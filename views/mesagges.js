@@ -28,7 +28,7 @@ module.exports = class Messages {
         return template.CardTemplate(
             [{
                 title: '¡Hola, ' + body.first_name + '!',
-                subtitle: `Te damos la Bienvenida a EnTuBarrio donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴`,
+                subtitle: `Te damos la Bienvenida a EnTuBarrio, donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴`,
                 image_url: imageWelcomeUser,
                 buttons: [{
                     title: 'Pedir Orden',
@@ -66,7 +66,7 @@ module.exports = class Messages {
                     type: 'postback',
                     payload: 'Pereira-macarena',
                 },{
-                    title: 'Castilla',
+                    title: 'Villa Castilla',
                     type: 'postback',
                     payload: 'Pereira-castilla',
                 }
