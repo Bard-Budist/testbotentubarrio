@@ -86,7 +86,7 @@ module.exports = class Messages {
 
     AddresHouse () {
         return template.TextTemplate(
-            'Por favor indicanos la dirección de tu Casa'
+            'A que dirección deseas que llevemos tu pedido'
         );
     }
 
@@ -146,16 +146,29 @@ module.exports = class Messages {
                     title: 'Estado',
                     type: 'postback',
                     payload: 'Estado',
-                },{
-                    title: 'Chat Vecino Autorizado 💬',
-                    type: 'web_url',
-                    url: "https://chatentubarrio.herokuapp.com/",
-                    webview_height_ratio: 'tall',
-                    messenger_extensions: true   
                 }]
             }]);
-
-    };
+        };
+        
+        OrderStatusChat (msg, url) {
+            return template.CardTemplate(
+                [{
+                    title: msg,
+                    subtitle: `Para ver el estado del pedido, presiona el boton.`,
+                    image_url: url,
+                    buttons: [{
+                        title: 'Estado',
+                        type: 'postback',
+                        payload: 'Estado',
+                    },{
+                        title: 'Chat Vecino Autorizado 💬',
+                        type: 'web_url',
+                        url: "https://chatentubarrio.herokuapp.com/",
+                        webview_height_ratio: 'tall',
+                        messenger_extensions: true   
+                    }]
+                }]);
+            };
 
     OrderReceipt (dataUser, order_number, products) {
         return template.CardReceipt(
