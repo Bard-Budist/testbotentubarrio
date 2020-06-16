@@ -27,12 +27,12 @@ module.exports = class Messages {
         // }
         return [
             template.TextTemplate(
-            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras en tu tiendas más cercana. 🏡🚴'
+            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras en tu tiendas más cercana.'
             ),
             template.CardTemplate(
             [{
-                title: 'Creado con amor para los negocios locales. Por desarrolladores que disfrutan aportar a un país mejor!',
-                subtitle: ``,
+                title: ' ',
+                subtitle: `Creado con amor para los negocios locales.`,
                 image_url: imageWelcomeUser,
                 buttons: [{
                     title: 'Pedir Orden',
