@@ -96,7 +96,6 @@ module.exports = class Templates {
   const delivery = template.attachment.payload.adjustments.amount;
   template.attachment.payload.summary.subtotal= subtotal;
   template.attachment.payload.summary.total_cost= subtotal + delivery;
-  console.log('TOTAL --------->: ', total);
   return template;
 }
 
