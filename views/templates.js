@@ -55,14 +55,14 @@ module.exports = class Templates {
           payment_method:"Contra Entrega",
           order_url:"http://petersapparel.parseapp.com/order?order_id=123456",
           timestamp:"1428444852",         
-          address:{
-            street_1:street,
-            street_2:"",
-            city:city,
-            postal_code:"050021",
-            state:"Ant",
-            country:"COL"
-          },
+          // address:{
+          //   street_1:street,
+          //   street_2:"",
+          //   city:city,
+          //   postal_code:"050021",
+          //   state:"Ant",
+          //   country:"COL"
+          // },
           summary:{
             subtotal:7500,
             shipping_cost:0,
