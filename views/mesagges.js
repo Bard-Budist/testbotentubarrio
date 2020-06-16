@@ -26,7 +26,7 @@ module.exports = class Messages {
         //     dinamycGreet = " Bienvenida🖐";
         // }
         return [template.TextTemplate(
-            '¡Hola, ' + dataUser.first_name + '!\n\
+            '¡Hola, ' + body.first_name + '!\n\
             Te damos la Bienvenida a EnTuBarrio, donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴'
         ),
         template.CardTemplate(
