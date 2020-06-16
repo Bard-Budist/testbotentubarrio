@@ -31,11 +31,11 @@ module.exports = class Messages {
             ),
             template.CardTemplate(
             [{
-                title: '❤️ Creado con Amor para los negocios locales 🇨o',
-                subtitle: `¿En que podemos ayudarte?`,
+                title: 'EnTuBarrio',
+                subtitle: `❤️ Creado con Amor para los negocios locales`,
                 image_url: imageWelcomeUser,
                 buttons: [{
-                    title: 'Quiero hacer una orden',
+                    title: 'Pedir Orden',
                     type: 'postback',
                     payload: 'comenzar',
                 },{
