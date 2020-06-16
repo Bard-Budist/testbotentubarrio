@@ -95,7 +95,8 @@ module.exports = class Templates {
   };
   const delivery = template.attachment.payload.adjustments.amount;
   template.attachment.payload.summary.subtotal= subtotal;
-  template.attachment.payload.summary.total_cost= subtotal + delivery;
+  const total = subtotal + 1000;
+  template.attachment.payload.summary.total_cost= total;
   return template;
 }
 
