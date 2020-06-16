@@ -180,7 +180,7 @@ module.exports = class Messages {
                     }]);
                 };
 
-    OrderReceipt (dataUser, order_number, products) {
+    OrderReceipt (dataUser, order_number, products, url) {
         return [template.CardReceipt(
             dataUser.client.name,
             order_number,
@@ -189,7 +189,7 @@ module.exports = class Messages {
         ),
         template.CardTemplate(
             [{
-                title: msg,
+                title: "Nuestro tendero esta seleccionando todo lo que necesitas 🍅🛒",
                 subtitle: `Para ver el estado del pedido, presiona el boton.`,
                 image_url: url,
                 buttons: [{
