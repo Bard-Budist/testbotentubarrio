@@ -16,13 +16,6 @@ const imageWeb = 'http://www.suppliescolombia.com/wp-content/uploads/2019/04/Aim
 
 module.exports = class Messages {
 
-    WelcomeUserText (dataUser) {
-        return template.TextTemplate(
-            '¡Hola, ' + dataUser.first_name + '!\n\
-            Te damos la Bienvenida a EnTuBarrio, donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴'
-        );
-    };
-
     WelcomeUser (body) {
         // change to ""
         let dinamycGreet = " Bienvenido";
@@ -32,7 +25,11 @@ module.exports = class Messages {
         // } else {
         //     dinamycGreet = " Bienvenida🖐";
         // }
-        return template.CardTemplate(
+        return [template.TextTemplate(
+            '¡Hola, ' + dataUser.first_name + '!\n\
+            Te damos la Bienvenida a EnTuBarrio, donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴'
+        ),
+        template.CardTemplate(
             [{
                 title: '¡Hola, ' + body.first_name + '!',
                 subtitle: ``,
@@ -46,8 +43,8 @@ module.exports = class Messages {
                     type: 'postback',
                     payload: 'soporte',
                 }]
-            }]);
-    };
+            }])
+    ]};
 
     LocationUser () {
         return template.CardTemplate(
