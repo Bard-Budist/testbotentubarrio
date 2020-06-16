@@ -8,8 +8,8 @@ const template = require('./templates');
 const imageWelcomeUser = 'https://static.iris.net.co/dinero/upload/images/2019/8/22/275964_1.jpg';
 
 //  Links of images used in the Location User
-const imageMedellin = 'https://medellin.travel/wp-content/uploads/2018/10/Plaza-Botero3.jpg';
-const imagePereira = 'https://blogapi.uber.com/wp-content/uploads/2017/06/viaducto-pereira-panoramio.jpg';
+const imageMedellin = 'https://braavosconcierge.com/wp-content/uploads/2016/11/Medellin.png';
+const imagePereira = 'https://i2.wp.com/blog.soyrappi.com/wp-content/uploads/2020/01/Pereira.jpg?fit=900%2C605&ssl=1';
 
 // links of image for webview
 const imageWeb = 'http://www.suppliescolombia.com/wp-content/uploads/2019/04/AimentosYBebidas.png';
@@ -27,8 +27,8 @@ module.exports = class Messages {
         // }
         return template.CardTemplate(
             [{
-                title: body.first_name + dinamycGreet,
-                subtitle: `Soy el asistente de EnTuBarrio y te ayudare a hacer tu pedido 🏡🚴`,
+                title: '¡Hola, ' + body.first_name + '!',
+                subtitle: `Te damos la Bienvenida a EnTuBarrio donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴`,
                 image_url: imageWelcomeUser,
                 buttons: [{
                     title: 'Pedir Orden',
@@ -49,9 +49,9 @@ module.exports = class Messages {
                 subtitle: 'Selecciona tu barrio',
                 image_url: imageMedellin,
                 buttons: [{
-                    title: 'Poblado',
+                    title: 'Belén',
                     type: 'postback',
-                    payload: 'Medellín-poblado',
+                    payload: 'Medellín-belen',
                 },{
                     title: 'Ciudad del Rio',
                     type: 'postback',
