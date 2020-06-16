@@ -476,7 +476,7 @@ socket.on('OrderForBot', function(idOrder) {
             "id": psid
         },
         "message":
-          mesagges.OrderReceipt(data, idOrder)
+          mesagges.OrderReceipt(data, idOrder, products)
       };
       const options = {
         method: 'post',
