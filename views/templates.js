@@ -41,7 +41,7 @@ module.exports = class Templates {
     return template;
   }
 
-  static CardReceipt(name_User, order_number, address) {
+  static CardReceipt(name_User, order_number, address, list_products) {
     const city = address.split('/')[0];
     const street = address.split('/')[1];
     let template = {
@@ -75,23 +75,18 @@ module.exports = class Templates {
               amount:1000
             }
           ],
-          elements:[
-            {
-              title:"Gaseosa Coca-Cola",
-              subtitle:"1.5 Litros",
-              quantity:1,
-              price:5000,
-              image_url:"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251879-400-400/7702535005941.jpg?v=637115014244030000"
-            },
-            {
-              title:"Doritos",
-              subtitle:"150 g",
-              quantity:1,
-              price:1500,
-              image_url:"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
-            }
-          ]
+          elements:[]
         }
+    }
+  }
+  if (list_products !=  undefined) {
+    for (let product of list_products) {
+      let newCard = {};
+      newCard.title = product.name;
+      newCard.quantity = product.quantity;
+      newCard.price = product.price;
+      // newCard.image_url = card.image_url;
+      template.attachment.payload.elements.push(newCard);
     }
   }
     return template;
