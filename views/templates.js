@@ -41,7 +41,9 @@ module.exports = class Templates {
     return template;
   }
 
-  static CardReceipt(name_User, order_number) {
+  static CardReceipt(name_User, order_number, address) {
+    const city = address.split('/')[0];
+    const street = address.split('/')[1];
     let template = {
       attachment:{
         type:"template",
@@ -54,18 +56,18 @@ module.exports = class Templates {
           order_url:"http://petersapparel.parseapp.com/order?order_id=123456",
           timestamp:"1428444852",         
           address:{
-            street_1:"1 Hacker Way",
+            street_1:street,
             street_2:"",
-            city:"Menlo Park",
+            city:city,
             postal_code:"94025",
             state:"CA",
             country:"US"
           },
           summary:{
-            subtotal:75.00,
-            shipping_cost:4.95,
-            total_tax:6.19,
-            total_cost:56.14
+            subtotal:7500,
+            shipping_cost:0,
+            total_tax:0,
+            total_cost:8500
           },
           adjustments:[
             {
@@ -73,26 +75,26 @@ module.exports = class Templates {
               amount:20
             },
             {
-              name:"$10 Off Coupon",
-              amount:10
+              name:"Costos de Envio",
+              amount:1000
             }
           ],
           elements:[
             {
-              title:"Classic White T-Shirt",
-              subtitle:"100% Soft and Luxurious Cotton",
-              quantity:2,
-              price:50,
+              title:"Gaseosa Coca-Cola",
+              subtitle:"1.5 Litros",
+              quantity:1,
+              price:5000,
               currency:"USD",
-              image_url:"http://petersapparel.parseapp.com/img/whiteshirt.png"
+              image_url:"https://metrocolombiafood.vteximg.com.br/arquivos/ids/251879-400-400/7702535005941.jpg?v=637115014244030000"
             },
             {
-              title:"Classic Gray T-Shirt",
-              subtitle:"100% Soft and Luxurious Cotton",
+              title:"Doritos",
+              subtitle:"150 g",
               quantity:1,
-              price:25,
+              price:1500,
               currency:"USD",
-              image_url:"http://petersapparel.parseapp.com/img/grayshirt.png"
+              image_url:"https://jumbocolombiafood.vteximg.com.br/arquivos/ids/3484386-1000-1000/7702189045782.jpg?v=637175561819070000"
             }
           ]
         }
