@@ -59,9 +59,9 @@ module.exports = class Templates {
             street_1:street,
             street_2:"",
             city:city,
-            postal_code:"94025",
-            state:"CA",
-            country:"US"
+            postal_code:"",
+            state:"",
+            country:""
           },
           summary:{
             subtotal:7500,
