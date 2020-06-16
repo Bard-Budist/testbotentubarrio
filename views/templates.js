@@ -80,16 +80,19 @@ module.exports = class Templates {
         }
     }
   };
+  let total = 0;
   if (listProducts !=  undefined) {
-    let total = 0;
     for (let product of listProducts) {
       console.log(product);
       let newCard = {};
       newCard.title = product.name;
       newCard.quantity = product.quantity;
       newCard.price = product.price;
-      total += product.price;
-      console.log(product.price);
+      console.log(typeof(product.price));
+      const price = parseInt(product.price);
+      console.log(typeof(price));
+      total += price;
+      console.log(price);
       console.log(total);
       console.log('ESTO ES newCard -------> ', newCard);
       // newCard.image_url = card.image_url;
