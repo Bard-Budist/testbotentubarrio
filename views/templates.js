@@ -45,6 +45,7 @@ module.exports = class Templates {
     const listProducts = JSON.parse(list_products);
     const city = address.split('/')[0];
     const street = address.split('/')[1];
+    let date = Date.now();
     let template = {
       attachment:{
         type:"template",
@@ -55,7 +56,7 @@ module.exports = class Templates {
           currency:"USD",
           payment_method:"Contra Entrega",
           order_url:"http://petersapparel.parseapp.com/order?order_id=123456",
-          timestamp:"1428444852",         
+          timestamp: date,
           // address:{
           //   street_1:street,
           //   street_2:"",
