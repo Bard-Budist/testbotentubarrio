@@ -26,12 +26,12 @@ module.exports = class Messages {
         //     dinamycGreet = " Bienvenida🖐";
         // }
         return [template.TextTemplate(
-            '¡Hola, ' + body.first_name + '!\n\
-            Te damos la Bienvenida a EnTuBarrio, donde podras hacer tus compras y apoyar a tus tiendas mas cercanas 🏡🚴'
+            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, \
+            aquí podras hacer tus compras y apoyar a tus tiendas más cercanas. 🏡🚴'
         ),
         template.CardTemplate(
             [{
-                title: '¡Hola, ' + body.first_name + '!',
+                title: '',
                 subtitle: ``,
                 image_url: imageWelcomeUser,
                 buttons: [{
@@ -46,8 +46,12 @@ module.exports = class Messages {
             }])
     ]};
 
-    LocationUser () {
-        return template.CardTemplate(
+    LocationUser (dataUser) {
+        return [
+            template.TextTemplate(
+                dataUser.first_name + ' puedes buscar tu Ciudad y seleccionar tu barrio'
+            ),
+            template.CardTemplate(
             [{
                 title: 'Medellín',
                 subtitle: 'Selecciona tu barrio',
@@ -75,7 +79,8 @@ module.exports = class Messages {
                     payload: 'Pereira-castilla',
                 }
                 ]}
-            ]);
+            ])
+        ]
     }
 
     AddresHouse () {
