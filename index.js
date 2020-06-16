@@ -467,12 +467,14 @@ socket.on('OrderForBot', function(idOrder) {
     }).then(function(result) {
       const data = result.data.data.order;
       const psid = data.client.id;
+      console.log('Esto es Data ', data);
+      console.log('Esto es PSID ', psid);
       let request_body = {
         "recipient": {
             "id": psid
         },
         "message":
-          mesagges.OrderReceipt(data)
+          mesagges.OrderReceipt(data, OrderId)
       };
       const options = {
         method: 'post',

@@ -50,7 +50,7 @@ module.exports = class Templates {
           recipient_name:name_User,
           order_number:order_number,
           currency:"USD",
-          payment_method:"Contra Entrega",        
+          payment_method:"Contra Entrega",
           order_url:"http://petersapparel.parseapp.com/order?order_id=123456",
           timestamp:"1428444852",         
           address:{
