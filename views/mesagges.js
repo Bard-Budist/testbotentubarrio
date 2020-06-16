@@ -27,11 +27,11 @@ module.exports = class Messages {
         // }
         return [
             template.TextTemplate(
-            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras y apoyar a tus tiendas más cercanas. 🏡🚴'
+            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras en tu tiendas más cercana. 🏡🚴'
             ),
             template.CardTemplate(
             [{
-                title: '',
+                title: 'Creado con amor para los negocios locales. Por desarrolladores que disfrutan aportar a un país mejor!',
                 subtitle: ``,
                 image_url: imageWelcomeUser,
                 buttons: [{
@@ -44,7 +44,8 @@ module.exports = class Messages {
                     payload: 'soporte',
                 }]
             }])
-        ]};
+        ]
+    }
 
     LocationUser () {
         return [
