@@ -25,11 +25,11 @@ module.exports = class Messages {
         // } else {
         //     dinamycGreet = " Bienvenida🖐";
         // }
-        return [template.TextTemplate(
-            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, \
-            aquí podras hacer tus compras y apoyar a tus tiendas más cercanas. 🏡🚴'
-        ),
-        template.CardTemplate(
+        return [
+            template.TextTemplate(
+            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras y apoyar a tus tiendas más cercanas. 🏡🚴'
+            ),
+            template.CardTemplate(
             [{
                 title: '',
                 subtitle: ``,
@@ -44,12 +44,12 @@ module.exports = class Messages {
                     payload: 'soporte',
                 }]
             }])
-    ]};
+        ]};
 
-    LocationUser (dataUser) {
+    LocationUser () {
         return [
             template.TextTemplate(
-                dataUser.first_name + ' puedes buscar tu Ciudad y seleccionar tu barrio'
+            'Puedes buscar tu Ciudad y seleccionar tu barrio'
             ),
             template.CardTemplate(
             [{
