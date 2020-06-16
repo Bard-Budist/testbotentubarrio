@@ -467,8 +467,10 @@ socket.on('OrderForBot', function(idOrder) {
     }).then(function(result) {
       const data = result.data.data.order;
       const psid = data.client.id;
+      const products = data.products;
       console.log('Esto es Data ', data);
       console.log('Esto es PSID ', psid);
+      console.log('Esto es Products ', products);
       let request_body = {
         "recipient": {
             "id": psid
