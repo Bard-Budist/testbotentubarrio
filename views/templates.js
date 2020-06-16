@@ -78,17 +78,18 @@ module.exports = class Templates {
           elements:[]
         }
     }
-  }
+  };
   if (list_products !=  undefined) {
     for (let product of list_products) {
       let newCard = {};
       newCard.title = product.name;
       newCard.quantity = product.quantity;
       newCard.price = product.price;
+      console.log('ESTO ES newCard -------> ', newCard);
       // newCard.image_url = card.image_url;
       template.attachment.payload.elements.push(newCard);
     }
-  }
+  };
     return template;
   }
 
