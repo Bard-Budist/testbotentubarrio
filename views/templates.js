@@ -42,6 +42,8 @@ module.exports = class Templates {
   }
 
   static CardReceipt(name_User, order_number, address, list_products) {
+    console.log('Esto es list Products ------->', list_products);
+    console.log(typeof(list_products));
     const city = address.split('/')[0];
     const street = address.split('/')[1];
     let template = {
