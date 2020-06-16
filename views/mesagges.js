@@ -170,6 +170,16 @@ module.exports = class Messages {
                 }]);
             };
 
+            OrderStatusEnd (msg, url) {
+                return template.CardTemplate(
+                    [{
+                        title: msg,
+                        subtitle: `Para ver el estado del pedido, presiona el boton.`,
+                        image_url: url,
+                        buttons: []
+                    }]);
+                };
+
     OrderReceipt (dataUser, order_number, products) {
         return template.CardReceipt(
             dataUser.client.name,

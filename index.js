@@ -392,6 +392,8 @@ restService.post("/", function(request, response) {
   
       if (status === 'EN_REPARTO') {
         agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatusChat(msg, listStatus[numberUrl])))
+      } else if (status === 'ENTREGADO') {
+        agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatusEnd(msg, listStatus[numberUrl])))
       } else {
         agent.add(new Payload(agent.FACEBOOK, mesagges.OrderStatus(msg, listStatus[numberUrl])))
       }
