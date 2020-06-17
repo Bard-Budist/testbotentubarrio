@@ -123,7 +123,7 @@ module.exports = class Messages {
         return template.CardTemplate(
             [{
                 title: 'Ir a la tienda',
-                subtitle: '🏡',
+                subtitle: '',
                 image_url: imageWeb,
                 buttons: [{
                     title: 'Hacer pedido',
@@ -174,7 +174,7 @@ module.exports = class Messages {
                 return template.CardTemplate(
                     [{
                         title: msg,
-                        subtitle: `Para ver el estado del pedido, presiona el boton.`,
+                        subtitle: `Gracias por tu Compra`,
                         image_url: url,
                     }]);
                 };
