@@ -176,7 +176,6 @@ module.exports = class Messages {
                         title: msg,
                         subtitle: `Para ver el estado del pedido, presiona el boton.`,
                         image_url: url,
-                        buttons: []
                     }]);
                 };
 
