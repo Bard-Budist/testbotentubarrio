@@ -41,6 +41,70 @@ module.exports = class Templates {
     return template;
   }
 
+  static CardReceipt(name_User, order_number, list_products) {
+    console.log(typeof(list_products));
+    const listProducts = JSON.parse(list_products);
+    console.log('PRODUCTOS CARD -------> ', list_products);
+    // const city = address.split('/')[0];
+    // const street = address.split('/')[1];
+    // let date = Date.now();
+    // console.log(typeof(date));
+    // console.log(date);
+    let template = {
+      attachment:{
+        type:"template",
+        payload:{
+          template_type:"receipt",
+          recipient_name:name_User,
+          order_number:order_number,
+          currency:"USD",
+          payment_method:"Contra Entrega",
+          order_url:"http://petersapparel.parseapp.com/order?order_id=123456",
+          timestamp:"1428444852",
+          // address:{
+          //   street_1:street,
+          //   street_2:"",
+          //   city:city,
+          //   postal_code:"050021",
+          //   state:"Ant",
+          //   country:"COL"
+          // },
+          summary:{
+            // shipping_cost:0,
+            // total_tax:0,
+          },
+          adjustments:[
+            {
+              name:"Costos de Envio",
+              amount:1000
+            }
+          ],
+          elements:[]
+        }
+    }
+  };
+
+  let subtotal = 0;
+
+  if (listProducts !=  undefined) {
+    for (let product of listProducts) {
+      let newCard = {};
+      newCard.title = product.name;
+      newCard.quantity = product.quantity;
+      newCard.price = product.price;
+      const price = parseInt(product.price);
+      subtotal += price;
+      // newCard.image_url = card.image_url;
+      template.attachment.payload.elements.push(newCard);
+    }
+  };
+  const delivery = template.attachment.payload.adjustments.amount;
+  template.attachment.payload.summary.subtotal= subtotal;
+  const total = subtotal + 1000;
+  template.attachment.payload.summary.total_cost= total;
+  return template;
+}
+
   static QuickRepliesTemplate(text, content_type) {
     let template = {
       text: text,
