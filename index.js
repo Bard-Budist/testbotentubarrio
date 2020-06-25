@@ -26,7 +26,8 @@ process.env.DEBUG = 'dialogflow:debug';
 
 
 const url = 'https://api.entubarrio.co/graphql/';
-const API_GENDER = "5ed861fc756fae13585e34e2"
+const API_GENDER = "5ed861fc756fae13585e34e2";
+const API_email = "https://garridodiaz.com/emailvalidator/index.php?email=";
 const listStatus = [
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/Procesado.png?raw=true",
   "https://github.com/Bard-Budist/testbotentubarrio/blob/testdaniel/ImagesStatus/Aceptado.png?raw=true",
@@ -178,6 +179,11 @@ let operaciones = {
     return genderResponse;
   },
 
+  valEmail : async function(email) {
+    const response = await requesthttp.get(API_email + email);
+    return response;
+  },
+
   getStatus : function (id, dataUser) {
     const promise = new Promise(function (resolve, reject) {
       const dbResult = database.selectAllByID(id, 'client', "orderSet { status, id }");
@@ -225,6 +231,9 @@ async function processData (id, dataUser, value, name, type) {
       case 3:
         result = await operaciones.getStatus(id, dataUser);
         break;
+      case 4:
+        result = await operaciones.valEmail(dataUser.email);
+        break;
       default:
         result = await operaciones.checkUser(id, dataUser);
         break;
@@ -234,9 +243,7 @@ async function processData (id, dataUser, value, name, type) {
     return console.log(err.message);
   }
 }
-restService.get("/webview/", function(request, response) {
-  alert('sirve');
-});
+
 // global endpoint for execute on intents
 restService.post("/", function(request, response) {
   const agent = new WebhookClient({ request, response });
@@ -347,14 +354,19 @@ restService.post("/", function(request, response) {
    * @function save_Email save the user email, and response
    * @param {*} agent 
    */
-  function save_Email(agent) {
+  async function save_Email(agent) {
     let EmailUser = request.body.queryResult.queryText;
-    database.updateWhereID(
-      id,
-      'Client',
-      `{email: "${EmailUser}"}`
-    )
-    agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+    const confirmation = await processData(id, {email: EmailUser}, 4);
+    if (confirmation.data.valid === true) {
+      database.updateWhereID(
+        id,
+        'Client',
+        `{email: "${EmailUser}"}`
+        );
+      agent.add(new Payload(agent.FACEBOOK, mesagges.OrderUser()));
+    } else {
+      agent.add(new Payload(agent.FACEBOOK, mesagges.EmailUser()));
+    }
     return Promise.resolve( agent );
   }
 
