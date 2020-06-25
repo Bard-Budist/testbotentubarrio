@@ -27,7 +27,9 @@ module.exports = class Messages {
         // }
         return [
             template.TextTemplate(
-            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus compras en tu tienda más cercana.'
+            '¡Hola, ' + body.first_name + '! Te damos la Bienvenida a EnTuBarrio, aquí podras hacer tus \
+            compras en la tienda más cercana. Si deseas hacer un pedido nuevo o comunicarte con soporte, \
+            solo debes pulsar en una de las opciones siguientes:'
             ),
             template.CardTemplate(
             [{
